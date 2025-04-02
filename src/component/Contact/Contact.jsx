@@ -65,6 +65,7 @@ const Contact = () => {
 
         <form onSubmit={handleOnSubmit}>
           <input
+            required
             className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             type="text"
             name="name"
@@ -74,6 +75,7 @@ const Contact = () => {
           />
 
           <input
+            required
             className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             type="email"
             name="email"
@@ -83,6 +85,7 @@ const Contact = () => {
           />
 
           <input
+            required
             className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             type="tel"
             name="number"
@@ -92,7 +95,7 @@ const Contact = () => {
           />
 
           <textarea
-            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+            className="min-h-[8rem] max-h-[16rem] transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             name="message"
             placeholder="Your Message"
             rows="4"
