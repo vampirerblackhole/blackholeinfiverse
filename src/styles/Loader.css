@@ -1,0 +1,42 @@
+#loop {
+    display: flex;
+    height: 35%;
+    width: 100vw;
+    white-space: nowrap;
+    overflow-x: hidden;
+    margin-top: 17%;
+}
+
+.loop-h1 {
+    margin-left: 3vw;
+    font-size: 6vw;
+    animation-name: anim;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .loop-h1 {
+        font-size: 10vw; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Media Query for even smaller screens (like mobile phones) */
+@media (max-width: 480px) {
+    .loop-h1 {
+        font-size: 12vw; /* Make font size larger on very small screens */
+    }
+}
+.para1{
+
+}
+@keyframes anim{
+    0%{
+        transform: translate(0%);
+    }
+    100%{
+        transform: translate(-100%);
+    }
+}

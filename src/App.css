@@ -1,0 +1,212 @@
+body{
+  margin: 0;
+  overflow-x: hidden;
+  background-color: rgb(0, 0, 0);
+
+  }
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  height: 100vh;
+  width: 100vw;
+
+}
+.p-start{
+  background-color: white;
+  height: 200vh;
+}
+.portal {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  color: rgb(241, 239, 236);
+}
+
+.bh-head {
+  font-size: 8rem;
+  margin-top: 10rem;
+  margin-left: 10%;
+
+}
+
+.bh-head2 {
+  font-size: 8rem;
+  margin-left: 40%;
+  margin-top: 2rem;
+}
+
+/* Media query for screens smaller than 1024px (tablets and small screens) */
+@media (max-width: 1024px) {
+  .bh-head {
+    font-size: 4.3rem; /* Reduce font size on smaller screens */
+    margin-top: 6rem; /* Adjust margin top */
+  }
+
+  .bh-head2 {
+    font-size: 4.3rem;
+    margin-left: 2rem; /* Reduce margin left */
+    margin-top: 6rem; /* Adjust margin top */
+  }
+}
+
+/* Media query for screens smaller than 768px (mobile screens) */
+@media (max-width: 768px) {
+  .bh-head {
+    font-size: 3.5rem; /* Further reduce font size for small screens */
+    margin-top: 4rem; /* Adjust margin top */
+  }
+
+  .bh-head2 {
+    font-size: 3.5rem;
+    margin-left: 1.5rem; /* Reduce margin left further */
+    margin-top: 4rem; /* Adjust margin top */
+  }
+}
+
+/* Media query for screens smaller than 480px (very small mobile screens) */
+@media (max-width: 480px) {
+  .bh-head {
+    font-size: 1.7rem; /* Further reduce font size */
+    margin-top: 8rem; /* Adjust margin top */
+
+  }
+
+  .bh-head2 {
+    font-size: 1.7rem;
+    margin-left: 6rem; /* Adjust margin left */
+    margin-top: 2rem; /* Adjust margin top */
+  }
+}
+
+
+.section1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.section3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section5 {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section7 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section0 {
+  display: flex;
+}
+
+.section01 {
+  display: flex;
+  height: 10vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.section06 {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.Rpara{
+  display: block;
+  font-size: 2rem;
+}
+.Rhead{
+  display: block;
+
+  font-size: 3rem;
+
+}
+nav{
+  overflow-x: hidden;
+}
+/* .canvas-container will be rendered only in Main.jsx */
+.canvas-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+   z-index: 30;
+}
+.stadium{
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+   pointer-events: none;
+   z-index: 30;
+}
+
+canvas {
+  position: relative;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.p-start{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  font-size: 3rem;
+}
+.head1{
+  z-index: 20;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #61ACEF, #9987ED, #B679E1, #9791DB, #74BDCC, #59D2BF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold; /* Optional */
+}
+.bh-container{
+  width: 100%;
+}
+.section{
+  height: 100vh;
+}
+
+.section12{
+  height: 50vh;
+}
+p{
+  color: white;
+}

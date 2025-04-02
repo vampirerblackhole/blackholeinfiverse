@@ -1,0 +1,175 @@
+#loop {
+    display: flex;
+    height: 35%;
+    width: 100vw;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.loop-h1 {
+    margin-left: 3vw;
+    font-size: 6vw;
+    animation-name: anim;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .loop-h1 {
+        font-size: 10vw; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Media Query for even smaller screens (like mobile phones) */
+@media (max-width: 480px) {
+    .loop-h1 {
+        font-size: 12vw; /* Make font size larger on very small screens */
+    }
+}
+.para1{
+
+}
+@keyframes anim{
+    0%{
+        transform: translate(0%);
+    }
+    100%{
+        transform: translate(-100%);
+    }
+}
+.section {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.para-h {
+    font-size: 2vw;
+    color: white;
+  
+}
+
+.para {
+  
+}.para1 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 50%;
+}
+
+.para2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 2%;
+}
+
+.para3 {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    margin-left: 50%;
+    margin-top: 15%;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .para1, .para2, .para3 {
+        width: 90%; /* Make paragraphs take up more space on smaller screens */
+        margin-left: 5%; /* Adjust left margin for better centering */
+        font-size: 40% ;
+
+    }
+
+    .para1 {
+        margin-top: 10%; /* Add some space at the top */
+    }
+
+    .para2 {
+        margin-top: 10%; /* Adjust top margin for consistency */
+    }
+
+    .para3 {
+        margin-top: 10%; /* Same for para3 */
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .para1, .para2, .para3 {
+        width: 45%; /* Further reduce width on extremely small screens */
+        font-size:  12px;
+
+    }
+
+    .para1 {
+        margin-top: 5%; /* Adjust top margin for small screens */
+        margin-left: 53%; /* Reduce margin to make it fit on smaller screens */
+
+
+    }
+
+    .para2 {
+        margin-top: 5%;
+    }
+
+    .para3 {
+        margin-top: 5%;
+        margin-left: 53%; /* Reduce margin to make it fit on smaller screens */
+
+    }
+}
+/* Typing effect for headings */
+@keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  /* Cursor blink effect */
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  /* Fade-in for paragraphs */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  }
+  
+  /* When visible, fade in */
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Apply typing effect */
+  .para-h {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #fff;
+    width: 100%;
+    animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .para-h {
+      font-size: 1.5rem;
+    }
+  
+    .para {
+      font-size: 1rem;
+    }
+  }
+  

@@ -1,0 +1,93 @@
+#p12 {
+    width: 25%;
+    opacity: 0;
+    position: relative;
+    margin-top: 20%;
+    left: 3%;
+    font-size: 1rem; /* Default for small screens */
+  }
+  #p11 {
+    width: 25%;
+    opacity: 0;
+    position: relative;
+    margin-top: 20%;
+
+    left: 3%;
+    font-size: 1rem; /* Default for small screens */
+  }
+  
+  /* Small screens (up to 640px) */
+
+  @media (min-width: 320px) {
+    #p12 {
+      font-size: 1rem; /* Same as sm:text-lg */
+      width: 80%; /* Increase width for better readability */
+      margin-top: 70%; /* Adjust margin */
+      margin-left: 7%;
+    }
+  }
+  @media (max-width: 640px) {
+    #p12 {
+      font-size: 1rem; /* Same as sm:text-lg */
+      width: 80%; /* Increase width for better readability */
+      margin-top: 10%; /* Adjust margin */
+    }
+  }
+  
+  /* Medium screens (641px to 768px) */
+  @media (min-width: 641px) and (max-width: 768px) {
+    #p12 {
+      font-size: 1.25rem; /* Same as md:text-xl */
+      width: 60%;
+      margin-top: 15%;
+    }
+  }
+  
+  /* Large screens (769px and above) */
+  @media (min-width: 769px) {
+    #p12 {
+      font-size: 1.875rem; /* Same as lg:text-3xl */
+      width: 25%;
+      margin-top: 20%;
+      margin-left: 2%;
+
+    }
+  }
+
+  @media (min-width: 320px) {
+    #p11 {
+      font-size: 1rem; /* Same as sm:text-lg */
+      width: 80%; /* Increase width for better readability */
+      margin-top: 70%; /* Adjust margin */
+      margin-left: 7%;
+    }
+  }
+  @media (max-width: 640px) {
+    #p11 {
+      font-size: 1rem; /* Same as sm:text-lg */
+      width: 80%; /* Increase width for better readability */
+      margin-top: 90%; /* Adjust margin */
+
+    }
+  }
+  
+  /* Medium screens (641px to 768px) */
+  @media (min-width: 641px) and (max-width: 768px) {
+    #p11 {
+      font-size: 1.25rem; /* Same as md:text-xl */
+      width: 60%;
+      margin-top: 15%;
+    }
+  }
+  
+  /* Large screens (769px and above) */
+  @media (min-width: 769px) {
+    #p11 {
+      font-size: 1.875rem; /* Same as lg:text-3xl */
+      width: 25%;
+      margin-top: 20%;
+    margin-left: 65%;
+
+    }
+  }
+  
