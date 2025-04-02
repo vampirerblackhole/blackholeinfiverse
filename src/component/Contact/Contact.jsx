@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [contactData, setContactData] = useState({
-    name: '',
-    email: '',
-    message: '',
-    number: '',
+    name: "",
+    email: "",
+    message: "",
+    number: "",
   });
 
   const handleChange = (e) => {
@@ -39,32 +39,42 @@ const Contact = () => {
       const result = await response.json();
       if (result.success) {
         toast.success("Message sent successfully!", { autoClose: 3000 });
-        setContactData({ name: '', email: '', message: '', number: '' }); // Reset form
+        setContactData({ name: "", email: "", message: "", number: "" }); // Reset form
       } else {
-        toast.error("Failed to send message. Please try again.", { autoClose: 3000 });
+        toast.error("Failed to send message. Please try again.", {
+          autoClose: 3000,
+        });
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again.", { autoClose: 3000 });
+      toast.error("Something went wrong. Please try again.", {
+        autoClose: 3000,
+      });
     }
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gray-900 p-5 sm:p-10 " style={{backgroundColor:"black",  zIndex:1000}}>
-      <div className="w-full sm:w-96  p-6 rounded-lg shadow-xl text-center transform transition duration-300 hover:scale-105 hover:opacity-90" style={{  zIndex:1000}}>
+    <div
+      className="h-screen flex justify-center items-center bg-gray-900 p-5 sm:p-10 "
+      style={{ backgroundColor: "black", zIndex: 1000 }}
+    >
+      <div
+        className="w-full sm:w-96  p-6 rounded-lg shadow-xl text-center transform "
+        style={{ zIndex: 1000 }}
+      >
         <h4 className="text-4xl font-bold text-gray-300 pb-6">Contact Us</h4>
-        
+
         <form onSubmit={handleOnSubmit}>
           <input
-            className="w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             type="text"
             name="name"
             placeholder="Your Name"
             value={contactData.name}
             onChange={handleChange}
           />
-          
+
           <input
-            className="w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             type="email"
             name="email"
             placeholder="Your Email"
@@ -73,7 +83,7 @@ const Contact = () => {
           />
 
           <input
-            className="w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             type="tel"
             name="number"
             placeholder="Your Contact Number"
@@ -82,7 +92,7 @@ const Contact = () => {
           />
 
           <textarea
-            className="w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
             name="message"
             placeholder="Your Message"
             rows="4"
@@ -92,7 +102,7 @@ const Contact = () => {
 
           <button
             type="submit"
-            className="w-full p-3 mb-4 bg-gray-600 text-gray-200 rounded-full border-2 border-gray-500 hover:bg-gray-500 transition-all duration-300"
+            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-600 text-gray-200 rounded-full border-2 border-gray-500 hover:bg-gray-500 transition-all duration-300"
           >
             Send Message
           </button>
