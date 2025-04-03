@@ -8,9 +8,10 @@ gsap.registerPlugin(ScrollTrigger);
 function BHI() {
   const scrollRef = useRef(null); // For the scroll container
   const canvasRef = useRef(null); // For the canvas element
-  const [showBlackhole, setShowBlackhole] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const paragraphRef1 = useRef(null);
   const paragraphRef2 = useRef(null);
+  const headingRef = useRef(null);
 
   const [canvasSize, setCanvasSize] = useState({
     width: window.innerWidth,
@@ -50,7 +51,11 @@ function BHI() {
   useEffect(() => {
     // Show blackhole for 8 seconds before transitioning to main content
     const timer = setTimeout(() => {
-      setShowBlackhole(false);
+      setInitialLoading(false);
+      // Make sure heading is visible
+      if (headingRef.current) {
+        headingRef.current.style.opacity = "1";
+      }
     }, 8000);
 
     return () => clearTimeout(timer);
@@ -120,7 +125,25 @@ function BHI() {
           x = 0;
         }
 
-        context.drawImage(img, x, y, newWidth, newHeight);
+        // Much stronger zoom effect for the blackhole
+        const zoomLevel = 1 + index * 0.03; // Tripled the zoom factor
+        const zoomedWidth = newWidth * zoomLevel;
+        const zoomedHeight = newHeight * zoomLevel;
+        const zoomX = x - (zoomedWidth - newWidth) / 2;
+        const zoomY = y - (zoomedHeight - newHeight) / 2;
+
+        // Calculate the opacity based on scroll position
+        // When index approaches max (99), opacity approaches 0
+        const maxIndex = images.length - 1;
+        const opacity =
+          index < maxIndex * 0.8
+            ? 1
+            : 1 - (index - maxIndex * 0.8) / (maxIndex * 0.2);
+
+        // Apply opacity to the canvas context
+        context.globalAlpha = opacity;
+        context.drawImage(img, zoomX, zoomY, zoomedWidth, zoomedHeight);
+        context.globalAlpha = 1.0; // Reset opacity
       }
     } else {
       console.warn("Image not fully loaded yet, skipping render.");
@@ -159,6 +182,18 @@ function BHI() {
       },
       x: 1500,
       ease: "power4.out",
+    });
+
+    // Add fade-out for canvas when approaching robot section
+    gsap.to(canvasRef.current, {
+      scrollTrigger: {
+        trigger: "#bh",
+        start: "80% top",
+        end: "bottom top",
+        scrub: true,
+      },
+      opacity: 0,
+      ease: "power2.out",
     });
   }, []);
 
@@ -215,6 +250,7 @@ function BHI() {
         />
         <div
           id="hh"
+          ref={headingRef}
           className="h-100 w-full relative font-bold text-white leading-tight"
           style={{
             position: "relative",
@@ -223,7 +259,7 @@ function BHI() {
             fontSize: "5vw", // Make text size responsive using viewport width
             paddingTop: "5vh",
             height: "100vh",
-            opacity: showBlackhole ? 0 : 1, // Show after blackhole fades
+            opacity: initialLoading ? 0.2 : 1, // Dim during initial loading, then fully visible
             transition: "opacity 1.5s ease-in-out",
           }}
         >

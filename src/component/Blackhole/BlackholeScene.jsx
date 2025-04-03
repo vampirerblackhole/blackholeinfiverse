@@ -19,6 +19,22 @@ function BlackHoleEffect() {
     camera.lookAt(0, 0, 0);
   }, [camera]);
 
+  // Track scroll position for zoom effect
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    // Function to update scroll position
+    const handleScroll = () => {
+      const position = window.scrollY;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.min(position / height, 1);
+      setScrollPosition(scrollPercent);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Create stars
   const starsData = useState(() => {
     const count = 15000; // Increased star count
@@ -60,6 +76,21 @@ function BlackHoleEffect() {
       // Much slower rotation - reduced by more than 500ms
       starsRef.current.rotation.y += delta * 0.005;
       starsRef.current.rotation.x += delta * 0.002;
+    }
+
+    // Apply zoom effect to the entire group
+    if (groupRef.current) {
+      // Calculate zoom based on scroll position (1.0 to 10.0 - much higher zoom)
+      const targetZoom = 1.0 + scrollPosition * 9.0;
+
+      // Apply zoom to the entire group
+      groupRef.current.scale.set(targetZoom, targetZoom, targetZoom);
+
+      // Also move the entire group forward as we zoom
+      groupRef.current.position.z = scrollPosition * 6;
+
+      // Adjust camera position to make the zoom effect more dramatic
+      camera.position.z = Math.max(10 - scrollPosition * 5, 5);
     }
   });
 
@@ -156,7 +187,7 @@ function BlackHoleEffect() {
   })[0];
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} position={[0, 0, 0]}>
       {/* Black hole (event horizon) */}
       <mesh ref={holeRef} position={[0, 0, 0]}>
         <sphereGeometry args={[2, 32, 32]} />
@@ -229,6 +260,27 @@ function BlackHoleEffect() {
 
 export default function BlackholeScene() {
   const [mounted, setMounted] = useState(false);
+  const [opacity, setOpacity] = useState(1);
+
+  // Handle fade-out at robot section
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = scrollPosition / maxScroll;
+
+      // Fade out when reaching 70% of the page
+      if (scrollPercent > 0.7) {
+        setOpacity(Math.max(0, 1 - (scrollPercent - 0.7) / 0.3));
+      } else {
+        setOpacity(1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Ensure the component mounts after load
   useEffect(() => {
@@ -252,6 +304,8 @@ export default function BlackholeScene() {
         background: "black",
         zIndex: 5, // Lower z-index so it doesn't block content
         pointerEvents: "none", // Allow clicking through
+        opacity: opacity, // Controlled opacity based on scroll
+        transition: "opacity 0.3s ease-out",
       }}
     >
       {mounted && (

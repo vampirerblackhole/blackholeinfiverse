@@ -28,6 +28,13 @@
   transform: translateY(0);
 }
 
+/* Heading styles for main intro text */
+#hh h1 {
+  text-shadow: 0 0 10px rgba(0, 100, 255, 0.8);
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
 /* Animation for heading */
 .gradient-text {
   background: linear-gradient(to right, #ffffff, #3a8ee6, #ffffff);
@@ -101,6 +108,14 @@
   margin-top: 15px;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
   white-space: normal;
+}
+
+/* Special animation for bh-head and bh-head2 */
+.bh-head,
+.bh-head2 {
+  position: relative;
+  overflow: visible;
+  display: inline-block;
 }
 
 /* Media Queries */
