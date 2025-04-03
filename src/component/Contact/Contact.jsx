@@ -55,21 +55,29 @@ const Contact = () => {
   };
 
   return (
-    <div>
+    <div className="relative z-10">
       <div
-        className="flex justify-center items-center bg-gray-900 px-5 sm:px-10"
-        style={{ backgroundColor: "black", zIndex: 1000 }}
+        className="flex justify-center items-center px-5 sm:px-10"
+        style={{ background: "transparent" }}
       >
         <div
-          className="w-full sm:w-96 mt-[10rem] p-6 rounded-lg shadow-xl text-center transform"
-          style={{ zIndex: 1000 }}
+          className="w-full sm:w-96 mt-[10rem] p-6 rounded-lg text-center transform hover:scale-[1.01] transition-transform duration-300"
+          style={{
+            zIndex: 1000,
+            background: "rgba(0,0,0,0.15)",
+            backdropFilter: "blur(5px)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            boxShadow: "0 0 15px rgba(138, 43, 226, 0.15)",
+          }}
         >
-          <h4 className="text-4xl font-bold text-gray-300 mb-6">Contact Us</h4>
+          <h4 className="text-4xl font-bold text-gray-300 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-300">
+            Contact Us
+          </h4>
 
           <form onSubmit={handleOnSubmit}>
             <input
               required
-              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-10 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-10 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
               type="text"
               name="name"
               placeholder="Your Name"
@@ -79,7 +87,7 @@ const Contact = () => {
 
             <input
               required
-              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
               type="email"
               name="email"
               placeholder="Your Email"
@@ -89,7 +97,7 @@ const Contact = () => {
 
             <input
               required
-              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
               type="tel"
               name="number"
               placeholder="Your Contact Number"
@@ -98,7 +106,7 @@ const Contact = () => {
             />
 
             <textarea
-              className="min-h-[8rem] max-h-[16rem] transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              className="min-h-[8rem] max-h-[16rem] transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
               name="message"
               placeholder="Your Message"
               rows="4"
@@ -108,18 +116,19 @@ const Contact = () => {
 
             <button
               type="submit"
-              className=" duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-600 text-gray-200 rounded-full border-2 border-gray-500 hover:bg-gray-500 transition-all"
+              className="duration-300 hover:scale-105 w-full p-3 mt-4 text-gray-200 rounded-full transition-all bg-gradient-to-r from-purple-600/80 to-blue-500/80 hover:from-purple-500/90 hover:to-blue-400/90 border border-white/10"
             >
               Send Message
             </button>
           </form>
         </div>
       </div>
-      <div className="mt-1 flex justify-center">
+      {/* Privacy Policy */}
+      <div className="mt-2 flex justify-center">
         <div className="max-w-[22rem] relative">
-          <p className="text-gray-400 pl-6 relative">
+          <p className="text-purple-200/70 pl-6 relative text-sm">
             <Lock
-              color="#9ca3af"
+              color="#d8b4fe"
               size={16}
               className="absolute left-0 top-1/2 transform -translate-y-1/2"
             />

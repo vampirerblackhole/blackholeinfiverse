@@ -1,6 +1,6 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+// import * as THREE from "three";
 
 export default function Stars() {
   const starsRef = useRef();
@@ -35,7 +35,7 @@ export default function Stars() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={1}
+        size={0.5}
         color="#ffffff"
         transparent
         opacity={0.8}

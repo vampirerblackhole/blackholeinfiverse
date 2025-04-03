@@ -1,10 +1,11 @@
-import { useState, useEffect, Suspense, lazy } from "react";
+import { useState, Suspense, lazy } from "react";
 import "./App.css";
 import About from "./About/About"; // Eagerly load About
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar/Navbar"; // Import the Navbar component
 import LoadingAnimation from "./component/LoadingAnimation";
 import Contact from "./component/Contact/Contact";
+import BlackholeContainer from "./component/Blackhole/BlackholeContainer";
 
 const Website = lazy(() => import("./Main/Website")); // Lazy load Website
 
@@ -14,6 +15,8 @@ function App() {
   return (
     <div className="relative min-h-screen bg-black">
       <Router>
+        {/* BlackholeContainer with stars as background for all pages */}
+        <BlackholeContainer />
         <Navbar />
         <Routes>
           <Route

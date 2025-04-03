@@ -1,11 +1,11 @@
-import React from "react";
+// import React from "react";
 // import StarsCanvas from '../../main/StarBackground'
-import BHI from "../component/BHI/BH";
+// import BHI from "../component/BHI/BH";
 import Main from "../component/Robotics/Main";
 import Main2 from "../component/Gaming/Main2";
-import Navbar from "../Navbar/Navbar";
-import Main3 from "../component/Ai/Main3";
-import BlackholeContainer from "../component/Blackhole/BlackholeContainer";
+// import Navbar from "../Navbar/Navbar";
+// import Main3 from "../component/Ai/Main3";
+// import BlackholeContainer from "../component/Blackhole/BlackholeContainer";
 // import Exp from '../component/shaders/Exp'
 
 function Website() {
@@ -15,13 +15,14 @@ function Website() {
         position: "relative",
         width: "100%",
         minHeight: "100vh",
+        zIndex: 10,
       }}
     >
-      <BlackholeContainer />
+      {/* Content with higher z-index to appear above the stars */}
       <div
         style={{
           position: "relative",
-          zIndex: 2,
+          zIndex: 10,
           width: "100%",
           minHeight: "100vh",
           pointerEvents: "auto",

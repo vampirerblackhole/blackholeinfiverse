@@ -48,8 +48,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className="w-full mt-[1rem] h-[65px] bg-transparent fixed top-0  transition-all duration-500"
-      style={{ zIndex: 49 }}
+      className="w-full mt-[1rem] h-[65px] bg-transparent fixed top-0 transition-all duration-500"
+      style={{ zIndex: 50 }}
     >
       <div className="w-full h-full flex flex-row items-center justify-between m-auto px-4 md:px-10">
         {" "}
