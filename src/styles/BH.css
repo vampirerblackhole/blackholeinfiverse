@@ -1,93 +1,154 @@
+#p12,
+#p11 {
+  width: 45%;
+  position: absolute;
+  opacity: 0;
+  color: white;
+  background-color: transparent;
+  padding: 30px;
+  border-radius: 0;
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  transform: translateY(30px);
+  z-index: 30;
+}
+
 #p12 {
-    width: 25%;
-    opacity: 0;
-    position: relative;
-    margin-top: 20%;
-    left: 3%;
-    font-size: 1rem; /* Default for small screens */
+  top: 120vh;
+  left: 5%;
+}
+
+#p11 {
+  top: 300vh;
+  right: 5%;
+}
+
+#p12.visible,
+#p11.visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+/* Animation for heading */
+.gradient-text {
+  background: linear-gradient(to right, #ffffff, #3a8ee6, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 5s ease infinite;
+  background-size: 200% auto;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Typing effect for headings */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Cursor blink effect */
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Fade-in for paragraphs */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+/* When visible, fade in */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom heading for paragraphs */
+.text-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #fff;
+  width: 100%;
+  animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Paragraph content */
+#p12 p,
+#p11 p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-top: 15px;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  white-space: normal;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  #p12,
   #p11 {
-    width: 25%;
-    opacity: 0;
-    position: relative;
-    margin-top: 20%;
-
-    left: 3%;
-    font-size: 1rem; /* Default for small screens */
-  }
-  
-  /* Small screens (up to 640px) */
-
-  @media (min-width: 320px) {
-    #p12 {
-      font-size: 1rem; /* Same as sm:text-lg */
-      width: 80%; /* Increase width for better readability */
-      margin-top: 70%; /* Adjust margin */
-      margin-left: 7%;
-    }
-  }
-  @media (max-width: 640px) {
-    #p12 {
-      font-size: 1rem; /* Same as sm:text-lg */
-      width: 80%; /* Increase width for better readability */
-      margin-top: 10%; /* Adjust margin */
-    }
-  }
-  
-  /* Medium screens (641px to 768px) */
-  @media (min-width: 641px) and (max-width: 768px) {
-    #p12 {
-      font-size: 1.25rem; /* Same as md:text-xl */
-      width: 60%;
-      margin-top: 15%;
-    }
-  }
-  
-  /* Large screens (769px and above) */
-  @media (min-width: 769px) {
-    #p12 {
-      font-size: 1.875rem; /* Same as lg:text-3xl */
-      width: 25%;
-      margin-top: 20%;
-      margin-left: 2%;
-
-    }
+    width: 45%;
   }
 
-  @media (min-width: 320px) {
-    #p11 {
-      font-size: 1rem; /* Same as sm:text-lg */
-      width: 80%; /* Increase width for better readability */
-      margin-top: 70%; /* Adjust margin */
-      margin-left: 7%;
-    }
+  .text-heading {
+    font-size: 1.7rem;
   }
-  @media (max-width: 640px) {
-    #p11 {
-      font-size: 1rem; /* Same as sm:text-lg */
-      width: 80%; /* Increase width for better readability */
-      margin-top: 90%; /* Adjust margin */
+}
 
-    }
+@media (max-width: 768px) {
+  #p12,
+  #p11 {
+    width: 80%;
+    left: 10%;
+    right: auto;
+    padding: 20px;
   }
-  
-  /* Medium screens (641px to 768px) */
-  @media (min-width: 641px) and (max-width: 768px) {
-    #p11 {
-      font-size: 1.25rem; /* Same as md:text-xl */
-      width: 60%;
-      margin-top: 15%;
-    }
-  }
-  
-  /* Large screens (769px and above) */
-  @media (min-width: 769px) {
-    #p11 {
-      font-size: 1.875rem; /* Same as lg:text-3xl */
-      width: 25%;
-      margin-top: 20%;
-    margin-left: 65%;
 
-    }
+  #p12 {
+    top: 100vh;
   }
-  
+
+  #p11 {
+    top: 200vh;
+  }
+
+  .text-heading {
+    font-size: 1.4rem;
+  }
+
+  #p12 p,
+  #p11 p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-heading {
+    font-size: 1.2rem;
+  }
+
+  #p12 p,
+  #p11 p {
+    font-size: 0.9rem;
+  }
+}

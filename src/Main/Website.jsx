@@ -1,6 +1,6 @@
 // import React from "react";
 // import StarsCanvas from '../../main/StarBackground'
-// import BHI from "../component/BHI/BH";
+import BHI from "../component/BHI/BH";
 import Main from "../component/Robotics/Main";
 import Main2 from "../component/Gaming/Main2";
 // import Navbar from "../Navbar/Navbar";
@@ -28,6 +28,10 @@ function Website() {
           pointerEvents: "auto",
         }}
       >
+        {/* Display BHI component first */}
+        <BHI />
+
+        {/* Then display robotics and gaming sections */}
         <Main />
         <Main2 />
       </div>
