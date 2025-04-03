@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { Lock } from "lucide-react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 const Contact = () => {
@@ -48,71 +49,80 @@ const Contact = () => {
     } catch (error) {
       toast.error("Something went wrong. Please try again.", {
         autoClose: 3000,
+        error,
       });
     }
   };
 
   return (
-    <div
-      className="h-screen flex justify-center items-center bg-gray-900 p-5 sm:p-10 "
-      style={{ backgroundColor: "black", zIndex: 1000 }}
-    >
+    <div>
       <div
-        className="w-full sm:w-96  p-6 rounded-lg shadow-xl text-center transform "
-        style={{ zIndex: 1000 }}
+        className="flex justify-center items-center bg-gray-900 px-5 sm:px-10"
+        style={{ backgroundColor: "black", zIndex: 1000 }}
       >
-        <h4 className="text-4xl font-bold text-gray-300 pb-6">Contact Us</h4>
+        <div
+          className="w-full sm:w-96 mt-[10rem] p-6 rounded-lg shadow-xl text-center transform"
+          style={{ zIndex: 1000 }}
+        >
+          <h4 className="text-4xl font-bold text-gray-300 mb-6">Contact Us</h4>
 
-        <form onSubmit={handleOnSubmit}>
-          <input
-            required
-            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={contactData.name}
-            onChange={handleChange}
-          />
+          <form onSubmit={handleOnSubmit}>
+            <input
+              required
+              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-10 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={contactData.name}
+              onChange={handleChange}
+            />
 
-          <input
-            required
-            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            value={contactData.email}
-            onChange={handleChange}
-          />
+            <input
+              required
+              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={contactData.email}
+              onChange={handleChange}
+            />
 
-          <input
-            required
-            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
-            type="tel"
-            name="number"
-            placeholder="Your Contact Number"
-            value={contactData.number}
-            onChange={handleChange}
-          />
+            <input
+              required
+              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              type="tel"
+              name="number"
+              placeholder="Your Contact Number"
+              value={contactData.number}
+              onChange={handleChange}
+            />
 
-          <textarea
-            className="min-h-[8rem] max-h-[16rem] transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
-            name="message"
-            placeholder="Your Message"
-            rows="4"
-            value={contactData.message}
-            onChange={handleChange}
-          />
+            <textarea
+              className="min-h-[8rem] max-h-[16rem] transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-700 text-gray-300 rounded-lg border-2 border-gray-600 focus:outline-none focus:border-gray-400"
+              name="message"
+              placeholder="Your Message"
+              rows="4"
+              value={contactData.message}
+              onChange={handleChange}
+            />
 
-          <button
-            type="submit"
-            className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mb-4 bg-gray-600 text-gray-200 rounded-full border-2 border-gray-500 hover:bg-gray-500 transition-all duration-300"
-          >
-            Send Message
-          </button>
-        </form>
-
-        <div className="text-center mt-4">
-          <p className="text-gray-400 text-sm">
+            <button
+              type="submit"
+              className=" duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-600 text-gray-200 rounded-full border-2 border-gray-500 hover:bg-gray-500 transition-all"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+      <div className="mt-1 flex justify-center">
+        <div className="max-w-[22rem] relative">
+          <p className="text-gray-400 pl-6 relative">
+            <Lock
+              color="#9ca3af"
+              size={16}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2"
+            />
             We value your privacy and will not share your information.
           </p>
         </div>
