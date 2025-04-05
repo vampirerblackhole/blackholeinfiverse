@@ -13,8 +13,11 @@ function App() {
   const [loadingWebsite, setLoadingWebsite] = useState(true);
 
   return (
-    <div className="relative min-h-screen bg-black">
-      {/* Background stars and blackhole for all pages */}
+    <div
+      className="relative min-h-screen"
+      style={{ backgroundColor: "black" }} // Pure black for maximum star contrast
+    >
+      {/* Blackhole only on homepage - will include stars */}
       <BlackholeScene />
 
       <Router>
@@ -28,7 +31,14 @@ function App() {
                   onLoadingComplete={() => setLoadingWebsite(false)}
                 />
               ) : (
-                <Suspense fallback={<div className="min-h-screen bg-black" />}>
+                <Suspense
+                  fallback={
+                    <div
+                      className="min-h-screen"
+                      style={{ backgroundColor: "black" }}
+                    />
+                  }
+                >
                   <Website />
                 </Suspense>
               )

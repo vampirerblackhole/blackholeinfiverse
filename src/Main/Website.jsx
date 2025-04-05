@@ -16,6 +16,7 @@ function Website() {
         width: "100%",
         minHeight: "100vh",
         zIndex: 10,
+        background: "transparent",
       }}
     >
       {/* Content with higher z-index to appear above the stars */}
@@ -26,6 +27,7 @@ function Website() {
           width: "100%",
           minHeight: "100vh",
           pointerEvents: "auto",
+          background: "transparent",
         }}
       >
         {/* Display BHI component first */}
