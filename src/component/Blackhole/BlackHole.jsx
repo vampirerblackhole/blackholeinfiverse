@@ -19,18 +19,23 @@ const BlackHole = ({
   className = "webgl",
   width = "100%",
   height = "100%",
-  backgroundColor = "transparent",
+  backgroundColor = "#130e16",
   holeSize = 2.5,
   discOuterSize = 6,
   autoRotate = false,
   autoRotateSpeed = 1.0,
   scrollProgress = 0,
+  isMobile = false,
 }) => {
   const canvasRef = useRef(null);
   const sceneRef = useRef({});
+  const frameId = useRef(null);
+  const targetCameraPos = useRef(new THREE.Vector3());
+  const currentCameraPos = useRef(new THREE.Vector3());
+  const targetRotation = useRef(0);
+  const currentRotation = useRef(0);
 
-  // Track window dimensions
-  const [, setWindowSize] = useState({
+  const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
@@ -43,12 +48,10 @@ const BlackHole = ({
       height: canvasRef.current.clientHeight,
     };
 
-    // Scene
     const scene = new THREE.Scene();
     sceneRef.current.scene = scene;
 
-    // Camera - Adjust FOV based on screen size
-    const fov = window.innerWidth <= 768 ? 90 : 75; // Wider FOV for mobile
+    const fov = isMobile ? 90 : 75;
     const camera = new THREE.PerspectiveCamera(
       fov,
       sizes.width / sizes.height,
@@ -56,22 +59,20 @@ const BlackHole = ({
       500
     );
 
-    // Adjust initial camera position based on screen size
-    const isMobile = window.innerWidth <= 768;
     const initialPosition = isMobile
-      ? { x: 5, y: 8, z: 12 } // Closer view for mobile
-      : { x: 8, y: 10, z: 15 }; // Default position for desktop
+      ? { x: -8, y: 2, z: 6 }
+      : { x: -15, y: 5, z: 10 };
 
     camera.position.set(
       initialPosition.x,
       initialPosition.y,
       initialPosition.z
     );
-    camera.lookAt(0, 0, 0);
+    currentCameraPos.current.copy(camera.position);
+    targetCameraPos.current.copy(camera.position);
     scene.add(camera);
     sceneRef.current.camera = camera;
 
-    // Controls
     const controls = new OrbitControls(camera, canvasRef.current);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
@@ -81,27 +82,23 @@ const BlackHole = ({
     controls.enabled = false;
     sceneRef.current.controls = controls;
 
-    // Renderer with pixel ratio handling
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
-      antialias: true,
+      antialias: !isMobile,
       powerPreference: "high-performance",
       alpha: true,
     });
     renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    if (backgroundColor !== "transparent") {
-      renderer.setClearColor(backgroundColor);
-    } else {
-      renderer.setClearColor(0x000000, 0);
-    }
+    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(backgroundColor);
     sceneRef.current.renderer = renderer;
 
-    // Composition render targets with adaptive resolution
-    const pixelRatio = Math.min(window.devicePixelRatio, 2);
+    const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
     const renderTargetOptions = {
       generateMipmaps: false,
       format: THREE.RedFormat,
+      minFilter: THREE.LinearFilter,
+      magFilter: THREE.LinearFilter,
     };
 
     sceneRef.current.composition = {
@@ -122,13 +119,11 @@ const BlackHole = ({
      */
     const noises = {};
 
-    // Custom scene
     noises.scene = new THREE.Scene();
     noises.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     noises.camera.position.set(0, 0, 5);
     noises.scene.add(noises.camera);
 
-    // Plane
     noises.plane = {};
     noises.plane.geometry = new THREE.PlaneGeometry(2, 2);
     noises.plane.material = new THREE.ShaderMaterial({
@@ -141,15 +136,17 @@ const BlackHole = ({
     );
     noises.scene.add(noises.plane.mesh);
 
-    // Render target
-    noises.renderTarget = new THREE.WebGLRenderTarget(256, 256, {
-      generateMipmaps: false,
-      type: THREE.FloatType,
-      wrapS: THREE.RepeatWrapping,
-      wrapT: THREE.RepeatWrapping,
-    });
+    noises.renderTarget = new THREE.WebGLRenderTarget(
+      isMobile ? 128 : 256,
+      isMobile ? 128 : 256,
+      {
+        generateMipmaps: false,
+        type: THREE.FloatType,
+        wrapS: THREE.RepeatWrapping,
+        wrapT: THREE.RepeatWrapping,
+      }
+    );
 
-    // Render the noises into the render target
     renderer.setRenderTarget(noises.renderTarget);
     renderer.render(noises.scene, noises.camera);
     renderer.setRenderTarget(null);
@@ -159,7 +156,6 @@ const BlackHole = ({
      */
     const disc = {};
 
-    // Gradient
     disc.gradient = {};
     disc.gradient.canvas = document.createElement("canvas");
     disc.gradient.canvas.width = 1;
@@ -188,13 +184,12 @@ const BlackHole = ({
     );
     disc.gradient.texture = new THREE.CanvasTexture(disc.gradient.canvas);
 
-    // Mesh
     disc.geometry = new THREE.CylinderGeometry(
       holeSize,
-      discOuterSize * 1.2, // Make outer edge larger for more dramatic disc
-      1.0, // Greater thickness for more visible 3D effect
-      256, // Even more segments for smoother edge
-      24, // More radial segments for better detail
+      discOuterSize,
+      0,
+      isMobile ? 32 : 64,
+      isMobile ? 4 : 8,
       true
     );
     disc.material = new THREE.ShaderMaterial({
@@ -209,29 +204,8 @@ const BlackHole = ({
       },
     });
     disc.mesh = new THREE.Mesh(disc.geometry, disc.material);
-
-    // Set disc at a more dynamic angle to look more 3D
-    disc.mesh.rotation.x = Math.PI / 3; // More dramatic tilt
-    disc.mesh.rotation.z = Math.PI / 8; // Slight rotation for better appearance
-
     scene.add(disc.mesh);
     sceneRef.current.disc = disc.mesh;
-
-    /**
-     * Black hole (event horizon)
-     */
-    const blackHole = new THREE.Mesh(
-      new THREE.CircleGeometry(holeSize, 128), // Higher resolution for smoother circle
-      new THREE.MeshBasicMaterial({
-        color: "black",
-        side: THREE.DoubleSide, // Ensure visible from both sides
-      })
-    );
-    // Align with the tilted disc
-    blackHole.rotation.x = -Math.PI / 3;
-    blackHole.rotation.z = Math.PI / 8;
-    scene.add(blackHole);
-    sceneRef.current.blackHole = blackHole;
 
     /**
      * Distortion
@@ -239,7 +213,6 @@ const BlackHole = ({
     const distortion = {};
     distortion.scene = new THREE.Scene();
 
-    // Hole
     distortion.hole = {};
     distortion.hole.geometry = new THREE.PlaneGeometry(5, 5);
     distortion.hole.material = new THREE.ShaderMaterial({
@@ -252,7 +225,6 @@ const BlackHole = ({
     );
     distortion.scene.add(distortion.hole.mesh);
 
-    // Disc
     distortion.disc = {};
     distortion.disc.geometry = new THREE.PlaneGeometry(15, 15);
     distortion.disc.material = new THREE.ShaderMaterial({
@@ -278,7 +250,6 @@ const BlackHole = ({
     composition.camera.position.set(0, 0, 5);
     composition.scene.add(composition.camera);
 
-    // Plane
     composition.plane = {};
     composition.plane.geometry = new THREE.PlaneGeometry(2, 2);
     composition.plane.material = new THREE.ShaderMaterial({
@@ -286,10 +257,10 @@ const BlackHole = ({
       fragmentShader: compositionFragmentShader,
       uniforms: {
         uDefaultTexture: {
-          value: sceneRef.current.composition.defaultRenderTarget.texture,
+          value: sceneRef.current.composition?.defaultRenderTarget?.texture,
         },
         uDistortionTexture: {
-          value: sceneRef.current.composition.distortionRenderTarget.texture,
+          value: sceneRef.current.composition?.distortionRenderTarget?.texture,
         },
         uConvergencePosition: { value: new THREE.Vector2() },
       },
@@ -311,31 +282,27 @@ const BlackHole = ({
       const newWidth = canvasRef.current.clientWidth;
       const newHeight = canvasRef.current.clientHeight;
 
-      // Update window size state
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
       });
 
-      // Update camera
-      const camera = sceneRef.current.camera;
       camera.aspect = newWidth / newHeight;
-      camera.fov = window.innerWidth <= 768 ? 90 : 75;
+      camera.fov = isMobile ? 90 : 75;
       camera.updateProjectionMatrix();
 
-      // Update renderer
-      const renderer = sceneRef.current.renderer;
       renderer.setSize(newWidth, newHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(
+        isMobile ? 1 : Math.min(window.devicePixelRatio, 2)
+      );
 
-      // Update render targets
       if (sceneRef.current.composition) {
-        const pixelRatio = Math.min(window.devicePixelRatio, 2);
-        sceneRef.current.composition.defaultRenderTarget.setSize(
+        const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
+        sceneRef.current.composition.defaultRenderTarget?.setSize(
           newWidth * pixelRatio,
           newHeight * pixelRatio
         );
-        sceneRef.current.composition.distortionRenderTarget.setSize(
+        sceneRef.current.composition.distortionRenderTarget?.setSize(
           newWidth * pixelRatio,
           newHeight * pixelRatio
         );
@@ -346,40 +313,26 @@ const BlackHole = ({
     window.addEventListener("orientationchange", handleResize);
 
     const clock = new THREE.Clock();
-    const tick = () => {
+
+    const animate = () => {
       const time = clock.getElapsedTime();
 
-      // Update controls
+      // Smooth camera movement
+      const smoothness = isMobile ? 0.1 : 0.05;
+      camera.position.lerp(targetCameraPos.current, smoothness);
+
+      // Smooth disc rotation
+      currentRotation.current +=
+        (targetRotation.current - currentRotation.current) * smoothness;
+      if (sceneRef.current.disc) {
+        sceneRef.current.disc.rotation.y = currentRotation.current;
+      }
+
       controls.update();
 
-      // Add more dynamic 3D movement to the disc
       if (sceneRef.current.disc) {
         const disc = sceneRef.current.disc;
         disc.material.uniforms.uTime.value = time;
-
-        // More pronounced breathing effect
-        const breathingAmount = Math.sin(time * 0.3) * 0.15;
-        disc.position.y = breathingAmount;
-
-        // Subtle wobble effect for more organic appearance
-        disc.rotation.x = Math.PI / 3 + Math.sin(time * 0.2) * 0.03;
-        disc.rotation.z += 0.0005; // Very slow constant rotation
-      }
-
-      // Synchronize black hole movement with disc
-      if (sceneRef.current.blackHole) {
-        const blackHole = sceneRef.current.blackHole;
-        const disc = sceneRef.current.disc;
-
-        if (disc) {
-          // Match position and rotation but invert x rotation
-          blackHole.position.y = disc.position.y;
-          blackHole.rotation.x = -disc.rotation.x; // Inverted to face the right direction
-          blackHole.rotation.z = disc.rotation.z;
-        } else {
-          // Fallback if disc reference is lost
-          blackHole.position.y = Math.sin(time * 0.3) * 0.15;
-        }
       }
 
       distortion.hole.mesh.lookAt(camera.position);
@@ -394,13 +347,13 @@ const BlackHole = ({
       );
 
       renderer.setRenderTarget(
-        sceneRef.current.composition.defaultRenderTarget
+        sceneRef.current.composition?.defaultRenderTarget || null
       );
       renderer.setClearColor(backgroundColor);
       renderer.render(scene, camera);
 
       renderer.setRenderTarget(
-        sceneRef.current.composition.distortionRenderTarget
+        sceneRef.current.composition?.distortionRenderTarget || null
       );
       renderer.setClearColor("#000000");
       renderer.render(distortion.scene, camera);
@@ -408,15 +361,15 @@ const BlackHole = ({
       renderer.setRenderTarget(null);
       renderer.render(composition.scene, composition.camera);
 
-      window.requestAnimationFrame(tick);
+      frameId.current = requestAnimationFrame(animate);
     };
 
-    const animationId = requestAnimationFrame(tick);
+    animate();
 
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleResize);
-      cancelAnimationFrame(animationId);
+      cancelAnimationFrame(frameId.current);
 
       renderer.dispose();
       controls.dispose();
@@ -434,63 +387,60 @@ const BlackHole = ({
       composition.plane.material.dispose();
 
       noises.renderTarget.dispose();
-      sceneRef.current.composition.defaultRenderTarget.dispose();
-      sceneRef.current.composition.distortionRenderTarget.dispose();
+      sceneRef.current.composition?.defaultRenderTarget?.dispose();
+      sceneRef.current.composition?.distortionRenderTarget?.dispose();
 
       disc.gradient.texture.dispose();
     };
-  }, [backgroundColor, holeSize, discOuterSize, autoRotate, autoRotateSpeed]);
+  }, [
+    backgroundColor,
+    holeSize,
+    discOuterSize,
+    autoRotate,
+    autoRotateSpeed,
+    isMobile,
+  ]);
 
-  // Handle scroll effect
   useEffect(() => {
-    if (!sceneRef.current) return;
+    if (sceneRef.current.camera && sceneRef.current.scene) {
+      const progress = Math.min(1, Math.max(0, scrollProgress));
 
-    const { camera, scene, disc } = sceneRef.current;
-    if (!camera || !scene) return;
+      const easeInOutExpo = (x) => {
+        return x === 0
+          ? 0
+          : x === 1
+          ? 1
+          : x < 0.5
+          ? Math.pow(2, 20 * x - 10) / 2
+          : (2 - Math.pow(2, -20 * x + 10)) / 2;
+      };
 
-    const progress = Math.min(1, Math.max(0, scrollProgress));
+      const smoothProgress = easeInOutExpo(progress);
 
-    // Smooth easing
-    const easeInOutQuart = (t) =>
-      t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+      const isMobileView = windowSize.width <= 768;
 
-    const smoothProgress = easeInOutQuart(progress);
+      const startX = isMobileView ? -8 : -15;
+      const startY = isMobileView ? 2 : 5;
+      const startZ = isMobileView ? 6 : 10;
 
-    // More dramatic camera movement
-    const isMobile = window.innerWidth <= 768;
+      const endX = 0;
+      const endY = 0;
+      const endZ = isMobileView ? 2 : 3;
 
-    // Start position (already set in initial camera setup)
-    const startX = isMobile ? 5 : 8;
-    const startY = isMobile ? 8 : 10;
-    const startZ = isMobile ? 12 : 15;
+      targetCameraPos.current.set(
+        startX + (endX - startX) * smoothProgress,
+        startY + (endY - startY) * smoothProgress,
+        startZ + (endZ - startZ) * smoothProgress
+      );
 
-    // End position - closer and more direct view
-    const endX = 1;
-    const endY = 3;
-    const endZ = isMobile ? 5 : 7;
-
-    // Update camera position with more dramatic movement
-    camera.position.set(
-      startX + (endX - startX) * smoothProgress,
-      startY + (endY - startY) * smoothProgress,
-      startZ + (endZ - startZ) * smoothProgress
-    );
-
-    // More dramatic disc rotation during scroll
-    if (disc) {
-      // Rotate on multiple axes for more interesting effect
-      disc.rotation.z = Math.PI / 8 + progress * Math.PI * 0.5;
-      disc.rotation.y = progress * Math.PI * 0.2; // Add slight y-axis rotation
+      targetRotation.current = -smoothProgress * Math.PI * 2;
     }
-
-    // Always look at the origin
-    camera.lookAt(0, 0, 0);
-  }, [scrollProgress]);
+  }, [scrollProgress, windowSize]);
 
   const canvasStyle = {
     width: typeof width === "number" ? `${width}px` : width,
     height: typeof height === "number" ? `${height}px` : height,
-    touchAction: "none", // Prevent default touch behaviors
+    touchAction: "none",
   };
 
   return <canvas ref={canvasRef} className={className} style={canvasStyle} />;
@@ -506,6 +456,7 @@ BlackHole.propTypes = {
   autoRotate: PropTypes.bool,
   autoRotateSpeed: PropTypes.number,
   scrollProgress: PropTypes.number,
+  isMobile: PropTypes.bool,
 };
 
 export default BlackHole;
