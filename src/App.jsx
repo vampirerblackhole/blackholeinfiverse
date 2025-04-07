@@ -21,10 +21,10 @@ function App() {
       {/* Stars background will appear on all pages */}
       <StarsScene />
 
-      {/* Blackhole only on homepage */}
-      <BlackholeScene />
-
       <Router>
+        {/* Blackhole only on homepage - now inside Router for proper navigation */}
+        <BlackholeScene />
+
         <Navbar />
         <Routes>
           <Route

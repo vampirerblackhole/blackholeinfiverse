@@ -26,6 +26,9 @@ const BlackHole = ({
   autoRotateSpeed = 1.0,
   scrollProgress = 0,
   isMobile = false,
+  interactive = true,
+  pulseEffect = true,
+  emitLight = true,
 }) => {
   const canvasRef = useRef(null);
   const sceneRef = useRef({});
@@ -34,6 +37,9 @@ const BlackHole = ({
   const currentCameraPos = useRef(new THREE.Vector3());
   const targetRotation = useRef(0);
   const currentRotation = useRef(0);
+  const mousePosition = useRef(new THREE.Vector2(0, 0));
+  const pulseIntensity = useRef(0);
+  const pulseDirection = useRef(1);
 
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -201,11 +207,30 @@ const BlackHole = ({
         uGradientTexture: { value: disc.gradient.texture },
         uNoisesTexture: { value: noises.renderTarget.texture },
         uTime: { value: 0 },
+        uPulseIntensity: { value: 0 },
+        uMousePosition: { value: new THREE.Vector2(0.5, 0.5) },
       },
     });
     disc.mesh = new THREE.Mesh(disc.geometry, disc.material);
     scene.add(disc.mesh);
     sceneRef.current.disc = disc.mesh;
+
+    /**
+     * Light Emission
+     */
+    if (emitLight) {
+      const holeLight = new THREE.PointLight(new THREE.Color("#ff4136"), 2, 20);
+      holeLight.position.set(0, 0, 0);
+      scene.add(holeLight);
+      sceneRef.current.holeLight = holeLight;
+
+      const ambientLight = new THREE.AmbientLight(
+        new THREE.Color("#130e16"),
+        0.2
+      );
+      scene.add(ambientLight);
+      sceneRef.current.ambientLight = ambientLight;
+    }
 
     /**
      * Distortion
@@ -218,6 +243,9 @@ const BlackHole = ({
     distortion.hole.material = new THREE.ShaderMaterial({
       vertexShader: distortionHoleVertexShader,
       fragmentShader: distortionHoleFragmentShader,
+      uniforms: {
+        uPulseIntensity: { value: 0 },
+      },
     });
     distortion.hole.mesh = new THREE.Mesh(
       distortion.hole.geometry,
@@ -232,6 +260,10 @@ const BlackHole = ({
       side: THREE.DoubleSide,
       vertexShader: distortionDiscVertexShader,
       fragmentShader: distortionDiscFragmentShader,
+      uniforms: {
+        uPulseIntensity: { value: 0 },
+        uMousePosition: { value: new THREE.Vector2(0.5, 0.5) },
+      },
     });
     distortion.disc.mesh = new THREE.Mesh(
       distortion.disc.geometry,
@@ -263,6 +295,7 @@ const BlackHole = ({
           value: sceneRef.current.composition?.distortionRenderTarget?.texture,
         },
         uConvergencePosition: { value: new THREE.Vector2() },
+        uPulseIntensity: { value: 0 },
       },
     });
     composition.plane.mesh = new THREE.Mesh(
@@ -271,6 +304,9 @@ const BlackHole = ({
     );
     composition.scene.add(composition.plane.mesh);
 
+    /**
+     * Event Listeners
+     */
     const handleResize = () => {
       if (
         !canvasRef.current ||

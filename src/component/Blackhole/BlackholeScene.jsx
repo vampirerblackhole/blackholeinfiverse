@@ -1,33 +1,32 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import BlackHole from "./BlackHole";
 import "./Blackhole.css"; // Import blackhole-specific styles
 
 export default function BlackholeScene() {
+  const location = useLocation(); // Get current location
   const [mounted, setMounted] = useState(false);
   const [opacity, setOpacity] = useState(0.9); // Slight transparency
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isHomePage, setIsHomePage] = useState(true);
+  const [isHomePage, setIsHomePage] = useState(false); // Start with false until we confirm
 
-  // Check if we're on the home page
+  // Check if we're on the home page using react-router's location
   useEffect(() => {
-    // Simple check for homepage using window.location
-    const checkIsHomePage = () => {
-      const path = window.location.pathname;
-      setIsHomePage(path === "/" || path === "");
-    };
+    const path = location.pathname;
+    setIsHomePage(path === "/" || path === "");
+    console.log("Route changed, current path:", path);
 
-    checkIsHomePage();
-
-    // Listen for navigation changes
-    window.addEventListener("popstate", checkIsHomePage);
-
-    return () => {
-      window.removeEventListener("popstate", checkIsHomePage);
-    };
-  }, []);
+    // If we're on the homepage, ensure we're mounted
+    if (path === "/" || path === "") {
+      setMounted(true);
+    }
+  }, [location]);
 
   // Handle scroll position for zoom effect and fade-out at robot section
   useEffect(() => {
+    // Only add scroll listener if we're on the homepage
+    if (!isHomePage) return;
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const maxScroll =
@@ -46,21 +45,31 @@ export default function BlackholeScene() {
     };
 
     window.addEventListener("scroll", handleScroll);
+
+    // Call it once immediately to set initial values
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
-  // Ensure the component mounts after load
+  // Ensure the component mounts with a slight delay to allow rendering
   useEffect(() => {
-    setMounted(true);
-    // Log for debugging
-    console.log("BlackholeScene mounted");
-    return () => {
-      setMounted(false);
-      console.log("BlackholeScene unmounted");
-    };
-  }, []);
+    if (isHomePage) {
+      // Use a short timeout to ensure the component is fully rendered
+      const timer = setTimeout(() => {
+        setMounted(true);
+        console.log("BlackholeScene mounted");
+      }, 50);
 
-  // Only render on homepage
+      return () => {
+        clearTimeout(timer);
+        setMounted(false);
+        console.log("BlackholeScene unmounted");
+      };
+    }
+  }, [isHomePage]);
+
+  // Don't render anything if not on homepage
   if (!isHomePage) {
     return null;
   }
@@ -76,7 +85,7 @@ export default function BlackholeScene() {
         height: "100%",
         background: "rgba(0,0,0,0.8)", // Slightly transparent black background
         zIndex: 3, // Above basic content but below BHI content
-        pointerEvents: "none",
+        pointerEvents: "auto", // Allow mouse interactions
         opacity: opacity,
         transition: "opacity 0.3s ease-out",
         mixBlendMode: "normal",
@@ -84,6 +93,7 @@ export default function BlackholeScene() {
     >
       {mounted && (
         <BlackHole
+          key="blackhole-component" // Adding a key to force re-render when needed
           className="webgl blackhole-canvas-override"
           width="100%"
           height="100%"
@@ -93,6 +103,9 @@ export default function BlackholeScene() {
           autoRotate={false}
           autoRotateSpeed={0}
           scrollProgress={scrollProgress}
+          interactive={true} // Enable interactive mouse effects
+          pulseEffect={true} // Enable pulsing animation
+          emitLight={true} // Enable light emission
         />
       )}
     </div>
