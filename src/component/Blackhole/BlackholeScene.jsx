@@ -28,7 +28,7 @@ export default function BlackholeScene() {
     if (!isHomePage) return;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+      const scrollPosition = window.scrollY * 5;
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = scrollPosition / maxScroll;
@@ -37,8 +37,8 @@ export default function BlackholeScene() {
       setScrollProgress(Math.min(scrollPercent, 1));
 
       // Fade out when reaching 70% of the page
-      if (scrollPercent > 0.7) {
-        setOpacity(Math.max(0, 0.9 - ((scrollPercent - 0.7) / 0.3) * 0.9));
+      if (scrollPercent > 0.5) {
+        setOpacity(Math.max(0, 0.9 - ((scrollPercent - 0.5) / 0.3) * 0.9));
       } else {
         setOpacity(0.9); // Slightly transparent
       }
