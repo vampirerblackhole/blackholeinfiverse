@@ -441,17 +441,14 @@ function BHI() {
         />
         <div
           id="hh"
-          ref={headingRef}
           className="h-100 w-full relative font-bold text-white leading-tight"
           style={{
             position: "relative",
             top: "3%",
-            zIndex: 15, // Above the blackhole (3) and BHI canvas (5)
+            zIndex: 25,
             fontSize: "5vw", // Make text size responsive using viewport width
             paddingTop: "5vh",
             height: "100vh",
-            opacity: initialLoading ? 0.2 : 1, // Dim during initial loading, then fully visible
-            transition: "opacity 1.5s ease-in-out",
           }}
         >
           <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head ">

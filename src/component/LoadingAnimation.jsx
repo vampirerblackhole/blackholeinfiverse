@@ -182,18 +182,11 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
   return (
     <div
       className="relative min-h-screen overflow-hidden"
-      style={{ zIndex: 50, background: "transparent" }}
+      style={{ zIndex: 50 }}
     >
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ background: "transparent" }}
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-      <div
-        className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 text-center"
-        style={{ background: "transparent" }}
-      >
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 text-center">
         {/* <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight">
           {title}
         </h1> */}

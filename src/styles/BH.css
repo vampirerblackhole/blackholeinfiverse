@@ -30,23 +30,26 @@
 
 /* Heading styles for main intro text */
 #hh h1 {
-  text-shadow: 0 0 10px rgba(251, 58, 162, 1);
   letter-spacing: 2px;
   font-weight: 700;
 }
 
 /* Animation for heading */
 .gradient-text {
-  background: linear-gradient(to right, #ffffff, #fb3aa2, #ffffff);
+  background: linear-gradient(
+    135deg,
+    #61acef,
+    #9987ed,
+    #b679e1,
+    #9791db,
+    #74bdcc,
+    #59d2bf
+  );
   -webkit-background-clip: text;
-  background-clip: text; /* Adding standard property */
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* Fallback for non-webkit browsers */
-  animation: gradient 5s ease infinite;
-  background-size: 200% auto;
-  text-shadow: 0 0 15px rgba(251, 58, 162, 1); /* Adding subtle glow */
+  background-clip: text;
+  color: transparent;
+  font-weight: bold; /* Optional */
 }
-
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
