@@ -15,6 +15,7 @@ function BHI() {
   const canvasRef = useRef(null); // For the canvas element
   const starsCanvasRef = useRef(null); // For the stars canvas element
   const [initialLoading, setInitialLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const paragraphRef1 = useRef(null);
   const paragraphRef2 = useRef(null);
   const headingRef = useRef(null);
@@ -186,6 +187,8 @@ function BHI() {
         if (imagesLoaded === 99) {
           // All 99 images are loaded
           console.log("All images loaded.");
+          // Set loaded state to true once all images are loaded
+          setIsLoaded(true);
         }
       };
 
@@ -197,18 +200,37 @@ function BHI() {
     return loadedImages;
   }, []);
 
+  // Add additional useEffect to ensure the component is displayed if images take too long
+  useEffect(() => {
+    // Check if document is already loaded
+    if (document.readyState === "complete") {
+      setIsLoaded(true);
+    } else {
+      // Add fallback to ensure the component is displayed after a maximum time
+      const fallbackTimer = setTimeout(() => {
+        setIsLoaded(true);
+      }, 3000); // After 3 seconds, force display even if not all images are loaded
+
+      return () => clearTimeout(fallbackTimer);
+    }
+  }, []);
+
   // Function to handle the transition from blackhole to content
   useEffect(() => {
-    // Show blackhole for 8 seconds before transitioning to main content
-    const timer = setTimeout(() => {
+    // Handler function for the load event
+    const handleLoad = () => {
       setInitialLoading(false);
-      // Make sure heading is visible
       if (headingRef.current) {
         headingRef.current.style.opacity = "1";
       }
-    }, 8000);
+    };
 
-    return () => clearTimeout(timer);
+    // Set initialLoading to false once the whole site is loaded
+    window.addEventListener("load", handleLoad);
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
   }, []);
 
   // Check for paragraph visibility
@@ -382,6 +404,7 @@ function BHI() {
           transition: "opacity 1.5s ease-in-out",
           zIndex: 10, // Above blackhole (3) and stars (1)
           background: "transparent", // Ensure background is transparent
+          display: isLoaded ? "block" : "none", // Only display when loaded
         }}
       >
         {/* Stars Canvas - Appears behind BHI content */}
