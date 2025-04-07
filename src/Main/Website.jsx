@@ -3,6 +3,7 @@
 import BHI from "../component/BHI/BH";
 import Main from "../component/Robotics/Main";
 import Main2 from "../component/Gaming/Main2";
+import BlackholeScene from "../component/Blackhole/BlackholeScene";
 // import Navbar from "../Navbar/Navbar";
 // import Main3 from "../component/Ai/Main3";
 // import BlackholeContainer from "../component/Blackhole/BlackholeContainer";
@@ -32,6 +33,7 @@ function Website() {
       >
         {/* Display BHI component first */}
         <BHI />
+        <BlackholeScene />
 
         {/* Then display robotics and gaming sections */}
         <Main />
