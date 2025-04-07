@@ -33,16 +33,7 @@ function App() {
                   onLoadingComplete={() => setLoadingWebsite(false)}
                 />
               ) : (
-                <Suspense
-                  fallback={
-                    <div
-                      className="min-h-screen"
-                      style={{ backgroundColor: "black" }}
-                    />
-                  }
-                >
-                  <Website />
-                </Suspense>
+                <Website />
               )
             }
           />

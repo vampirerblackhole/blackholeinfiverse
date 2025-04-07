@@ -96,7 +96,8 @@ const BlackHole = ({
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(backgroundColor);
+    renderer.setClearColor(0x000000); // Black color with 0 alpha (transparent)
+
     sceneRef.current.renderer = renderer;
 
     const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
@@ -173,14 +174,15 @@ const BlackHole = ({
       0,
       disc.gradient.canvas.height
     );
-    disc.gradient.style.addColorStop(0, "#ffffff");
-    disc.gradient.style.addColorStop(0.05, "#fffbf0");
-    disc.gradient.style.addColorStop(0.15, "#ffe0a3");
-    disc.gradient.style.addColorStop(0.3, "#ffb265");
-    disc.gradient.style.addColorStop(0.45, "#ff7d45");
-    disc.gradient.style.addColorStop(0.6, "#ff4136");
-    disc.gradient.style.addColorStop(0.75, "#c93180");
-    disc.gradient.style.addColorStop(0.9, "#8d2a8f");
+    // Interstellar-style accretion disc gradient
+    disc.gradient.style.addColorStop(0.0, "#ffffff"); // intense white core
+    disc.gradient.style.addColorStop(0.1, "#e7e3db"); // soft cream-white
+    disc.gradient.style.addColorStop(0.25, "#d6c8b4"); // dusty beige
+    disc.gradient.style.addColorStop(0.4, "#b79878"); // warm tan-orange
+    disc.gradient.style.addColorStop(0.55, "#8a7360"); // muted clay tone
+    disc.gradient.style.addColorStop(0.7, "#5a5c6c"); // desaturated steel blue
+    disc.gradient.style.addColorStop(0.85, "#393f52"); // deep cool gray
+    disc.gradient.style.addColorStop(1.0, "#1a1a1a");
     disc.gradient.context.fillStyle = disc.gradient.style;
     disc.gradient.context.fillRect(
       0,
@@ -241,6 +243,7 @@ const BlackHole = ({
     distortion.hole = {};
     distortion.hole.geometry = new THREE.PlaneGeometry(5, 5);
     distortion.hole.material = new THREE.ShaderMaterial({
+      transparent: false,
       vertexShader: distortionHoleVertexShader,
       fragmentShader: distortionHoleFragmentShader,
       uniforms: {
@@ -256,7 +259,7 @@ const BlackHole = ({
     distortion.disc = {};
     distortion.disc.geometry = new THREE.PlaneGeometry(15, 15);
     distortion.disc.material = new THREE.ShaderMaterial({
-      transparent: true,
+      transparent: false,
       side: THREE.DoubleSide,
       vertexShader: distortionDiscVertexShader,
       fragmentShader: distortionDiscFragmentShader,
@@ -385,7 +388,8 @@ const BlackHole = ({
       renderer.setRenderTarget(
         sceneRef.current.composition?.defaultRenderTarget || null
       );
-      renderer.setClearColor(backgroundColor);
+      renderer.setClearColor("#000000"); // Black color with 0 alpha (transparent)
+
       renderer.render(scene, camera);
 
       renderer.setRenderTarget(

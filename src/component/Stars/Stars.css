@@ -28,7 +28,7 @@
   outline: none !important;
   box-shadow: none !important;
   transform: none !important;
-  filter: blur(0.4px) brightness(1.5) !important; /* Brighter stars with slight blur */
+  filter: blur(0.2px) brightness(0.5) !important; /* Brighter stars with slight blur */
   opacity: 1 !important;
   background: transparent !important;
   mix-blend-mode: normal !important; /* Normal blend mode */

@@ -6,7 +6,7 @@ import "./Blackhole.css"; // Import blackhole-specific styles
 export default function BlackholeScene() {
   const location = useLocation(); // Get current location
   const [mounted, setMounted] = useState(false);
-  const [opacity, setOpacity] = useState(0.9); // Slight transparency
+  const [opacity, setOpacity] = useState(1); // Slight transparency
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false); // Start with false until we confirm
 
@@ -28,7 +28,7 @@ export default function BlackholeScene() {
     if (!isHomePage) return;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY * 5;
+      const scrollPosition = window.scrollY * 3.5;
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = scrollPosition / maxScroll;
@@ -37,8 +37,8 @@ export default function BlackholeScene() {
       setScrollProgress(Math.min(scrollPercent, 1));
 
       // Fade out when reaching 70% of the page
-      if (scrollPercent > 0.5) {
-        setOpacity(Math.max(0, 0.9 - ((scrollPercent - 0.5) / 0.3) * 0.9));
+      if (scrollPercent > 0.9) {
+        setOpacity(Math.max(0, 0.9 - ((scrollPercent - 0.9) / 0.3) * 0.9));
       } else {
         setOpacity(0.9); // Slightly transparent
       }
@@ -97,8 +97,8 @@ export default function BlackholeScene() {
           className="webgl blackhole-canvas-override"
           width="100%"
           height="100%"
-          backgroundColor="transparent" // Make background transparent
-          holeSize={2.5}
+          backgroundColor="black" // Make background transparent
+          holeSize={2.6}
           discOuterSize={6}
           autoRotate={false}
           autoRotateSpeed={0}

@@ -11,7 +11,7 @@ const Stars = ({
   width = "100%",
   height = "100%",
   backgroundColor = "transparent",
-  starsCount = 15000,
+  starsCount = 10000,
   starsSize = 30,
   scrollProgress = 0,
 }) => {
@@ -51,7 +51,7 @@ const Stars = ({
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     if (backgroundColor !== "transparent") {
-      renderer.setClearColor(backgroundColor);
+      renderer.setClearColor(0x000000, 0); // Black color with 0 alpha (transparent)
     }
     sceneRef.current.renderer = renderer;
 

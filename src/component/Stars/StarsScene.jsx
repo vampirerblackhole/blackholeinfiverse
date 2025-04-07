@@ -59,7 +59,7 @@ export default function StarsScene() {
         zIndex: 1, // Lower z-index so stars appear behind content
         pointerEvents: "none", // Allow clicking through
         mixBlendMode: "normal", // Use normal blend mode
-        filter: isHomePage ? "brightness(1.5)" : "none", // Brighter stars on homepage
+        filter: isHomePage ? "brightness(0.5)" : "none", // Brighter stars on homepage
         opacity: 1, // Full opacity
       }}
     >
@@ -69,7 +69,7 @@ export default function StarsScene() {
           width="100%"
           height="100%"
           backgroundColor="transparent"
-          starsCount={isHomePage ? 20000 : 15000} // More stars on homepage
+          starsCount={isHomePage ? 20000 : 10000} // More stars on homepage
           starsSize={isHomePage ? 40 : 35} // Bigger stars on homepage
           scrollProgress={scrollProgress}
         />
