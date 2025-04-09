@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import PropTypes from "prop-types";
@@ -8,6 +8,8 @@ import discVertexShader from "../../shaders/disc/vertex.glsl";
 import discFragmentShader from "../../shaders/disc/fragment.glsl";
 import noisesVertexShader from "../../shaders/noises/vertex.glsl";
 import noisesFragmentShader from "../../shaders/noises/fragment.glsl";
+import starsVertexShader from "../../shaders/stars/vertex.glsl";
+import starsFragmentShader from "../../shaders/stars/fragment.glsl";
 import distortionHoleVertexShader from "../../shaders/distortionHole/vertex.glsl";
 import distortionHoleFragmentShader from "../../shaders/distortionHole/fragment.glsl";
 import distortionDiscVertexShader from "../../shaders/distortionDisc/vertex.glsl";
@@ -22,13 +24,12 @@ const BlackHole = ({
   backgroundColor = "#130e16",
   holeSize = 2.5,
   discOuterSize = 6,
+  starsCount = 10000,
+  starsSize = 30,
   autoRotate = false,
   autoRotateSpeed = 1.0,
   scrollProgress = 0,
   isMobile = false,
-  interactive = true,
-  pulseEffect = true,
-  emitLight = true,
 }) => {
   const canvasRef = useRef(null);
   const sceneRef = useRef({});
@@ -37,9 +38,6 @@ const BlackHole = ({
   const currentCameraPos = useRef(new THREE.Vector3());
   const targetRotation = useRef(0);
   const currentRotation = useRef(0);
-  const mousePosition = useRef(new THREE.Vector2(0, 0));
-  const pulseIntensity = useRef(0);
-  const pulseDirection = useRef(1);
 
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -92,12 +90,13 @@ const BlackHole = ({
       canvas: canvasRef.current,
       antialias: !isMobile,
       powerPreference: "high-performance",
-      alpha: false, // Changed from true to false for full opacity
+      alpha: true,
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 1); // Set alpha to 1 for full opacity
+    renderer.setClearColor(backgroundColor);
     sceneRef.current.renderer = renderer;
+
     const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
     const renderTargetOptions = {
       generateMipmaps: false,
@@ -172,15 +171,14 @@ const BlackHole = ({
       0,
       disc.gradient.canvas.height
     );
-    // Interstellar-style accretion disc gradient
-    disc.gradient.style.addColorStop(0.0, "#ffffff"); // intense white core
-    disc.gradient.style.addColorStop(0.1, "#e7e3db"); // soft cream-white
-    disc.gradient.style.addColorStop(0.25, "#d6c8b4"); // dusty beige
-    disc.gradient.style.addColorStop(0.4, "#b79878"); // warm tan-orange
-    disc.gradient.style.addColorStop(0.55, "#8a7360"); // muted clay tone
-    disc.gradient.style.addColorStop(0.7, "#5a5c6c"); // desaturated steel blue
-    disc.gradient.style.addColorStop(0.85, "#393f52"); // deep cool gray
-    disc.gradient.style.addColorStop(1.0, "#1a1a1a");
+    disc.gradient.style.addColorStop(0, "#ffffff");
+    disc.gradient.style.addColorStop(0.05, "#fffbf0");
+    disc.gradient.style.addColorStop(0.15, "#ffe0a3");
+    disc.gradient.style.addColorStop(0.3, "#ffb265");
+    disc.gradient.style.addColorStop(0.45, "#ff7d45");
+    disc.gradient.style.addColorStop(0.6, "#ff4136");
+    disc.gradient.style.addColorStop(0.75, "#c93180");
+    disc.gradient.style.addColorStop(0.9, "#8d2a8f");
     disc.gradient.context.fillStyle = disc.gradient.style;
     disc.gradient.context.fillRect(
       0,
@@ -199,7 +197,7 @@ const BlackHole = ({
       true
     );
     disc.material = new THREE.ShaderMaterial({
-      transparent: false, // Changed from true to false for full opacity
+      transparent: true,
       side: THREE.DoubleSide,
       vertexShader: discVertexShader,
       fragmentShader: discFragmentShader,
@@ -207,8 +205,6 @@ const BlackHole = ({
         uGradientTexture: { value: disc.gradient.texture },
         uNoisesTexture: { value: noises.renderTarget.texture },
         uTime: { value: 0 },
-        uPulseIntensity: { value: 0 },
-        uMousePosition: { value: new THREE.Vector2(0.5, 0.5) },
       },
     });
     disc.mesh = new THREE.Mesh(disc.geometry, disc.material);
@@ -216,21 +212,51 @@ const BlackHole = ({
     sceneRef.current.disc = disc.mesh;
 
     /**
-     * Light Emission
+     * Stars
      */
-    if (emitLight) {
-      const holeLight = new THREE.PointLight(new THREE.Color("#ff4136"), 2, 20);
-      holeLight.position.set(0, 0, 0);
-      scene.add(holeLight);
-      sceneRef.current.holeLight = holeLight;
+    const stars = {};
+    stars.count = isMobile ? starsCount / 2 : starsCount;
 
-      const ambientLight = new THREE.AmbientLight(
-        new THREE.Color("#130e16"),
-        0.2
+    const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
+    const sizesArray = new THREE.Float32BufferAttribute(stars.count, 1);
+    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
+
+    for (let i = 0; i < stars.count; i++) {
+      const i3 = i * 3;
+
+      const theta = 2 * Math.PI * Math.random();
+      const phi = Math.acos(2 * Math.random() - 1.0);
+
+      positionsArray.setXYZ(
+        i,
+        Math.cos(theta) * Math.sin(phi) * 400,
+        Math.sin(theta) * Math.sin(phi) * 400,
+        Math.cos(phi) * 400
       );
-      scene.add(ambientLight);
-      sceneRef.current.ambientLight = ambientLight;
+
+      sizesArray.setX(i, 0.5 + Math.random() * starsSize);
+
+      const hue = Math.round(Math.random() * 360);
+      const lightness = Math.round(80 + Math.random() * 20);
+      const color = new THREE.Color(`hsl(${hue}, 100%, ${lightness}%)`);
+
+      colorsArray.setXYZ(i, color.r, color.g, color.b);
     }
+
+    stars.geometry = new THREE.BufferGeometry();
+    stars.geometry.setAttribute("position", positionsArray);
+    stars.geometry.setAttribute("size", sizesArray);
+    stars.geometry.setAttribute("color", colorsArray);
+
+    stars.material = new THREE.ShaderMaterial({
+      transparent: true,
+      vertexShader: starsVertexShader,
+      fragmentShader: starsFragmentShader,
+      depthWrite: false,
+    });
+
+    stars.points = new THREE.Points(stars.geometry, stars.material);
+    scene.add(stars.points);
 
     /**
      * Distortion
@@ -253,14 +279,10 @@ const BlackHole = ({
     distortion.disc = {};
     distortion.disc.geometry = new THREE.PlaneGeometry(15, 15);
     distortion.disc.material = new THREE.ShaderMaterial({
-      transparent: false,
+      transparent: true,
       side: THREE.DoubleSide,
       vertexShader: distortionDiscVertexShader,
       fragmentShader: distortionDiscFragmentShader,
-      uniforms: {
-        uPulseIntensity: { value: 0 },
-        uMousePosition: { value: new THREE.Vector2(0.5, 0.5) },
-      },
     });
     distortion.disc.mesh = new THREE.Mesh(
       distortion.disc.geometry,
@@ -282,7 +304,6 @@ const BlackHole = ({
     composition.plane = {};
     composition.plane.geometry = new THREE.PlaneGeometry(2, 2);
     composition.plane.material = new THREE.ShaderMaterial({
-      transparent: false, // Changed from default to false for full opacity
       vertexShader: compositionVertexShader,
       fragmentShader: compositionFragmentShader,
       uniforms: {
@@ -293,7 +314,6 @@ const BlackHole = ({
           value: sceneRef.current.composition?.distortionRenderTarget?.texture,
         },
         uConvergencePosition: { value: new THREE.Vector2() },
-        uPulseIntensity: { value: 0 },
       },
     });
     composition.plane.mesh = new THREE.Mesh(
@@ -302,9 +322,6 @@ const BlackHole = ({
     );
     composition.scene.add(composition.plane.mesh);
 
-    /**
-     * Event Listeners
-     */
     const handleResize = () => {
       if (
         !canvasRef.current ||
@@ -383,14 +400,13 @@ const BlackHole = ({
       renderer.setRenderTarget(
         sceneRef.current.composition?.defaultRenderTarget || null
       );
-      renderer.setClearColor("#000000", 1); // Set alpha to 1 for full opacity
-
+      renderer.setClearColor(backgroundColor);
       renderer.render(scene, camera);
 
       renderer.setRenderTarget(
         sceneRef.current.composition?.distortionRenderTarget || null
       );
-      renderer.setClearColor("#000000", 1); // Set alpha to 1 for full opacity
+      renderer.setClearColor("#000000");
       renderer.render(distortion.scene, camera);
 
       renderer.setRenderTarget(null);
@@ -411,12 +427,14 @@ const BlackHole = ({
 
       disc.geometry.dispose();
       noises.plane.geometry.dispose();
+      stars.geometry.dispose();
       distortion.hole.geometry.dispose();
       distortion.disc.geometry.dispose();
       composition.plane.geometry.dispose();
 
       disc.material.dispose();
       noises.plane.material.dispose();
+      stars.material.dispose();
       distortion.hole.material.dispose();
       distortion.disc.material.dispose();
       composition.plane.material.dispose();
@@ -431,6 +449,8 @@ const BlackHole = ({
     backgroundColor,
     holeSize,
     discOuterSize,
+    starsCount,
+    starsSize,
     autoRotate,
     autoRotateSpeed,
     isMobile,
@@ -488,13 +508,12 @@ BlackHole.propTypes = {
   backgroundColor: PropTypes.string,
   holeSize: PropTypes.number,
   discOuterSize: PropTypes.number,
+  starsCount: PropTypes.number,
+  starsSize: PropTypes.number,
   autoRotate: PropTypes.bool,
   autoRotateSpeed: PropTypes.number,
   scrollProgress: PropTypes.number,
   isMobile: PropTypes.bool,
-  interactive: PropTypes.bool,
-  pulseEffect: PropTypes.bool,
-  emitLight: PropTypes.bool,
 };
 
 export default BlackHole;

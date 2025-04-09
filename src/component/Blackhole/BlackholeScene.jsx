@@ -83,9 +83,9 @@ export default function BlackholeScene() {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0,0,0,0.2)", // Very transparent background to let stars show through
-        zIndex: 2, // Set to 2 to work better with global StarsScene (z-index 1)
-        pointerEvents: "auto", // Allow mouse interactions
+        background: "transparent",
+        zIndex: 0,
+        pointerEvents: "auto",
         opacity: opacity,
         transition: "opacity 0.3s ease-out",
         mixBlendMode: "normal",
@@ -97,15 +97,12 @@ export default function BlackholeScene() {
           className="webgl blackhole-canvas-override"
           width="100%"
           height="100%"
-          backgroundColor="black" // Solid black background for the blackhole itself
+          backgroundColor="transparent"
           holeSize={2.6}
           discOuterSize={6}
           autoRotate={false}
           autoRotateSpeed={0}
           scrollProgress={scrollProgress}
-          interactive={true} // Enable interactive mouse effects
-          pulseEffect={true} // Enable pulsing animation
-          emitLight={true} // Enable light emission
         />
       )}
     </div>
