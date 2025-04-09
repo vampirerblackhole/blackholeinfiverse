@@ -63,27 +63,18 @@ function About() {
         ref={heroRef}
         className="relative h-screen flex items-center justify-center text-center px-4"
       >
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-80"></div>
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-            Shaping Tomorrow's Reality
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8">
-            A pioneering startup at the intersection of VR, AI, Robotics, and
-            Blockchain
-          </p>
-          <div className="animate-bounce">
-            <svg
-              className="w-6 h-6 mx-auto text-gray-400"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
+        <div className="absolute inset-0 bg-[url('../../public/about/bh-mainH.jpg')] bg-cover bg-center opacity-80"></div>
+        <div className="relative z-10 max-w-4xl mx-auto pt-16">
+          <div className="backdrop-blur-md bg-black/20 p-10 rounded-3xl border border-white/10 shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_20px_rgba(0,0,0,0.3)] hover:bg-black/25">
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              Shaping Tomorrow's Reality
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
+              A pioneering startup at the intersection of VR, AI, Robotics, and
+              Blockchain
+            </p>
+
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto rounded-full"></div>
           </div>
         </div>
       </div>
@@ -112,9 +103,9 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                src="../../public/about/vrwoman-img.jpg"
                 alt="VR Gaming"
-                className="rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-pink-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -138,9 +129,9 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                src="../../public/about/ai-img.png"
                 alt="AI Development"
-                className="rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-purple-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -164,9 +155,9 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                src="../../public/about/robot-img.jpg"
                 alt="Robotics"
-                className="rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-blue-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -190,9 +181,9 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                src="../../public/about/blockchain-img.jpg"
                 alt="Blockchain"
-                className="rounded-lg shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-yellow-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
