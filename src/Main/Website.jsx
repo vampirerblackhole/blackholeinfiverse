@@ -28,7 +28,7 @@ function Website() {
           width: "100%",
           minHeight: "100vh",
           pointerEvents: "auto",
-          background: "transparent",
+          background: "solid",
         }}
       >
         {/* Display BHI component first */}

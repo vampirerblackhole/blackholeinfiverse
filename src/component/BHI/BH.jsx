@@ -169,37 +169,6 @@ function BHI() {
     };
   }, []);
 
-  const images = useMemo(() => {
-    const loadedImages = [];
-    let imagesLoaded = 0;
-
-    for (let i = 100; i >= 0; i--) {
-      const img = new Image();
-      const nextNumber = String(i).padStart(4, "0");
-      img.src = `/assets/BHI/${nextNumber}.webp`; // Image source with padding for zero
-
-      // Wait for the image to load before adding it to the array
-      img.onload = () => {
-        imagesLoaded++;
-        loadedImages.push(img);
-
-        // Trigger a re-render or other logic if needed after all images are loaded
-        if (imagesLoaded === 99) {
-          // All 99 images are loaded
-          console.log("All images loaded.");
-          // Set loaded state to true once all images are loaded
-          setIsLoaded(true);
-        }
-      };
-
-      img.onerror = () => {
-        console.error(`Image ${img.src} failed to load.`);
-      };
-    }
-
-    return loadedImages;
-  }, []);
-
   // Add additional useEffect to ensure the component is displayed if images take too long
   useEffect(() => {
     // Check if document is already loaded
@@ -264,65 +233,6 @@ function BHI() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const render = (index) => {
-    if (images[index] && images[index].complete) {
-      const context = canvasRef.current?.getContext("2d");
-      const img = images[index];
-      if (context && img) {
-        // Clear with transparent background
-        context.clearRect(
-          0,
-          0,
-          canvasRef.current.width,
-          canvasRef.current.height
-        );
-
-        const canvasWidth = canvasRef.current.width;
-        const canvasHeight = canvasRef.current.height;
-
-        const isMobile = window.innerWidth <= 768;
-
-        let newWidth, newHeight, x, y;
-
-        if (isMobile) {
-          newHeight = canvasHeight;
-          const aspectRatio = img.width / img.height;
-          newWidth = newHeight * aspectRatio;
-          x = (canvasWidth - newWidth) / 2;
-          y = 0;
-        } else {
-          newWidth = canvasWidth;
-          const aspectRatio = img.width / img.height;
-          newHeight = newWidth / aspectRatio;
-          y = (canvasHeight - newHeight) / 2;
-          x = 0;
-        }
-
-        // Much stronger zoom effect for the blackhole
-        const zoomLevel = 1 + index * 0.03; // Tripled the zoom factor
-        const zoomedWidth = newWidth * zoomLevel;
-        const zoomedHeight = newHeight * zoomLevel;
-        const zoomX = x - (zoomedWidth - newWidth) / 2;
-        const zoomY = y - (zoomedHeight - newHeight) / 2;
-
-        // Calculate the opacity based on scroll position
-        // When index approaches max (99), opacity approaches 0
-        const maxIndex = images.length - 1;
-        const opacity =
-          index < maxIndex * 0.8
-            ? 0.5 // Further reduced base opacity to 0.5 to let stars show through more
-            : 0.5 - ((index - maxIndex * 0.8) / (maxIndex * 0.2)) * 0.5;
-
-        // Apply opacity to the canvas context
-        context.globalAlpha = opacity;
-        context.drawImage(img, zoomX, zoomY, zoomedWidth, zoomedHeight);
-        context.globalAlpha = 1.0; // Reset opacity
-      }
-    } else {
-      console.warn("Image not fully loaded yet, skipping render.");
-    }
-  };
-
   useEffect(() => {
     const handleResize = () => {
       setCanvasSize({
@@ -369,26 +279,6 @@ function BHI() {
       ease: "power2.out",
     });
   }, []);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: scrollRef.current,
-      start: "top top",
-      end: "bottom top",
-      scrub: 1,
-      pin: false,
-      markers: false,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const imageIndex = Math.round(progress * (images.length - 1));
-        render(imageIndex);
-      },
-    });
-
-    return () => scrollTrigger.kill();
-  }, [images]);
 
   return (
     <>

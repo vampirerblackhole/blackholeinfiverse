@@ -1,175 +1,351 @@
 #loop {
-    display: flex;
-    height: 35%;
-    width: 100vw;
-    white-space: nowrap;
-    overflow-x: hidden;
+  display: flex;
+  height: 35%;
+  width: 100vw;
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 
 .loop-h1 {
-    margin-left: 3vw;
-    font-size: 6vw;
-    animation-name: anim;
-    animation-duration: 10s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+  margin-left: 3vw;
+  font-size: 6vw;
+  animation-name: anim;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
-    .loop-h1 {
-        font-size: 10vw; /* Adjust font size for smaller screens */
-    }
+  .loop-h1 {
+    font-size: 10vw; /* Adjust font size for smaller screens */
+  }
 }
 
 /* Media Query for even smaller screens (like mobile phones) */
 @media (max-width: 480px) {
-    .loop-h1 {
-        font-size: 12vw; /* Make font size larger on very small screens */
-    }
+  .loop-h1 {
+    font-size: 12vw; /* Make font size larger on very small screens */
+  }
 }
-.para1{
+.para1 {
+  width: 80%;
+  margin: 2% auto;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  z-index: 1000;
+}
 
+.para1 .para-h {
+  font-size: 4rem;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.8), 0 0 20px rgba(148, 0, 211, 0.5);
+  margin-bottom: 15px;
+  white-space: normal;
+  width: 100%;
+  animation: none;
+  border-right: none;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-@keyframes anim{
-    0%{
-        transform: translate(0%);
-    }
-    100%{
-        transform: translate(-100%);
-    }
+
+.para1 .para {
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  background: transparent;
+  line-height: 1.6;
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 0;
+  box-shadow: none;
+  text-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+@keyframes anim {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate(-100%);
+  }
 }
 .section {
-    display: flex;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1000;
 }
 
 .para-h {
-    font-size: 2vw;
-    color: white;
-  
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: white;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #fff;
+  width: 0;
+  animation: typing 3s steps(40, end) forwards, blink 0.8s step-end infinite;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 15px rgba(148, 0, 211, 0.4);
+  background: transparent;
+  padding: 10px 0;
+  position: relative;
+  z-index: 1000;
 }
 
 .para {
-  
-}.para1 {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin-left: 50%;
+  color: white;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+  text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+  white-space: normal;
+  z-index: 1000;
+  position: relative;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  background: transparent;
+  padding: 10px 0;
+}
+
+.para1,
+.para2,
+.para3 {
+  z-index: 1000;
+  position: relative;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .para2 {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin-left: 2%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: 2%;
+}
+
+.para2-left {
+  width: 50%;
+  margin-left: 2%;
+  z-index: 1000;
+  position: relative;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .para3 {
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-    margin-left: 50%;
-    margin-top: 15%;
+  width: 45%;
+  margin-left: 50%;
+  margin-top: 15%;
 }
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-    .para1, .para2, .para3 {
-        width: 90%; /* Make paragraphs take up more space on smaller screens */
-        margin-left: 5%; /* Adjust left margin for better centering */
-        font-size: 40% ;
+  .para1,
+  .para2,
+  .para2-left,
+  .para3 {
+    width: 90%; /* Make paragraphs take up more space on smaller screens */
+    margin-left: 5%; /* Adjust left margin for better centering */
+    font-size: 40%;
+  }
 
-    }
+  .para1 {
+    width: 90%;
+    margin: 1% auto;
+    padding: 0;
+    border: none;
+  }
 
-    .para1 {
-        margin-top: 10%; /* Add some space at the top */
-    }
+  .para1 .para-h {
+    font-size: 3rem;
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.8),
+      0 0 15px rgba(148, 0, 211, 0.5);
+  }
 
-    .para2 {
-        margin-top: 10%; /* Adjust top margin for consistency */
-    }
+  .para1 .para {
+    font-size: 1.2rem;
+    max-width: 90%;
+  }
 
-    .para3 {
-        margin-top: 10%; /* Same for para3 */
-        margin-left: 5%;
-    }
+  .para2 {
+    margin-top: 10%; /* Adjust top margin for consistency */
+    margin-left: auto;
+    margin-right: 5%;
+  }
+
+  .para2-left {
+    margin-top: 10%; /* Adjust top margin for consistency */
+    margin-left: 5%;
+  }
+
+  .para3 {
+    margin-top: 10%; /* Same for para3 */
+    margin-left: 5%;
+  }
 }
 
 @media (max-width: 480px) {
-    .para1, .para2, .para3 {
-        width: 45%; /* Further reduce width on extremely small screens */
-        font-size:  12px;
+  .para1,
+  .para2,
+  .para2-left,
+  .para3 {
+    width: 45%; /* Further reduce width on extremely small screens */
+    font-size: 12px;
+  }
 
-    }
+  .para1 {
+    width: 95%;
+    margin: 3% auto;
+    padding: 0;
+    border: none;
+  }
 
-    .para1 {
-        margin-top: 5%; /* Adjust top margin for small screens */
-        margin-left: 53%; /* Reduce margin to make it fit on smaller screens */
+  .para1 .para-h {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
 
+  .para1 .para {
+    font-size: 1rem;
+    max-width: 95%;
+  }
 
-    }
+  .para2 {
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: 2%;
+  }
 
-    .para2 {
-        margin-top: 5%;
-    }
+  .para2-left {
+    margin-top: 5%;
+    margin-left: 5%;
+  }
 
-    .para3 {
-        margin-top: 5%;
-        margin-left: 53%; /* Reduce margin to make it fit on smaller screens */
-
-    }
+  .para3 {
+    margin-top: 5%;
+    margin-left: 53%; /* Reduce margin to make it fit on smaller screens */
+  }
 }
 /* Typing effect for headings */
 @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
+  from {
+    width: 0;
   }
-  
-  /* Cursor blink effect */
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
-  
-  /* Fade-in for paragraphs */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-  }
-  
-  /* When visible, fade in */
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Apply typing effect */
-  .para-h {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 3px solid #fff;
+  to {
     width: 100%;
-    animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
   }
-  
-  /* Media Queries */
-  @media (max-width: 768px) {
-    .para-h {
-      font-size: 1.5rem;
-    }
-  
-    .para {
-      font-size: 1rem;
-    }
+}
+
+/* Cursor blink effect */
+@keyframes blink {
+  0%,
+  100% {
+    border-color: white;
   }
-  
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Fade-in for paragraphs */
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  z-index: 1000;
+  position: relative;
+}
+
+/* When visible, fade in */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Make paragraph text visible too */
+.para.visible,
+.fade-in.visible .para {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .para-h {
+    font-size: 1.5rem;
+  }
+
+  .para {
+    font-size: 1rem;
+  }
+}
+
+#p12,
+#p11,
+#p13 {
+  width: 45%;
+  position: absolute;
+  opacity: 0;
+  color: white;
+  background-color: transparent;
+  padding: 30px;
+  border-radius: 0;
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  transform: translateY(30px);
+  z-index: 30;
+}
+
+#p12 {
+  top: 120vh;
+  left: 5%;
+}
+
+#p11 {
+  top: 300vh;
+  right: 5%;
+}
+
+#p13 {
+  top: 480vh;
+  left: 5%;
+}
+
+#p12.visible,
+#p11.visible,
+#p13.visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+.text-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 3s steps(40, end) forwards;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+#p12 p,
+#p11 p,
+#p13 p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-top: 15px;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  white-space: normal;
+}

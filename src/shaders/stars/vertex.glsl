@@ -9,4 +9,4 @@ void main()
     gl_PointSize = size;
     
     vColor = color;
-} 
+}

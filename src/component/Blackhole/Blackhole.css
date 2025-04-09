@@ -12,6 +12,7 @@
   height: 100% !important;
   z-index: 1 !important;
   pointer-events: none !important;
+  opacity: 1 !important;
 }
 
 /* Reset any external styling on the blackhole canvas */
@@ -34,4 +35,5 @@
 .blackhole-canvas-override.webgl * {
   animation: none !important;
   transition: none !important;
+  opacity: 1 !important;
 }

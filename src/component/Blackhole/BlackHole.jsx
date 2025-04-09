@@ -92,14 +92,12 @@ const BlackHole = ({
       canvas: canvasRef.current,
       antialias: !isMobile,
       powerPreference: "high-performance",
-      alpha: true,
+      alpha: false, // Changed from true to false for full opacity
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000); // Black color with 0 alpha (transparent)
-
+    renderer.setClearColor(0x000000, 1); // Set alpha to 1 for full opacity
     sceneRef.current.renderer = renderer;
-
     const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
     const renderTargetOptions = {
       generateMipmaps: false,
@@ -201,7 +199,7 @@ const BlackHole = ({
       true
     );
     disc.material = new THREE.ShaderMaterial({
-      transparent: true,
+      transparent: false, // Changed from true to false for full opacity
       side: THREE.DoubleSide,
       vertexShader: discVertexShader,
       fragmentShader: discFragmentShader,
@@ -243,12 +241,8 @@ const BlackHole = ({
     distortion.hole = {};
     distortion.hole.geometry = new THREE.PlaneGeometry(5, 5);
     distortion.hole.material = new THREE.ShaderMaterial({
-      transparent: false,
       vertexShader: distortionHoleVertexShader,
       fragmentShader: distortionHoleFragmentShader,
-      uniforms: {
-        uPulseIntensity: { value: 0 },
-      },
     });
     distortion.hole.mesh = new THREE.Mesh(
       distortion.hole.geometry,
@@ -288,6 +282,7 @@ const BlackHole = ({
     composition.plane = {};
     composition.plane.geometry = new THREE.PlaneGeometry(2, 2);
     composition.plane.material = new THREE.ShaderMaterial({
+      transparent: false, // Changed from default to false for full opacity
       vertexShader: compositionVertexShader,
       fragmentShader: compositionFragmentShader,
       uniforms: {
@@ -388,14 +383,14 @@ const BlackHole = ({
       renderer.setRenderTarget(
         sceneRef.current.composition?.defaultRenderTarget || null
       );
-      renderer.setClearColor("#000000"); // Black color with 0 alpha (transparent)
+      renderer.setClearColor("#000000", 1); // Set alpha to 1 for full opacity
 
       renderer.render(scene, camera);
 
       renderer.setRenderTarget(
         sceneRef.current.composition?.distortionRenderTarget || null
       );
-      renderer.setClearColor("#000000");
+      renderer.setClearColor("#000000", 1); // Set alpha to 1 for full opacity
       renderer.render(distortion.scene, camera);
 
       renderer.setRenderTarget(null);
@@ -497,6 +492,9 @@ BlackHole.propTypes = {
   autoRotateSpeed: PropTypes.number,
   scrollProgress: PropTypes.number,
   isMobile: PropTypes.bool,
+  interactive: PropTypes.bool,
+  pulseEffect: PropTypes.bool,
+  emitLight: PropTypes.bool,
 };
 
 export default BlackHole;

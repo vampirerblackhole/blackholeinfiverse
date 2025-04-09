@@ -83,7 +83,7 @@ export default function BlackholeScene() {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0,0,0,0.8)", // Slightly transparent black background
+        background: "rgba(0,0,0,1)", // Slightly transparent black background
         zIndex: 3, // Above basic content but below BHI content
         pointerEvents: "auto", // Allow mouse interactions
         opacity: opacity,
