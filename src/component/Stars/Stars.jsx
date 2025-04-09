@@ -77,11 +77,11 @@ function StarsPoints({
     return geometry;
   }, [count, radius, size]);
 
-  // Animation frame update - using standard clock time
-  useFrame(({ clock }) => {
+  // Simple animation update
+  useFrame(() => {
     if (materialRef.current) {
-      // Get elapsed time
-      timeRef.current = clock.getElapsedTime();
+      // Update time
+      timeRef.current += 0.01;
 
       // Update uniforms
       materialRef.current.uniforms.uTime.value = timeRef.current;
@@ -102,7 +102,7 @@ function StarsPoints({
         blending={2} // AdditiveBlending for glow effect
         uniforms={{
           uSize: { value: 0.8 },
-          uTime: { value: 0 },
+          uTime: { value: timeRef.current },
           uScrollProgress: { value: scrollProgress },
         }}
       />

@@ -8,7 +8,7 @@ export default function StarsScene() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [starOpacity, setStarOpacity] = useState(1);
 
-  // Simple check if we're on the home page - runs only once on mount/unmount
+  // Check page on mount only (no route tracking)
   useEffect(() => {
     const path = window.location.pathname;
     setIsHomePage(path === "/" || path === "");
@@ -21,7 +21,7 @@ export default function StarsScene() {
     };
   }, []);
 
-  // Handle scroll position for parallax effect
+  // Handle scroll position
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -32,9 +32,8 @@ export default function StarsScene() {
       // Set scroll progress for stars parallax effect
       setScrollProgress(Math.min(scrollPercent, 1));
 
-      // If on homepage, adjust opacity based on scroll to avoid interfering with blackhole
+      // If on homepage, adjust opacity based on scroll
       if (isHomePage) {
-        // Less opacity on homepage to complement blackhole
         if (scrollPercent > 0.7) {
           setStarOpacity(Math.min(1, (scrollPercent - 0.7) / 0.3));
         } else {
@@ -46,34 +45,33 @@ export default function StarsScene() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Initial call to set values
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
-  // Determine current page for star parameters
+  // Get current page parameters
   const path = window.location.pathname;
 
   // Customize star parameters based on page
   let starParams = {};
 
   if (path === "/" || path === "") {
-    // Homepage - fewer stars that complement the blackhole
+    // Homepage
     starParams = {
       starsCount: 8000,
       starsSize: 5,
       radius: 450,
     };
   } else if (path.includes("/contact")) {
-    // Contact page - dense star field that looked good
+    // Contact page
     starParams = {
       starsCount: 18000,
       starsSize: 5,
       radius: 500,
     };
   } else if (path.includes("/about")) {
-    // About page - make it match the contact page since you liked that
+    // About page
     starParams = {
       starsCount: 15000,
       starsSize: 5.5,
@@ -98,8 +96,8 @@ export default function StarsScene() {
         width: "100%",
         height: "100%",
         background: "transparent",
-        zIndex: isHomePage ? -1 : 0, // Lower z-index on homepage to be behind the blackhole
-        pointerEvents: "none", // Allow clicking through
+        zIndex: isHomePage ? -1 : 0,
+        pointerEvents: "none",
         mixBlendMode: "normal",
         filter: "none",
         opacity: starOpacity,
