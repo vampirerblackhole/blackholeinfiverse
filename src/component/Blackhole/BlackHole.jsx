@@ -219,7 +219,7 @@ const BlackHole = ({
 
     const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
     const sizesArray = new THREE.Float32BufferAttribute(stars.count, 1);
-    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
+    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 4);
 
     for (let i = 0; i < stars.count; i++) {
       const i3 = i * 3;

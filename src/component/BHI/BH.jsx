@@ -2,171 +2,33 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../styles/BH.css";
-import * as THREE from "three";
 
-// Import star shaders
-import starsVertexShader from "../../shaders/stars/vertex.glsl";
-import starsFragmentShader from "../../shaders/stars/fragment.glsl";
+// Remove star shaders imports
+// import starsVertexShader from "../../shaders/stars/vertex.glsl";
+// import starsFragmentShader from "../../shaders/stars/fragment.glsl";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function BHI() {
   const scrollRef = useRef(null); // For the scroll container
   const canvasRef = useRef(null); // For the canvas element
-  const starsCanvasRef = useRef(null); // For the stars canvas element
+  // const starsCanvasRef = useRef(null); // For the stars canvas element - removed
   const [isLoaded, setIsLoaded] = useState(false);
   const paragraphRef1 = useRef(null);
   const paragraphRef2 = useRef(null);
   const headingRef = useRef(null);
-  const starsSceneRef = useRef({});
+  // const starsSceneRef = useRef({}); // removed
 
   const [canvasSize, setCanvasSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
 
-  // Create stars in 3D scene
-  useEffect(() => {
-    if (!starsCanvasRef.current) return;
-
-    const sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-
-    // Scene
-    const scene = new THREE.Scene();
-    starsSceneRef.current.scene = scene;
-
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      sizes.width / sizes.height,
-      0.1,
-      1000
-    );
-    camera.position.set(0, 0, 20);
-    camera.lookAt(0, 0, 0);
-    scene.add(camera);
-    starsSceneRef.current.camera = camera;
-
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({
-      canvas: starsCanvasRef.current,
-      antialias: true,
-      alpha: true, // Enable alpha for transparent background
-    });
-    renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0); // Transparent background
-    starsSceneRef.current.renderer = renderer;
-
-    /**
-     * Stars - Adjusted to match other pages styling
-     */
-    const stars = {};
-    stars.count = 5000; // Increased count to match density of other pages
-
-    // Geometry
-    const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
-    const sizesArray = new THREE.Float32BufferAttribute(stars.count, 1);
-    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
-
-    for (let i = 0; i < stars.count; i++) {
-      // Positions - create a sphere of stars
-      const theta = 2 * Math.PI * Math.random();
-      const phi = Math.acos(2 * Math.random() - 1.0);
-
-      positionsArray.setXYZ(
-        i,
-        Math.cos(theta) * Math.sin(phi) * 400,
-        Math.sin(theta) * Math.sin(phi) * 400,
-        Math.cos(phi) * 400
-      );
-
-      // Sizes - match other pages star sizes
-      sizesArray.setX(i, 2.0 + Math.random() * 15); // Reduced size range for sharper stars
-
-      // Colors - create bright stars
-      const hue =
-        Math.random() > 0.6
-          ? Math.round(200 + Math.random() * 60) // Blue-white stars
-          : Math.round(Math.random() * 60); // Yellow-white stars
-
-      const lightness = Math.round(99 + Math.random() * 1); // Maximum brightness with less variation
-      const color = new THREE.Color(`hsl(${hue}, 100%, ${lightness}%)`);
-
-      colorsArray.setXYZ(i, color.r, color.g, color.b);
-    }
-
-    stars.geometry = new THREE.BufferGeometry();
-    stars.geometry.setAttribute("position", positionsArray);
-    stars.geometry.setAttribute("size", sizesArray);
-    stars.geometry.setAttribute("color", colorsArray);
-
-    // Material
-    stars.material = new THREE.ShaderMaterial({
-      transparent: true,
-      vertexShader: starsVertexShader,
-      fragmentShader: starsFragmentShader,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      depthTest: false,
-    });
-
-    // Points
-    stars.points = new THREE.Points(stars.geometry, stars.material);
-    scene.add(stars.points);
-    starsSceneRef.current.stars = stars.points;
-
-    // Animation loop
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
-
-      // Rotate stars very slowly
-      if (starsSceneRef.current.stars) {
-        starsSceneRef.current.stars.rotation.y = elapsedTime * 0.03;
-        starsSceneRef.current.stars.rotation.x =
-          Math.sin(elapsedTime * 0.02) * 0.05;
-      }
-
-      // Render
-      renderer.render(scene, camera);
-
-      // Continue animation
-      requestAnimationFrame(animate);
-    };
-
-    const animationId = requestAnimationFrame(animate);
-
-    // Handle window resize
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
-      // Update camera
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-
-      // Update renderer
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationId);
-
-      if (stars.geometry) stars.geometry.dispose();
-      if (stars.material) stars.material.dispose();
-      renderer.dispose();
-    };
-  }, []);
+  // Remove the stars creation effect
+  // useEffect(() => {
+  //   if (!starsCanvasRef.current) return;
+  //   ...
+  // }, []);
 
   // Add additional useEffect to ensure the component is displayed if images take too long
   useEffect(() => {
@@ -295,21 +157,7 @@ function BHI() {
           display: isLoaded ? "block" : "none", // Only display when loaded
         }}
       >
-        {/* Stars Canvas - Appears behind BHI content */}
-        <canvas
-          ref={starsCanvasRef}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            zIndex: -1, // Below other elements
-            pointerEvents: "none",
-            opacity: 0.4, // Partially visible
-            display: "block", // Show the stars canvas
-          }}
-        />
+        {/* Stars Canvas - Removed */}
 
         <canvas
           ref={canvasRef}
