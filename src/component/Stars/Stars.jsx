@@ -16,12 +16,8 @@ function StarsPoints({
 }) {
   // Ref for shader material to update uniforms
   const materialRef = useRef();
-  // Reference time for animation
+  // Time for animation
   const timeRef = useRef(0);
-  // Random offsets for twinkling
-  const randomOffsets = useRef(new Float32Array(count));
-  // Random speeds for movement
-  const randomSpeeds = useRef(new Float32Array(count));
 
   // Create geometry with positions, sizes, colors, and random values
   const geometry = useMemo(() => {
@@ -47,12 +43,12 @@ function StarsPoints({
 
       // Create stars with slight color variations
       const hue =
-        Math.random() > 0.8
+        Math.random() > 0.9
           ? Math.round(40 + Math.random() * 20) // Some warmer stars (yellows)
           : Math.round(180 + Math.random() * 40); // Most are cooler (blues/whites)
 
-      const saturation = Math.round(Math.random() > 0.8 ? 80 : 20); // Some colorful, most white
-      const lightness = Math.round(85 + Math.random() * 15); // Always bright
+      const saturation = Math.round(Math.random() > 0.9 ? 70 : 10); // Mostly white stars
+      const lightness = Math.round(90 + Math.random() * 10); // Always bright
       const color = new Color(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
 
       colors[i3] = color.r;
@@ -62,12 +58,9 @@ function StarsPoints({
       // Add random offset for twinkling (0-1000)
       randOffsets[i] = Math.random() * 1000;
 
-      // Random movement speed (0.1-0.5)
-      randSpeeds[i] = 0.1 + Math.random() * 0.4;
+      // Random movement speed (0.1-0.3)
+      randSpeeds[i] = 0.1 + Math.random() * 0.2;
     }
-
-    randomOffsets.current = randOffsets;
-    randomSpeeds.current = randSpeeds;
 
     geometry.setAttribute("position", new Float32BufferAttribute(positions, 3));
     geometry.setAttribute("size", new Float32BufferAttribute(sizes, 1));
@@ -84,9 +77,10 @@ function StarsPoints({
     return geometry;
   }, [count, radius, size]);
 
-  // Animation frame update
+  // Animation frame update - using standard clock time
   useFrame(({ clock }) => {
     if (materialRef.current) {
+      // Get elapsed time
       timeRef.current = clock.getElapsedTime();
 
       // Update uniforms

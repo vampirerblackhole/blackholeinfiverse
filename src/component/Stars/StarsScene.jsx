@@ -8,20 +8,16 @@ export default function StarsScene() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [starOpacity, setStarOpacity] = useState(1);
 
-  // Check if we're on the home page
+  // Simple check if we're on the home page - runs only once on mount/unmount
   useEffect(() => {
-    const checkIsHomePage = () => {
-      const path = window.location.pathname;
-      setIsHomePage(path === "/" || path === "");
-    };
+    const path = window.location.pathname;
+    setIsHomePage(path === "/" || path === "");
 
-    checkIsHomePage();
-    window.addEventListener("popstate", checkIsHomePage);
-    window.addEventListener("pushstate", checkIsHomePage);
+    // Mount immediately
+    setMounted(true);
 
     return () => {
-      window.removeEventListener("popstate", checkIsHomePage);
-      window.removeEventListener("pushstate", checkIsHomePage);
+      setMounted(false);
     };
   }, []);
 
@@ -38,12 +34,11 @@ export default function StarsScene() {
 
       // If on homepage, adjust opacity based on scroll to avoid interfering with blackhole
       if (isHomePage) {
-        // Make stars more subtle on homepage to not compete with blackhole
-        // Full opacity at the bottom of the page where blackhole fades out
+        // Less opacity on homepage to complement blackhole
         if (scrollPercent > 0.7) {
           setStarOpacity(Math.min(1, (scrollPercent - 0.7) / 0.3));
         } else {
-          setStarOpacity(0.3); // More subtle on homepage
+          setStarOpacity(0.4);
         }
       } else {
         setStarOpacity(1); // Full opacity on other pages
@@ -57,47 +52,39 @@ export default function StarsScene() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
-  // Ensure the component mounts after load
-  useEffect(() => {
-    setMounted(true);
-    return () => {
-      setMounted(false);
-    };
-  }, []);
-
-  // Get current pathname to differentiate star appearance between pages
-  const pathname =
-    typeof window !== "undefined" ? window.location.pathname : "/";
+  // Determine current page for star parameters
+  const path = window.location.pathname;
 
   // Customize star parameters based on page
   let starParams = {};
-  if (isHomePage) {
-    // Homepage - fewer, more subtle stars
+
+  if (path === "/" || path === "") {
+    // Homepage - fewer stars that complement the blackhole
     starParams = {
-      starsCount: 5000,
-      starsSize: 8,
-      radius: 400,
-    };
-  } else if (pathname.includes("/about")) {
-    // About page - more stars with different distribution
-    starParams = {
-      starsCount: 12000,
-      starsSize: 12,
+      starsCount: 8000,
+      starsSize: 5,
       radius: 450,
     };
-  } else if (pathname.includes("/contact")) {
-    // Contact page - dense field of smaller stars
+  } else if (path.includes("/contact")) {
+    // Contact page - dense star field that looked good
     starParams = {
       starsCount: 18000,
-      starsSize: 9,
+      starsSize: 5,
+      radius: 500,
+    };
+  } else if (path.includes("/about")) {
+    // About page - make it match the contact page since you liked that
+    starParams = {
+      starsCount: 15000,
+      starsSize: 5.5,
       radius: 500,
     };
   } else {
     // Default for other pages
     starParams = {
-      starsCount: 15000,
-      starsSize: 10,
-      radius: 400,
+      starsCount: 12000,
+      starsSize: 5,
+      radius: 450,
     };
   }
 
