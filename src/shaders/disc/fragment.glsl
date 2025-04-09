@@ -1,6 +1,7 @@
 uniform float uTime;
 uniform sampler2D uGradientTexture;
 uniform sampler2D uNoisesTexture;
+uniform float uOpacity;
 
 varying vec2 vUv;
 
@@ -27,7 +28,7 @@ void main() {
     uv.y *= falloff;
 
     vec4 color = texture(uGradientTexture, uv);
-    color.a = uv.y * 0.95; // Slightly reduced opacity
+    color.a = uv.y * 0.95 * uOpacity; // Apply global opacity control
 
     gl_FragColor = color;
 }

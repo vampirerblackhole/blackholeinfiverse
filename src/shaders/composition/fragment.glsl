@@ -2,6 +2,7 @@ uniform float uTime;
 uniform sampler2D uDefaultTexture;
 uniform sampler2D uDistortionTexture;
 uniform vec2 uConvergencePosition;
+uniform float uDistortionStrength;
 
 varying vec2 vUv;
 
@@ -10,7 +11,11 @@ varying vec2 vUv;
 #include ../partials/random2d.glsl
 
 void main() {
-    float distortionStrength = texture(uDistortionTexture, vUv).r;
+    float distortionValue = texture(uDistortionTexture, vUv).r;
+    
+    // Apply global distortion strength control
+    float distortionStrength = distortionValue * uDistortionStrength;
+    
     vec2 toConvergence = uConvergencePosition - vUv;
     vec2 distoredUv = vUv + toConvergence * distortionStrength * 1.2; // Increased distortion effect
     
@@ -19,10 +24,11 @@ void main() {
     float vignetteStrength = remap(distanceToCenter, 0.3, 0.7, 0.0, 1.0);
     vignetteStrength = smoothstep(0.0, 1.0, vignetteStrength);
     
-    // Improved RGB Shift
-    float r = texture(uDefaultTexture, distoredUv + vec2(sin(0.0), cos(0.0)) * 0.03 * vignetteStrength).r;
-    float g = texture(uDefaultTexture, distoredUv + vec2(sin(2.1), cos(2.1)) * 0.03 * vignetteStrength).g;
-    float b = texture(uDefaultTexture, distoredUv + vec2(sin(-2.1), cos(-2.1)) * 0.03 * vignetteStrength).b;
+    // Improved RGB Shift - scaled by distortion strength
+    float rgbShiftAmount = 0.03 * vignetteStrength * uDistortionStrength;
+    float r = texture(uDefaultTexture, distoredUv + vec2(sin(0.0), cos(0.0)) * rgbShiftAmount).r;
+    float g = texture(uDefaultTexture, distoredUv + vec2(sin(2.1), cos(2.1)) * rgbShiftAmount).g;
+    float b = texture(uDefaultTexture, distoredUv + vec2(sin(-2.1), cos(-2.1)) * rgbShiftAmount).b;
     vec4 color = vec4(r, g, b, 1.0);
 
     // Enhanced noise effect
@@ -30,7 +36,7 @@ void main() {
     noise = noise - 0.5;
     float grayscale = r * 0.299 + g * 0.587 + b * 0.114;
     noise *= grayscale;
-    color += noise * 0.02;
+    color += noise * 0.02 * uDistortionStrength;
 
     gl_FragColor = color;
 }

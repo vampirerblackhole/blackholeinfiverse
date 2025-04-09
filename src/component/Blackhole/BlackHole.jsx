@@ -205,6 +205,7 @@ const BlackHole = ({
         uGradientTexture: { value: disc.gradient.texture },
         uNoisesTexture: { value: noises.renderTarget.texture },
         uTime: { value: 0 },
+        uOpacity: { value: 1.0 },
       },
     });
     disc.mesh = new THREE.Mesh(disc.geometry, disc.material);
@@ -219,28 +220,46 @@ const BlackHole = ({
 
     const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
     const sizesArray = new THREE.Float32BufferAttribute(stars.count, 1);
-    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 4);
+    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
 
+    // Create stars that are purely white - no color artifacts
     for (let i = 0; i < stars.count; i++) {
-      const i3 = i * 3;
+      // Use a modified uniform spherical distribution
+      // with more stars closer to center
+      let radius, theta, phi;
 
-      const theta = 2 * Math.PI * Math.random();
-      const phi = Math.acos(2 * Math.random() - 1.0);
+      const distributionChoice = Math.random();
 
-      positionsArray.setXYZ(
-        i,
-        Math.cos(theta) * Math.sin(phi) * 400,
-        Math.sin(theta) * Math.sin(phi) * 400,
-        Math.cos(phi) * 400
-      );
+      if (distributionChoice < 0.7) {
+        // Distant background stars - avoid edges of screen
+        radius = 400 + Math.random() * 500;
+        theta = Math.random() * Math.PI * 2;
+        phi = Math.acos(2 * Math.random() - 1);
+      } else {
+        // Mid-distance stars with spherical distribution
+        radius = 200 + Math.random() * 200;
+        theta = Math.random() * Math.PI * 2;
+        phi = Math.acos(2 * Math.random() - 1);
+      }
 
-      sizesArray.setX(i, 0.5 + Math.random() * starsSize);
+      const x = Math.cos(theta) * Math.sin(phi) * radius;
+      const y = Math.sin(theta) * Math.sin(phi) * radius;
+      const z = Math.cos(phi) * radius;
 
-      const hue = Math.round(Math.random() * 360);
-      const lightness = Math.round(80 + Math.random() * 20);
-      const color = new THREE.Color(`hsl(${hue}, 100%, ${lightness}%)`);
+      positionsArray.setXYZ(i, x, y, z);
 
-      colorsArray.setXYZ(i, color.r, color.g, color.b);
+      // Star size - smaller stars with occasional larger ones
+      const starSize =
+        Math.random() < 0.98
+          ? 0.1 + Math.random() * (starsSize * 0.2) // 98% small stars
+          : 0.3 + Math.random() * (starsSize * 0.6); // 2% larger stars
+
+      sizesArray.setX(i, starSize);
+
+      // Use only pure white stars to eliminate RGB artifacts
+      // Slight brightness variation for depth
+      const brightness = 0.7 + Math.random() * 0.3;
+      colorsArray.setXYZ(i, brightness, brightness, brightness);
     }
 
     stars.geometry = new THREE.BufferGeometry();
@@ -253,10 +272,15 @@ const BlackHole = ({
       vertexShader: starsVertexShader,
       fragmentShader: starsFragmentShader,
       depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uSize: { value: isMobile ? 1.0 : 1.5 },
+      },
     });
 
     stars.points = new THREE.Points(stars.geometry, stars.material);
     scene.add(stars.points);
+    sceneRef.current.stars = stars.points;
 
     /**
      * Distortion
@@ -314,6 +338,7 @@ const BlackHole = ({
           value: sceneRef.current.composition?.distortionRenderTarget?.texture,
         },
         uConvergencePosition: { value: new THREE.Vector2() },
+        uDistortionStrength: { value: 1.0 },
       },
     });
     composition.plane.mesh = new THREE.Mesh(
@@ -321,6 +346,12 @@ const BlackHole = ({
       composition.plane.material
     );
     composition.scene.add(composition.plane.mesh);
+
+    // Store composition plane in sceneRef for opacity control
+    sceneRef.current.composition = {
+      ...sceneRef.current.composition,
+      plane: composition.plane,
+    };
 
     const handleResize = () => {
       if (
@@ -489,6 +520,37 @@ const BlackHole = ({
       );
 
       targetRotation.current = -smoothProgress * Math.PI * 2;
+
+      // Control opacity of black hole and accretion disc based on scroll
+      // Start fading out at 70% of scroll progress, fully transparent at 100%
+      const opacityThreshold = 0.7;
+      const opacity =
+        progress >= opacityThreshold
+          ? 1 - (progress - opacityThreshold) / (1 - opacityThreshold)
+          : 1;
+
+      // Apply opacity to all relevant components
+      if (sceneRef.current.disc && sceneRef.current.disc.material.uniforms) {
+        // Update the uniform instead of material opacity
+        sceneRef.current.disc.material.uniforms.uOpacity.value = opacity;
+      }
+
+      // Update stars opacity
+      if (sceneRef.current.stars && sceneRef.current.stars.material) {
+        const starsOpacity = Math.max(0.3, opacity);
+        sceneRef.current.stars.material.opacity = starsOpacity;
+      }
+
+      // Update distortion effect strength based on opacity
+      if (
+        sceneRef.current.composition &&
+        sceneRef.current.composition.plane &&
+        sceneRef.current.composition.plane.material &&
+        sceneRef.current.composition.plane.material.uniforms
+      ) {
+        sceneRef.current.composition.plane.material.uniforms.uDistortionStrength.value =
+          opacity;
+      }
     }
   }, [scrollProgress, windowSize]);
 
