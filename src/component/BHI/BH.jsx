@@ -62,10 +62,10 @@ function BHI() {
     starsSceneRef.current.renderer = renderer;
 
     /**
-     * Stars - Reduced count to avoid overwhelming the global stars
+     * Stars - Adjusted to match other pages styling
      */
     const stars = {};
-    stars.count = 5000; // Reduced from 15000 to make the global stars more visible
+    stars.count = 5000; // Increased count to match density of other pages
 
     // Geometry
     const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
@@ -84,16 +84,16 @@ function BHI() {
         Math.cos(phi) * 400
       );
 
-      // Sizes - make stars larger for more visibility
-      sizesArray.setX(i, 2.5 + Math.random() * 25);
+      // Sizes - match other pages star sizes
+      sizesArray.setX(i, 2.0 + Math.random() * 15); // Reduced size range for sharper stars
 
       // Colors - create bright stars
       const hue =
-        Math.random() > 0.7
+        Math.random() > 0.6
           ? Math.round(200 + Math.random() * 60) // Blue-white stars
           : Math.round(Math.random() * 60); // Yellow-white stars
 
-      const lightness = Math.round(90 + Math.random() * 10); // Very bright stars
+      const lightness = Math.round(99 + Math.random() * 1); // Maximum brightness with less variation
       const color = new THREE.Color(`hsl(${hue}, 100%, ${lightness}%)`);
 
       colorsArray.setXYZ(i, color.r, color.g, color.b);
@@ -304,8 +304,10 @@ function BHI() {
             left: 0,
             width: "100vw",
             height: "100vh",
-            zIndex: -1, // Changed from 0 to -1 to prevent conflicting with global stars
+            zIndex: -1, // Below other elements
             pointerEvents: "none",
+            opacity: 0.4, // Partially visible
+            display: "block", // Show the stars canvas
           }}
         />
 

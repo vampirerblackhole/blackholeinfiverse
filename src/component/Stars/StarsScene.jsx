@@ -58,9 +58,9 @@ export default function StarsScene() {
         background: "transparent",
         zIndex: 1, // Lower z-index so stars appear behind content
         pointerEvents: "none", // Allow clicking through
-        mixBlendMode: "screen", // Changed to screen blend mode for better visibility
+        mixBlendMode: "normal", // Changed back to normal to prevent affecting the blackhole
         filter: "none", // No filter to ensure consistent appearance across pages
-        opacity: isHomePage ? 0.8 : 1, // Slightly reduced opacity on homepage to match other pages
+        opacity: 1, // Full opacity for maximum visibility
       }}
     >
       {mounted && (
@@ -69,8 +69,8 @@ export default function StarsScene() {
           width="100%"
           height="100%"
           backgroundColor="transparent"
-          starsCount={isHomePage ? 20000 : 10000} // More stars on homepage
-          starsSize={isHomePage ? 40 : 35} // Bigger stars on homepage
+          starsCount={isHomePage ? 100000 : 10000} // Match other pages star count
+          starsSize={isHomePage ? 45 : 35} // Reduced size to make stars sharper
           scrollProgress={scrollProgress}
         />
       )}

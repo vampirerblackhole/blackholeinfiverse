@@ -83,7 +83,7 @@ export default function BlackholeScene() {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0,0,0,0.6)", // More transparent to let stars show through better
+        background: "rgba(0,0,0,0.2)", // Very transparent background to let stars show through
         zIndex: 2, // Set to 2 to work better with global StarsScene (z-index 1)
         pointerEvents: "auto", // Allow mouse interactions
         opacity: opacity,
@@ -97,7 +97,7 @@ export default function BlackholeScene() {
           className="webgl blackhole-canvas-override"
           width="100%"
           height="100%"
-          backgroundColor="black" // Make background transparent
+          backgroundColor="black" // Solid black background for the blackhole itself
           holeSize={2.6}
           discOuterSize={6}
           autoRotate={false}
