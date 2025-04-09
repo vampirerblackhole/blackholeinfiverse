@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "./Navbar/Navbar"; // Import the Navbar component
 import Contact from "./component/Contact/Contact";
 import LoadingAnimation from "./component/LoadingAnimation";
+import StarsScene from "./component/Stars/StarsScene"; // Import StarsScene
 
 const Website = lazy(() => import("./Main/Website")); // Lazy load Website
 
@@ -16,7 +17,8 @@ function App() {
       className="relative min-h-screen"
       style={{ backgroundColor: "black" }} // Pure black for maximum star contrast
     >
-      {/* Removed StarsScene component */}
+      {/* Add StarsScene component here to be available on all pages */}
+      <StarsScene />
 
       <Router>
         {/* Blackhole only on homepage - now inside Router for proper navigation */}

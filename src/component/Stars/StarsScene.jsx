@@ -6,6 +6,7 @@ export default function StarsScene() {
   const [mounted, setMounted] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false);
+  const [starOpacity, setStarOpacity] = useState(1);
 
   // Check if we're on the home page
   useEffect(() => {
@@ -16,9 +17,11 @@ export default function StarsScene() {
 
     checkIsHomePage();
     window.addEventListener("popstate", checkIsHomePage);
+    window.addEventListener("pushstate", checkIsHomePage);
 
     return () => {
       window.removeEventListener("popstate", checkIsHomePage);
+      window.removeEventListener("pushstate", checkIsHomePage);
     };
   }, []);
 
@@ -32,11 +35,27 @@ export default function StarsScene() {
 
       // Set scroll progress for stars parallax effect
       setScrollProgress(Math.min(scrollPercent, 1));
+
+      // If on homepage, adjust opacity based on scroll to avoid interfering with blackhole
+      if (isHomePage) {
+        // Make stars more subtle on homepage to not compete with blackhole
+        // Full opacity at the bottom of the page where blackhole fades out
+        if (scrollPercent > 0.7) {
+          setStarOpacity(Math.min(1, (scrollPercent - 0.7) / 0.3));
+        } else {
+          setStarOpacity(0.3); // More subtle on homepage
+        }
+      } else {
+        setStarOpacity(1); // Full opacity on other pages
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+    // Initial call to set values
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   // Ensure the component mounts after load
   useEffect(() => {
@@ -56,11 +75,12 @@ export default function StarsScene() {
         width: "100%",
         height: "100%",
         background: "transparent",
-        zIndex: 1, // Lower z-index so stars appear behind content
+        zIndex: isHomePage ? -1 : 0, // Lower z-index on homepage to be behind the blackhole
         pointerEvents: "none", // Allow clicking through
-        mixBlendMode: "normal", // Changed back to normal to prevent affecting the blackhole
-        filter: "none", // No filter to ensure consistent appearance across pages
-        opacity: 1, // Full opacity for maximum visibility
+        mixBlendMode: "normal",
+        filter: "none",
+        opacity: starOpacity,
+        transition: "opacity 0.3s ease-out",
       }}
     >
       {mounted && (
@@ -69,8 +89,9 @@ export default function StarsScene() {
           width="100%"
           height="100%"
           backgroundColor="transparent"
-          starsCount={isHomePage ? 100000 : 10000} // Match other pages star count
-          starsSize={isHomePage ? 45 : 35} // Reduced size to make stars sharper
+          starsCount={isHomePage ? 5000 : 15000} // Fewer stars on homepage to not compete with blackhole
+          radius={400}
+          starsSize={isHomePage ? 20 : 30} // Smaller stars on homepage
           scrollProgress={scrollProgress}
         />
       )}
