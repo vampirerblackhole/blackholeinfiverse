@@ -65,6 +65,42 @@ export default function StarsScene() {
     };
   }, []);
 
+  // Get current pathname to differentiate star appearance between pages
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "/";
+
+  // Customize star parameters based on page
+  let starParams = {};
+  if (isHomePage) {
+    // Homepage - fewer, more subtle stars
+    starParams = {
+      starsCount: 5000,
+      starsSize: 8,
+      radius: 400,
+    };
+  } else if (pathname.includes("/about")) {
+    // About page - more stars with different distribution
+    starParams = {
+      starsCount: 12000,
+      starsSize: 12,
+      radius: 450,
+    };
+  } else if (pathname.includes("/contact")) {
+    // Contact page - dense field of smaller stars
+    starParams = {
+      starsCount: 18000,
+      starsSize: 9,
+      radius: 500,
+    };
+  } else {
+    // Default for other pages
+    starParams = {
+      starsCount: 15000,
+      starsSize: 10,
+      radius: 400,
+    };
+  }
+
   return (
     <div
       className="stars-container-override"
@@ -89,9 +125,7 @@ export default function StarsScene() {
           width="100%"
           height="100%"
           backgroundColor="transparent"
-          starsCount={isHomePage ? 5000 : 15000} // Fewer stars on homepage to not compete with blackhole
-          radius={400}
-          starsSize={isHomePage ? 20 : 30} // Smaller stars on homepage
+          {...starParams}
           scrollProgress={scrollProgress}
         />
       )}
