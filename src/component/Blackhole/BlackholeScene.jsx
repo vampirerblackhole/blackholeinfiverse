@@ -83,8 +83,8 @@ export default function BlackholeScene() {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(0,0,0,1)", // Slightly transparent black background
-        zIndex: 3, // Above basic content but below BHI content
+        background: "rgba(0,0,0,0.6)", // More transparent to let stars show through better
+        zIndex: 2, // Set to 2 to work better with global StarsScene (z-index 1)
         pointerEvents: "auto", // Allow mouse interactions
         opacity: opacity,
         transition: "opacity 0.3s ease-out",

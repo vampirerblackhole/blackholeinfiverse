@@ -16,7 +16,7 @@ function Website() {
         position: "relative",
         width: "100%",
         minHeight: "100vh",
-        zIndex: 10,
+        zIndex: 3,
         background: "transparent",
       }}
     >
@@ -24,11 +24,11 @@ function Website() {
       <div
         style={{
           position: "relative",
-          zIndex: 10,
+          zIndex: 3,
           width: "100%",
           minHeight: "100vh",
           pointerEvents: "auto",
-          background: "solid",
+          background: "transparent",
         }}
       >
         {/* Display BHI component first */}

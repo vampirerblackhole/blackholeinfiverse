@@ -58,9 +58,9 @@ export default function StarsScene() {
         background: "transparent",
         zIndex: 1, // Lower z-index so stars appear behind content
         pointerEvents: "none", // Allow clicking through
-        mixBlendMode: "normal", // Use normal blend mode
-        filter: isHomePage ? "brightness(0.5)" : "none", // Brighter stars on homepage
-        opacity: 1, // Full opacity
+        mixBlendMode: "screen", // Changed to screen blend mode for better visibility
+        filter: "none", // No filter to ensure consistent appearance across pages
+        opacity: isHomePage ? 0.8 : 1, // Slightly reduced opacity on homepage to match other pages
       }}
     >
       {mounted && (

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../styles/BH.css";
@@ -14,7 +14,6 @@ function BHI() {
   const scrollRef = useRef(null); // For the scroll container
   const canvasRef = useRef(null); // For the canvas element
   const starsCanvasRef = useRef(null); // For the stars canvas element
-  const [initialLoading, setInitialLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
   const paragraphRef1 = useRef(null);
   const paragraphRef2 = useRef(null);
@@ -63,10 +62,10 @@ function BHI() {
     starsSceneRef.current.renderer = renderer;
 
     /**
-     * Stars
+     * Stars - Reduced count to avoid overwhelming the global stars
      */
     const stars = {};
-    stars.count = 15000;
+    stars.count = 5000; // Reduced from 15000 to make the global stars more visible
 
     // Geometry
     const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
@@ -188,7 +187,6 @@ function BHI() {
   useEffect(() => {
     // Handler function for the load event
     const handleLoad = () => {
-      setInitialLoading(false);
       if (headingRef.current) {
         headingRef.current.style.opacity = "1";
       }
@@ -292,7 +290,7 @@ function BHI() {
           overflowX: "hidden",
           overflowY: "hidden",
           transition: "opacity 1.5s ease-in-out",
-          zIndex: 10, // Above blackhole (3) and stars (1)
+          zIndex: 5, // Reduced from 10 to allow the global StarsScene to be visible
           background: "transparent", // Ensure background is transparent
           display: isLoaded ? "block" : "none", // Only display when loaded
         }}
@@ -306,7 +304,7 @@ function BHI() {
             left: 0,
             width: "100vw",
             height: "100vh",
-            zIndex: 0, // Below the main BHI canvas (z-index 5)
+            zIndex: -1, // Changed from 0 to -1 to prevent conflicting with global stars
             pointerEvents: "none",
           }}
         />
