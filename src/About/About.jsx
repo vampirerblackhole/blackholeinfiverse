@@ -63,7 +63,7 @@ function About() {
         ref={heroRef}
         className="relative h-screen flex items-center justify-center text-center px-4"
       >
-        <div className="absolute inset-0 bg-[url('../../public/about/bh-mainH.jpg')] bg-cover bg-center opacity-80"></div>
+        <div className="absolute inset-0 bg-[url('/about/bh-mainH.jpg')] bg-cover bg-center opacity-80"></div>
         <div className="relative z-10 max-w-4xl mx-auto pt-16">
           <div className="backdrop-blur-md bg-black/20 p-10 rounded-3xl border border-white/10 shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_20px_rgba(0,0,0,0.3)] hover:bg-black/25">
             <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
@@ -103,7 +103,7 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="../../public/about/vrwoman-img.jpg"
+                src="/about/vrwoman-img.jpg"
                 alt="VR Gaming"
                 className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-pink-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
@@ -129,7 +129,7 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="../../public/about/ai-img.png"
+                src="/about/ai-img.png"
                 alt="AI Development"
                 className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-purple-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
@@ -155,7 +155,7 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="../../public/about/robot-img.jpg"
+                src="/about/robot-img.jpg"
                 alt="Robotics"
                 className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-blue-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
@@ -181,7 +181,7 @@ function About() {
             </div>
             <div className="md:w-1/2">
               <img
-                src="../../public/about/blockchain-img.jpg"
+                src="/about/blockchain-img.jpg"
                 alt="Blockchain"
                 className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-yellow-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
