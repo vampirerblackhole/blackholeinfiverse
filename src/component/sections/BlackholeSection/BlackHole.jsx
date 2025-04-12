@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import PropTypes from "prop-types";
 
 // Import shaders
-import discVertexShader from "../../shaders/disc/vertex.glsl";
-import discFragmentShader from "../../shaders/disc/fragment.glsl";
-import noisesVertexShader from "../../shaders/noises/vertex.glsl";
-import noisesFragmentShader from "../../shaders/noises/fragment.glsl";
-import starsVertexShader from "../../shaders/stars/vertex.glsl";
-import starsFragmentShader from "../../shaders/stars/fragment.glsl";
-import distortionHoleVertexShader from "../../shaders/distortionHole/vertex.glsl";
-import distortionHoleFragmentShader from "../../shaders/distortionHole/fragment.glsl";
-import distortionDiscVertexShader from "../../shaders/distortionDisc/vertex.glsl";
-import distortionDiscFragmentShader from "../../shaders/distortionDisc/fragment.glsl";
-import compositionVertexShader from "../../shaders/composition/vertex.glsl";
-import compositionFragmentShader from "../../shaders/composition/fragment.glsl";
+import discVertexShader from "@/shaders/disc/vertex.glsl";
+import discFragmentShader from "@/shaders/disc/fragment.glsl";
+import noisesVertexShader from "@/shaders/noises/vertex.glsl";
+import noisesFragmentShader from "@/shaders/noises/fragment.glsl";
+import starsVertexShader from "@/shaders/stars/vertex.glsl";
+import starsFragmentShader from "@/shaders/stars/fragment.glsl";
+import distortionHoleVertexShader from "@/shaders/distortionHole/vertex.glsl";
+import distortionHoleFragmentShader from "@/shaders/distortionHole/fragment.glsl";
+import distortionDiscVertexShader from "@/shaders/distortionDisc/vertex.glsl";
+import distortionDiscFragmentShader from "@/shaders/distortionDisc/fragment.glsl";
+import compositionVertexShader from "@/shaders/composition/vertex.glsl";
+import compositionFragmentShader from "@/shaders/composition/fragment.glsl";
 
 const BlackHole = ({
   className = "webgl",
@@ -448,31 +448,46 @@ const BlackHole = ({
 
     animate();
 
+    // Store ref values that need to be accessed in cleanup
+    const currentRenderer = renderer;
+    const currentControls = controls;
+    const currentComposition = sceneRef.current.composition;
+    const currentGeometries = {
+      disc: disc.geometry,
+      noisesPlane: noises.plane.geometry,
+      stars: stars.geometry,
+      distortionHole: distortion.hole.geometry,
+      distortionDisc: distortion.disc.geometry,
+      compositionPlane: composition.plane.geometry,
+    };
+    const currentMaterials = {
+      disc: disc.material,
+      noisesPlane: noises.plane.material,
+      stars: stars.material,
+      distortionHole: distortion.hole.material,
+      distortionDisc: distortion.disc.material,
+      compositionPlane: composition.plane.material,
+    };
+
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleResize);
       cancelAnimationFrame(frameId.current);
 
-      renderer.dispose();
-      controls.dispose();
+      currentRenderer.dispose();
+      currentControls.dispose();
 
-      disc.geometry.dispose();
-      noises.plane.geometry.dispose();
-      stars.geometry.dispose();
-      distortion.hole.geometry.dispose();
-      distortion.disc.geometry.dispose();
-      composition.plane.geometry.dispose();
+      // Dispose geometries
+      Object.values(currentGeometries).forEach((geometry) =>
+        geometry.dispose()
+      );
 
-      disc.material.dispose();
-      noises.plane.material.dispose();
-      stars.material.dispose();
-      distortion.hole.material.dispose();
-      distortion.disc.material.dispose();
-      composition.plane.material.dispose();
+      // Dispose materials
+      Object.values(currentMaterials).forEach((material) => material.dispose());
 
       noises.renderTarget.dispose();
-      sceneRef.current.composition?.defaultRenderTarget?.dispose();
-      sceneRef.current.composition?.distortionRenderTarget?.dispose();
+      currentComposition?.defaultRenderTarget?.dispose();
+      currentComposition?.distortionRenderTarget?.dispose();
 
       disc.gradient.texture.dispose();
     };

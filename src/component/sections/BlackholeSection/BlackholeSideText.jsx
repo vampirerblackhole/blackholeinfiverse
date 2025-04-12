@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "../../styles/BH.css";
-
-// Remove star shaders imports
-// import starsVertexShader from "../../shaders/stars/vertex.glsl";
-// import starsFragmentShader from "../../shaders/stars/fragment.glsl";
+import "../../../styles/BH.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function BHI() {
+function BlackholeSideText() {
   const scrollRef = useRef(null); // For the scroll container
   const canvasRef = useRef(null); // For the canvas element
   // const starsCanvasRef = useRef(null); // For the stars canvas element - removed
@@ -233,4 +229,4 @@ function BHI() {
   );
 }
 
-export default BHI;
+export default BlackholeSideText;

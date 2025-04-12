@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Stars from "./Stars";
 import "./Stars.css"; // Import stars-specific styles
 
@@ -7,10 +8,16 @@ export default function StarsScene() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false);
   const [starOpacity, setStarOpacity] = useState(1);
+  const [starParams, setStarParams] = useState({
+    starsCount: 12000,
+    starsSize: 5,
+    radius: 450,
+  });
+
+  const { pathname: path } = useLocation();
 
   // Check page on mount only (no route tracking)
   useEffect(() => {
-    const path = window.location.pathname;
     setIsHomePage(path === "/" || path === "");
 
     // Mount immediately
@@ -19,7 +26,7 @@ export default function StarsScene() {
     return () => {
       setMounted(false);
     };
-  }, []);
+  }, [path]);
 
   // Handle scroll position
   useEffect(() => {
@@ -50,41 +57,27 @@ export default function StarsScene() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isHomePage]);
 
-  // Get current page parameters
-  const path = window.location.pathname;
-
-  // Customize star parameters based on page
-  let starParams = {};
-
-  if (path === "/" || path === "") {
-    // Homepage
-    starParams = {
-      starsCount: 8000,
-      starsSize: 5,
-      radius: 450,
-    };
-  } else if (path.includes("/contact")) {
-    // Contact page
-    starParams = {
-      starsCount: 18000,
-      starsSize: 5,
-      radius: 500,
-    };
-  } else if (path.includes("/about")) {
-    // About page
-    starParams = {
-      starsCount: 15000,
-      starsSize: 5.5,
-      radius: 500,
-    };
-  } else {
-    // Default for other pages
-    starParams = {
-      starsCount: 12000,
-      starsSize: 5,
-      radius: 450,
-    };
-  }
+  useEffect(() => {
+    if (path === "/") {
+      setStarParams({
+        starsCount: 18000,
+        starsSize: 5,
+        radius: 500,
+      });
+    } else if (path.includes("/about")) {
+      setStarParams({
+        starsCount: 15000,
+        starsSize: 5.5,
+        radius: 500,
+      });
+    } else {
+      setStarParams({
+        starsCount: 12000,
+        starsSize: 5,
+        radius: 450,
+      });
+    }
+  }, [path]);
 
   return (
     <div

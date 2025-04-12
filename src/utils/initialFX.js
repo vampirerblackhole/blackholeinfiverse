@@ -1,5 +1,5 @@
-import { SplitText } from "gsap-trial/SplitText"; // Correct import for trial version
-import gsap from "gsap";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
 import { smoother } from "../Navbar/Navbar";
 
 // Register the SplitText plugin
@@ -17,7 +17,9 @@ export function initialFX() {
   });
 
   // Ensure the elements exist in the DOM
-  const landingElements = document.querySelectorAll(".landing-info h3, .landing-intro h2, .landing-intro h1");
+  const landingElements = document.querySelectorAll(
+    ".landing-info h3, .landing-intro h2, .landing-intro h1"
+  );
   if (landingElements.length > 0) {
     var landingText = new SplitText(landingElements, {
       type: "chars,lines",
@@ -86,7 +88,11 @@ export function initialFX() {
   const landingText4Elements = document.querySelectorAll(".landing-h2-1");
   const landingText5Elements = document.querySelectorAll(".landing-h2-2");
 
-  if (landingText3Elements.length > 0 && landingText4Elements.length > 0 && landingText5Elements.length > 0) {
+  if (
+    landingText3Elements.length > 0 &&
+    landingText4Elements.length > 0 &&
+    landingText5Elements.length > 0
+  ) {
     var landingText3 = new SplitText(landingText3Elements, TextProps);
     var landingText4 = new SplitText(landingText4Elements, TextProps);
     var landingText5 = new SplitText(landingText5Elements, TextProps);

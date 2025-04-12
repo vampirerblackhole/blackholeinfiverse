@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Experience from "./Experience"; // This renders the robot model
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import "../../styles/Robot.css";
+import "@/styles/Robot.css";
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 

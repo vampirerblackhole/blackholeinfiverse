@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Color, BufferGeometry, Float32BufferAttribute } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 
-// Import star shaders
+// Import star shaders with relative paths
 import starsVertexShader from "../../shaders/stars/vertex.glsl";
 import starsFragmentShader from "../../shaders/stars/fragment.glsl";
 
@@ -81,8 +81,6 @@ function StarsPoints({
   useFrame(() => {
     if (materialRef.current) {
       // Update time
-      timeRef.current += 0.01;
-
       // Update uniforms
       materialRef.current.uniforms.uTime.value = timeRef.current;
       materialRef.current.uniforms.uScrollProgress.value = scrollProgress;

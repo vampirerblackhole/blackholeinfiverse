@@ -1,13 +1,8 @@
-// import React from "react";
-// import StarsCanvas from '../../main/StarBackground'
-import BHI from "../component/BHI/BH";
-import Main from "../component/Robotics/Main";
-import Main2 from "../component/Gaming/Main2";
-import BlackholeScene from "../component/Blackhole/BlackholeScene";
-// import Navbar from "../Navbar/Navbar";
-// import Main3 from "../component/Ai/Main3";
-// import BlackholeContainer from "../component/Blackhole/BlackholeContainer";
-// import Exp from '../component/shaders/Exp'
+import { Suspense } from "react";
+import BlackholeSideText from "../component/sections/BlackholeSection/BlackholeSideText";
+import Main from "../component/sections/RobotSection/Main";
+import Main2 from "../component/sections/StadiumSection/Main2";
+import BlackholeScene from "../component/sections/BlackholeSection/BlackholeScene";
 
 function Website() {
   return (
@@ -34,12 +29,14 @@ function Website() {
             background: "transparent",
           }}
         >
-          {/* Display BHI component first */}
-          <BHI />
+          <Suspense fallback={<div>Loading...</div>}>
+            {/* Display BlackholeSideText component first */}
+            <BlackholeSideText />
 
-          {/* Then display robotics and gaming sections */}
-          <Main />
-          <Main2 />
+            {/* Then display robotics and gaming sections */}
+            <Main />
+            <Main2 />
+          </Suspense>
         </div>
       </div>
     </>

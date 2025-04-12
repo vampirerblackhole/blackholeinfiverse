@@ -16,6 +16,13 @@
   mix-blend-mode: normal !important; /* Normal blend mode */
 }
 
+/* Override any global canvas styles */
+.stars-container-override canvas {
+  filter: none !important;
+  opacity: 1 !important;
+  background: transparent !important;
+}
+
 /* Reset any external styling on the stars canvas */
 .stars-canvas-override {
   position: relative !important;
@@ -31,5 +38,6 @@
   filter: blur(0.2px) brightness(0.5) !important; /* Brighter stars with slight blur */
   opacity: 1 !important;
   background: transparent !important;
-  mix-blend-mode: normal !important; /* Normal blend mode */
+  mix-blend-mode: screen !important; /* Screen blend mode */
+  pointer-events: none !important;
 }
