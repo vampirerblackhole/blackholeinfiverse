@@ -3,14 +3,15 @@ import BlackholeSideText from "../component/sections/BlackholeSection/BlackholeS
 import Main from "../component/sections/RobotSection/Main";
 import Main2 from "../component/sections/StadiumSection/Main2";
 import BlackholeScene from "../component/sections/BlackholeSection/BlackholeScene";
+import LoadingAnimation from "../component/LoaderBeforeSite";
 
 function Website() {
   return (
     <>
-      {/* Background layers */}
+      {/* Background Scene */}
       <BlackholeScene />
 
-      {/* Main content */}
+      {/* Main Content */}
       <div
         style={{
           position: "relative",
@@ -29,12 +30,14 @@ function Website() {
             background: "transparent",
           }}
         >
-          <Suspense fallback={<div>Loading...</div>}>
-            {/* Display BlackholeSideText component first */}
+          <Suspense fallback={<LoadingAnimation />}>
+            {/* BlackholeSideText Section */}
             <BlackholeSideText />
 
-            {/* Then display robotics and gaming sections */}
+            {/* Robot Section */}
             <Main />
+
+            {/* Stadium Section */}
             <Main2 />
           </Suspense>
         </div>

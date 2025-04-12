@@ -94,7 +94,7 @@ const BlackHole = ({
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(backgroundColor);
+    renderer.setClearColor(0x000000, 0); // Use black color with 0 alpha for transparency
     sceneRef.current.renderer = renderer;
 
     const pixelRatio = isMobile ? 1 : Math.min(window.devicePixelRatio, 2);
@@ -431,16 +431,17 @@ const BlackHole = ({
       renderer.setRenderTarget(
         sceneRef.current.composition?.defaultRenderTarget || null
       );
-      renderer.setClearColor(backgroundColor);
+      renderer.setClearColor(0x000000, 0); // Set alpha to 0 for transparency
       renderer.render(scene, camera);
 
       renderer.setRenderTarget(
         sceneRef.current.composition?.distortionRenderTarget || null
       );
-      renderer.setClearColor("#000000");
+      renderer.setClearColor(0x000000, 0); // Set alpha to 0 for transparency
       renderer.render(distortion.scene, camera);
 
       renderer.setRenderTarget(null);
+      renderer.setClearColor(0x000000, 0); // Set alpha to 0 for transparency
       renderer.render(composition.scene, composition.camera);
 
       frameId.current = requestAnimationFrame(animate);

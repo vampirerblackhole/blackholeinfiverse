@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/Loader.css";
 
 const LoadingAnimation = ({ onLoadingComplete }) => {
   const canvasRef = useRef(null);
   const progressRef = useRef(0);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,8 +53,13 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Update loading progress
+      progressRef.current += 0.005;
+      setLoadingProgress(Math.min(progressRef.current * 100, 100));
+
+      // Draw stars with dynamic scaling based on progress
       stars.forEach((star) => {
-        star.z -= star.speed;
+        star.z -= star.speed * (progressRef.current * 0.5 + 0.5);
         if (star.z <= 0) {
           star.z = 1000;
           star.x = Math.random() * canvas.width;
@@ -70,13 +76,13 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
         ctx.fill();
       });
 
-      progressRef.current += 0.003;
-
+      // Enhanced meteor animation
       if (phase === "approach") {
-        meteor.x += meteor.speed;
+        meteor.x += meteor.speed * (1 + progressRef.current * 0.5);
         meteor.trail.unshift({ x: meteor.x, y: meteor.y, size: meteor.size });
         if (meteor.trail.length > 20) meteor.trail.pop();
 
+        // Draw meteor trail with improved gradient
         meteor.trail.forEach((pos, i) => {
           const alpha = (1 - i / meteor.trail.length) * 0.7;
           ctx.beginPath();
@@ -91,6 +97,7 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
           ctx.fill();
         });
 
+        // Enhanced meteor glow effect
         const gradient = ctx.createRadialGradient(
           meteor.x,
           meteor.y,
@@ -101,13 +108,14 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
         );
         gradient.addColorStop(0, "rgba(25, 25, 25, 1)");
         gradient.addColorStop(0.4, "rgba(17, 172, 253, 0.8)");
-        gradient.addColorStop(0, "rgba(47, 19, 23, 0)");
+        gradient.addColorStop(1, "rgba(47, 19, 23, 0)");
 
         ctx.beginPath();
         ctx.fillStyle = gradient;
         ctx.arc(meteor.x, meteor.y, meteor.size * 2, 0, Math.PI * 2);
         ctx.fill();
 
+        // Particle system animation
         meteor.particles.forEach((particle) => {
           particle.x += particle.vx;
           particle.y += particle.vy;
@@ -162,7 +170,7 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
 
         ctx.beginPath();
         ctx.fillStyle = gradient;
-        ctx.arc(meteor.x, meteor.y, meteor.size, 0, Math.PI * 2);
+        ctx.arc(meteor.x, meteor.y, meteor.size * 2, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.restore();
@@ -185,21 +193,10 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
       style={{ zIndex: 50 }}
     >
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 text-center">
-        {/* <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight">
-          {title}
-        </h1> */}
-
-        <div
-          style={{
-            position: "absolute",
-            top: 30,
-          }}
-          id="loop"
-        >
-          <h1 className="font-bold  text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform  loop-h1">
-            <span> BE A </span> PART{" "}
+        <div style={{ position: "absolute", top: 30 }} id="loop">
+          <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-150 loop-h1">
+            <span>BE A </span> PART{" "}
             <b>
               <i>OF</i>
             </b>{" "}
@@ -208,28 +205,8 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
               <i>FUTURE! </i>
             </b>
           </h1>
-          <h1 className="font-bold  text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-150 loop-h1">
-            <span> BE A </span> PART{" "}
-            <b>
-              <i>OF</i>
-            </b>{" "}
-            THE <span>UNAWARE</span>{" "}
-            <b>
-              <i>FUTURE! </i>
-            </b>
-          </h1>
-          <h1 className="font-bold  text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-150 loop-h1">
-            <span> BE A </span> PART{" "}
-            <b>
-              <i>OF</i>
-            </b>{" "}
-            THE <span>UNAWARE</span>{" "}
-            <b>
-              <i>FUTURE! </i>
-            </b>
-          </h1>
-          <h1 className="font-bold  text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-150 loop-h1">
-            <span> BE A </span> PART{" "}
+          <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-150 loop-h1">
+            <span>BE A </span> PART{" "}
             <b>
               <i>OF</i>
             </b>{" "}
@@ -239,6 +216,19 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
             </b>
           </h1>
         </div>
+
+        {/* Loading Progress Indicator */}
+        <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center">
+          <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 transition-all duration-300"
+              style={{ width: `${loadingProgress}%` }}
+            />
+          </div>
+          <p className="text-white mt-2 text-sm font-mono">
+            Loading... {Math.round(loadingProgress)}%
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -246,8 +236,6 @@ const LoadingAnimation = ({ onLoadingComplete }) => {
 
 LoadingAnimation.propTypes = {
   onLoadingComplete: PropTypes.func,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
 };
 
 export default LoadingAnimation;
