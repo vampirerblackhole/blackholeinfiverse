@@ -1,0 +1,64 @@
+[33ma0decf1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33ma0decf1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m HEAD@{1}: checkout: moving from bcd0e8ed9331dc43d9e53e0c3b2dd1da2b45e7dd to master
+[33mbcd0e8e[m HEAD@{2}: commit: fixed all loader bug
+[33m510d082[m HEAD@{3}: reset: moving to 510d082455d801f71a58013d0af64b32add45ee3
+[33ma0decf1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m HEAD@{4}: checkout: moving from 6e588339abdf76261ebdf3b345ad110ecdae006b to a0decf167e6156088aa55a356543cdda0b380e9e
+[33m6e58833[m HEAD@{5}: checkout: moving from master to 6e588339abdf76261ebdf3b345ad110ecdae006b
+[33ma0decf1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m HEAD@{6}: commit: fix loader broke animation
+[33m510d082[m HEAD@{7}: commit: fix loader v1
+[33mb88c25d[m HEAD@{8}: commit: fix file structure v1.1
+[33m6e58833[m HEAD@{9}: commit: fix file structure v1
+[33m1b5b018[m HEAD@{10}: commit: Deployed v2
+[33m732fd24[m HEAD@{11}: commit: Blackhole v5.3 deployR
+[33m0e81c2a[m HEAD@{12}: commit: blackhole v5.2
+[33m4901720[m HEAD@{13}: commit: blackhole v5.1
+[33mf01d4b6[m HEAD@{14}: commit: blackhole v5
+[33m1125cfb[m HEAD@{15}: commit: added stars to all page only "/" stars bug left
+[33me9d594b[m HEAD@{16}: commit: bh scroll down bug v1
+[33m549f068[m HEAD@{17}: reset: moving to 549f0689c97904211d2952d5a6ac7c2906999e01
+[33m549f068[m HEAD@{18}: reset: moving to 549f0689c97904211d2952d5a6ac7c2906999e01
+[33m549f068[m HEAD@{19}: commit: blackhole removed extra stars
+[33mb2bb7e3[m HEAD@{20}: reset: moving to b2bb7e3ebf8582f2f62f8434dabcd46e414e58c6
+[33mb2bb7e3[m HEAD@{21}: commit: blackhole v4.9 just before fixing stars
+[33m2f8e403[m HEAD@{22}: commit: blackhole v4.4 more star fixes
+[33mb26b499[m HEAD@{23}: commit: blackhole v4.3 fixed stars
+[33m3e9c437[m HEAD@{24}: commit: blackhole v4.2 fix more styling and a bit to blackhole
+[33m421f814[m HEAD@{25}: commit: blackhole v4.1 changed ring color
+[33mf55e3c5[m HEAD@{26}: commit: Blackhole v4
+[33maec1b60[m HEAD@{27}: commit: bh 3.4 scroll works yay
+[33m61607da[m HEAD@{28}: commit: blackhole v3.3
+[33mb74894e[m HEAD@{29}: reset: moving to b74894e466a57f13cea8614a12d9ad60ad9ced09
+[33mb74894e[m HEAD@{30}: reset: moving to b74894e466a57f13cea8614a12d9ad60ad9ced09
+[33mb74894e[m HEAD@{31}: commit: blackhole v3.2 fixed blackhole show up after page load
+[33me5b8644[m HEAD@{32}: reset: moving to e5b8644b139e50c482cfedfe85ceba6910880913
+[33me5b8644[m HEAD@{33}: commit: blackhole v3.1 bug fixes
+[33ma6214d9[m HEAD@{34}: commit: black v3 sucessfull
+[33mb498598[m HEAD@{35}: reset: moving to b498598e76115cc1f4ec601bdeedd1f178ee9971
+[33mb498598[m HEAD@{36}: reset: moving to b498598e76115cc1f4ec601bdeedd1f178ee9971
+[33mb498598[m HEAD@{37}: reset: moving to b498598e76115cc1f4ec601bdeedd1f178ee9971
+[33mb498598[m HEAD@{38}: reset: moving to b498598e76115cc1f4ec601bdeedd1f178ee9971
+[33mb498598[m HEAD@{39}: reset: moving to b498598e76115cc1f4ec601bdeedd1f178ee9971
+[33mb498598[m HEAD@{40}: commit: somewhat fix bh v2
+[33md013611[m HEAD@{41}: reset: moving to d0136119c5e0ea83b61b8b8f18d80c74dd7406bf
+[33md013611[m HEAD@{42}: reset: moving to d0136119c5e0ea83b61b8b8f18d80c74dd7406bf
+[33md013611[m HEAD@{43}: reset: moving to d0136119c5e0ea83b61b8b8f18d80c74dd7406bf
+[33md013611[m HEAD@{44}: reset: moving to d0136119c5e0ea83b61b8b8f18d80c74dd7406bf
+[33md013611[m HEAD@{45}: reset: moving to d0136119c5e0ea83b61b8b8f18d80c74dd7406bf
+[33md013611[m HEAD@{46}: commit: somewhat blackhole working v1
+[33m3f51543[m HEAD@{47}: commit: v2 mess around
+[33m5a91e96[m HEAD@{48}: commit: added stars to all page and more style to contact us
+[33m337499e[m HEAD@{49}: reset: moving to 337499efc595ff670cf03eea9457e13c150ff45f
+[33m337499e[m HEAD@{50}: reset: moving to 337499efc595ff670cf03eea9457e13c150ff45f
+[33m337499e[m HEAD@{51}: reset: moving to 337499efc595ff670cf03eea9457e13c150ff45f
+[33m337499e[m HEAD@{52}: reset: moving to 337499efc595ff670cf03eea9457e13c150ff45f
+[33m337499e[m HEAD@{53}: reset: moving to 337499efc595ff670cf03eea9457e13c150ff45f
+[33ma7ad5eb[m HEAD@{54}: commit: Add star field effect with smooth animations and proper scrolling
+[33m337499e[m HEAD@{55}: reset: moving to 337499efc595ff670cf03eea9457e13c150ff45f
+[33m1504194[m HEAD@{56}: reset: moving to 15041942b89d64bffea276ea8cfa8457074e79bc
+[33m1504194[m HEAD@{57}: commit: prob
+[33m337499e[m HEAD@{58}: commit: add stars to the Main "/" page
+[33m90e51b1[m HEAD@{59}: commit: ready for bh
+[33ma793ecd[m HEAD@{60}: commit: fix navbar styling
+[33m17112d5[m HEAD@{61}: commit: fix max-h on message input in Contact.jsx
+[33mbfde2e8[m HEAD@{62}: commit: fixed contact input hover styling
+[33mbe1d3d1[m HEAD@{63}: commit (initial): v1 of infiverse before vampr

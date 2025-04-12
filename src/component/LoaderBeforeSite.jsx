@@ -8,6 +8,27 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
   const [showLoader, setShowLoader] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Update progress handling with guaranteed completion
+  useEffect(() => {
+    if (progress >= 100) {
+      progressRef.current = progress;
+      setLoadingProgress(100);
+
+      // Wait a moment at 100% before transitioning
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setShowLoader(false);
+          onLoadingComplete?.();
+        }, 500); // Wait for fade out animation
+      }, 600); // Show 100% state briefly
+    } else {
+      setLoadingProgress(progress);
+      progressRef.current = progress;
+    }
+  }, [progress, onLoadingComplete]);
+
+  // Canvas animation effect
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -22,13 +43,13 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
     setCanvasSize();
     window.addEventListener("resize", setCanvasSize);
 
-    // Reduced number of stars for better performance
+    // Optimized star count for better performance
     const stars = Array.from({ length: 300 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       z: Math.random() * 1000,
       size: Math.random() * 1 + 0.5,
-      speed: Math.random() * 0.5 + 1, // Reduced speed
+      speed: Math.random() * 0.5 + 1,
     }));
 
     const meteor = {
@@ -57,12 +78,7 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Update loading progress more smoothly
-      const targetProgress = progress;
-      progressRef.current += (targetProgress - progressRef.current) * 0.1;
-      setLoadingProgress(Math.min(progressRef.current, 100));
-
-      // Optimized star animation
+      // Stars animation
       stars.forEach((star) => {
         star.z -= star.speed;
         if (star.z <= 0) {
@@ -121,7 +137,6 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
 
         meteor.particles.forEach((particle, index) => {
           if (index % 2 === 0) {
-            // Optimize by updating only half the particles
             particle.x += particle.vx;
             particle.y += particle.vy;
             particle.life -= 0.02;
@@ -182,9 +197,6 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
         opacity -= 0.05;
         if (opacity <= 0) {
           cancelAnimationFrame(animationFrameId);
-          setIsTransitioning(false);
-          setShowLoader(false);
-          onLoadingComplete?.();
           return;
         }
       }
@@ -198,7 +210,7 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
       window.removeEventListener("resize", setCanvasSize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [onLoadingComplete, progress]);
+  }, []);
 
   if (!showLoader) return null;
 
@@ -211,17 +223,20 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
     >
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       <div
-        className={`absolute bottom-10 left-0 right-0 flex flex-col items-center transition-opacity duration-500 ${
+        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center transition-opacity duration-500 ${
           isTransitioning ? "opacity-0" : "opacity-100"
         }`}
       >
-        <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div className="w-80 h-2 bg-gray-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 transition-all duration-300"
-            style={{ width: `${loadingProgress}%` }}
+            className="h-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300"
+            style={{
+              width: `${loadingProgress}%`,
+              transition: "width 0.6s ease-out",
+            }}
           />
         </div>
-        <p className="text-white mt-2 text-sm font-mono">
+        <p className="text-white mt-4 text-lg font-mono">
           Loading... {Math.round(loadingProgress)}%
         </p>
       </div>
