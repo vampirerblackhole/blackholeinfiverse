@@ -163,7 +163,7 @@ function BlackholeSideText() {
             position: "fixed",
             top: 0,
             left: 0,
-            zIndex: 5, // Higher than stars (z-index 0) to ensure BHI is above stars
+            zIndex: 5, // Higher than stars (z-index 0) to ensure BlackholeText is above stars
             width: "100vw",
             height: "100vh",
             objectFit: "cover",

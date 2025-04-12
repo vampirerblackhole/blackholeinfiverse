@@ -54,6 +54,9 @@ const Contact = () => {
     }
   };
 
+  const inputStyle =
+    "transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 bg-gray-900/80 text-white rounded-lg border border-purple-500/30 focus:outline-none focus:border-purple-400/60 focus:ring-1 focus:ring-purple-400/40";
+
   return (
     <div className="relative z-10">
       <div
@@ -61,7 +64,7 @@ const Contact = () => {
         style={{ background: "transparent" }}
       >
         <div
-          className="w-full sm:w-96 mt-[10rem] p-6 rounded-lg text-center transform hover:scale-[1.01] transition-transform duration-300"
+          className="contact-card-form w-full sm:w-96 mt-[10rem] p-6 rounded-lg text-center transform hover:scale-[1.004] transition-transform duration-300"
           style={{
             zIndex: 1000,
             background: "rgba(0,0,0,0.15)",
@@ -77,7 +80,7 @@ const Contact = () => {
           <form onSubmit={handleOnSubmit}>
             <input
               required
-              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-10 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
+              className={`${inputStyle} mt-10`}
               type="text"
               name="name"
               placeholder="Your Name"
@@ -87,7 +90,7 @@ const Contact = () => {
 
             <input
               required
-              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
+              className={`${inputStyle} mt-4`}
               type="email"
               name="email"
               placeholder="Your Email"
@@ -97,7 +100,7 @@ const Contact = () => {
 
             <input
               required
-              className="transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
+              className={`${inputStyle} mt-4`}
               type="tel"
               name="number"
               placeholder="Your Contact Number"
@@ -106,7 +109,7 @@ const Contact = () => {
             />
 
             <textarea
-              className="min-h-[8rem] max-h-[16rem] transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 mt-4 bg-gray-800/30 text-gray-300 rounded-lg border border-purple-500/20 focus:outline-none focus:border-purple-400/40 focus:ring-1 focus:ring-purple-400/20"
+              className={`${inputStyle} min-h-[8rem] max-h-[16rem] mt-4`}
               name="message"
               placeholder="Your Message"
               rows="4"
