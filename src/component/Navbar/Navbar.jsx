@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import PropTypes from "prop-types";
+
+// Create a dummy smoother object for compatibility
+export const smoother = {
+  paused: (state) => {
+    console.log("Smoother paused state:", state);
+    // This is a placeholder for the actual smoother functionality
+    return state;
+  },
+};
 
 const NavLink = ({ href, children, mobile, onClick }) => {
   return (
@@ -26,6 +36,18 @@ const NavLink = ({ href, children, mobile, onClick }) => {
       )}
     </a>
   );
+};
+
+NavLink.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  mobile: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+NavLink.defaultProps = {
+  mobile: false,
+  onClick: () => {},
 };
 
 const Navbar = () => {

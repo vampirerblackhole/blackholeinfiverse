@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { smoother } from "../Navbar/Navbar";
+import { smoother } from "../components/Navbar/Navbar";
 
 // Register the SplitText plugin
 gsap.registerPlugin(SplitText);

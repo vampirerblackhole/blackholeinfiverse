@@ -8,10 +8,10 @@ import {
 import PropTypes from "prop-types";
 import About from "./About/About";
 import "./App.css";
-import Navbar from "./Navbar/Navbar";
-import Contact from "./component/Contact";
-import LoaderBeforeSite from "./component/LoaderBeforeSite";
-import StarsScene from "./component/Stars/StarsScene";
+import Navbar from "./components/Navbar/Navbar";
+import Contact from "./components/Contact";
+import LoaderBeforeSite from "./components/LoaderBeforeSite";
+import StarsScene from "./components/Stars/StarsScene";
 
 // Add a loading fallback
 const PageLoadingFallback = () => (
@@ -40,7 +40,7 @@ RouteObserver.propTypes = {
 // Lazy load Website component with a custom loading delay
 const Website = lazy(() =>
   Promise.all([
-    import("./Main/Website"),
+    import("./components/Main/Website"),
     new Promise((resolve) => setTimeout(resolve, 100)), // Reduced loading time
   ]).then(([moduleExport]) => moduleExport)
 );

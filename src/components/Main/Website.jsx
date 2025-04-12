@@ -1,7 +1,7 @@
-import BlackholeSideText from "../component/sections/BlackholeSection/BlackholeSideText";
-import Main from "../component/sections/RobotSection/Main";
-import Main2 from "../component/sections/StadiumSection/Main2";
-import BlackholeScene from "../component/sections/BlackholeSection/BlackholeScene";
+import BlackholeSideText from "../../components/sections/BlackholeSection/BlackholeSideText";
+import Main from "../../components/sections/RobotSection/Main";
+import Main2 from "../../components/sections/StadiumSection/Main2";
+import BlackholeScene from "../../components/sections/BlackholeSection/BlackholeScene";
 
 function Website() {
   return (
