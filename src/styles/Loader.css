@@ -1,40 +1,68 @@
 #loop {
   display: flex;
-  height: 35%;
-  width: 100vw;
+  position: relative;
+  width: 100%;
   white-space: nowrap;
-  overflow-x: hidden;
-  margin-top: 17%;
+  overflow: hidden;
+  margin-top: 5vh;
 }
 
 .loop-h1 {
-  margin-left: 3vw;
-  font-size: 6vw;
-  animation-name: anim;
-  animation-duration: 5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  font-size: 4vw;
+  padding: 0 1vw;
+  animation: slide 20s linear infinite;
+  white-space: nowrap;
 }
 
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
   .loop-h1 {
-    font-size: 10vw; /* Adjust font size for smaller screens */
+    font-size: 6vw;
+  }
+  #loop {
+    margin-top: 15vh;
   }
 }
 
-/* Media Query for even smaller screens (like mobile phones) */
+/* Media Query for even smaller screens */
 @media (max-width: 480px) {
   .loop-h1 {
-    font-size: 12vw; /* Make font size larger on very small screens */
+    font-size: 8vw;
+  }
+  #loop {
+    margin-top: 20vh;
   }
 }
 
-@keyframes anim {
+@keyframes slide {
   0% {
-    transform: translate(0%);
+    transform: translateX(100%);
   }
   100% {
-    transform: translate(-100%);
+    transform: translateX(-100%);
   }
+}
+
+.loader-container {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar {
+  width: 16rem;
+  height: 0.5rem;
+  background: rgba(31, 41, 55, 0.2);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #93c5fd, #c084fc, #f472b6);
+  transition: width 0.3s ease;
 }

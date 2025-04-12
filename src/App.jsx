@@ -4,16 +4,22 @@ import About from "./About/About";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import Contact from "./component/Contact";
-import LoadingAnimation from "./component/LoaderBeforeSite";
+import LoaderBeforeSite from "./component/LoaderBeforeSite";
 import StarsScene from "./component/Stars/StarsScene";
 
-const Website = lazy(() => import("./Main/Website"));
+// Lazy load Website component with a custom loading delay
+const Website = lazy(() =>
+  Promise.all([
+    import("./Main/Website"),
+    new Promise((resolve) => setTimeout(resolve, 500)), // Minimum loading time
+  ]).then(([moduleExport]) => moduleExport)
+);
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
 
   useEffect(() => {
-    // Create a promise that resolves when the window load event fires
     const windowLoaded = new Promise((resolve) => {
       if (document.readyState === "complete") {
         resolve();
@@ -22,7 +28,6 @@ function App() {
       }
     });
 
-    // Create a promise that resolves after preloading critical 3D models
     const preloadAssets = async () => {
       const modelPaths = [
         "/model/blackhole.glb",
@@ -31,17 +36,15 @@ function App() {
       ];
 
       try {
-        // Preload 3D models and track loading status
         const results = await Promise.allSettled(
           modelPaths.map((path) =>
-            fetch(path).then((res) => {
+            fetch(path, { priority: "high" }).then((res) => {
               if (!res.ok) throw new Error(`Failed to load ${path}`);
               return res;
             })
           )
         );
 
-        // Check if any critical assets failed to load
         const failedLoads = results.filter(
           (result) => result.status === "rejected"
         );
@@ -56,16 +59,13 @@ function App() {
       }
     };
 
-    // Wait for both window load and assets to be ready
     Promise.all([windowLoaded, preloadAssets()])
       .then(() => {
-        // Add a small delay to ensure smooth transition
-        setTimeout(() => setLoading(false), 1000);
+        setAssetsLoaded(true);
       })
       .catch((error) => {
         console.error("Loading error:", error);
-        // Fallback: show site anyway after timeout
-        setTimeout(() => setLoading(false), 5000);
+        setAssetsLoaded(true);
       });
 
     return () => {
@@ -74,15 +74,18 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen" style={{ backgroundColor: "black" }}>
+    <div className="relative min-h-screen bg-black">
       <Router>
         {loading ? (
-          <LoadingAnimation onLoadingComplete={() => setLoading(false)} />
+          <LoaderBeforeSite
+            onLoadingComplete={() => assetsLoaded && setLoading(false)}
+            progress={assetsLoaded ? 100 : 0}
+          />
         ) : (
           <>
             <StarsScene />
             <Navbar />
-            <Suspense fallback={<LoadingAnimation />}>
+            <Suspense>
               <Routes>
                 <Route path="/" element={<Website />} />
                 <Route path="/about" element={<About />} />
