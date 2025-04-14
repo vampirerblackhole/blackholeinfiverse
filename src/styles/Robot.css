@@ -177,7 +177,8 @@
   .para2-left,
   .para3 {
     width: 90%; /* Make paragraphs take up more space on smaller screens */
-    margin-left: 5%; /* Adjust left margin for better centering */
+    margin-left: auto !important; /* Center the cards */
+    margin-right: auto !important; /* Center the cards */
     font-size: 40%;
   }
 
@@ -201,18 +202,20 @@
 
   .para2 {
     margin-top: 10%; /* Adjust top margin for consistency */
-    margin-left: auto;
-    margin-right: 5%;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .para2-left {
     margin-top: 10%; /* Adjust top margin for consistency */
-    margin-left: 5%;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .para3 {
     margin-top: 10%; /* Same for para3 */
-    margin-left: 5%;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 
@@ -221,8 +224,10 @@
   .para2,
   .para2-left,
   .para3 {
-    width: 45%; /* Further reduce width on extremely small screens */
+    width: 90%; /* Use more screen width on smaller devices */
     font-size: 12px;
+    margin-left: auto !important; /* Force center alignment */
+    margin-right: auto !important; /* Force center alignment */
   }
 
   .para1 {
@@ -244,18 +249,20 @@
 
   .para2 {
     margin-top: 5%;
-    margin-left: auto;
-    margin-right: 2%;
+    margin-left: auto !important; /* Force center alignment */
+    margin-right: auto !important; /* Force center alignment */
   }
 
   .para2-left {
     margin-top: 5%;
-    margin-left: 5%;
+    margin-left: auto !important; /* Force center alignment */
+    margin-right: auto !important; /* Force center alignment */
   }
 
   .para3 {
     margin-top: 5%;
-    margin-left: 53%; /* Reduce margin to make it fit on smaller screens */
+    margin-left: auto !important; /* Force center alignment */
+    margin-right: auto !important; /* Force center alignment */
   }
 }
 /* Typing effect for headings */

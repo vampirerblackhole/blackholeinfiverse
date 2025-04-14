@@ -9,6 +9,7 @@ export default function BlackholeScene() {
   const [opacity, setOpacity] = useState(1); // Slight transparency
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHomePage, setIsHomePage] = useState(false); // Start with false until we confirm
+  const [isMobile, setIsMobile] = useState(false);
 
   // Check if we're on the home page using react-router's location
   useEffect(() => {
@@ -22,13 +23,32 @@ export default function BlackholeScene() {
     }
   }, [location]);
 
+  // Handle window resize to detect mobile devices
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Set initial values
+    handleResize();
+
+    // Add resize listener
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, []);
+
   // Handle scroll position for zoom effect and fade-out at robot section
   useEffect(() => {
     // Only add scroll listener if we're on the homepage
     if (!isHomePage) return;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY * 5; // Reduced from 10 to 5 for slower zoom effect
+      const scrollPosition = window.scrollY * 5; // Keep consistent scroll speed
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = scrollPosition / maxScroll;
@@ -98,11 +118,12 @@ export default function BlackholeScene() {
           width="100%"
           height="100%"
           backgroundColor="transparent"
-          holeSize={2.6}
-          discOuterSize={6}
+          holeSize={2.6} // Keep consistent size across devices
+          discOuterSize={6} // Keep consistent size across devices
           autoRotate={false}
           autoRotateSpeed={0}
           scrollProgress={scrollProgress}
+          isMobile={isMobile}
         />
       )}
     </div>

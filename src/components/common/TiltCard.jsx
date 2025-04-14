@@ -61,6 +61,8 @@ const TiltCard = ({ title, description, className = "", style = {} }) => {
       ? `translateZ(20px) translateY(${rotateX * -0.7}px)`
       : "none",
     transition: isHovering ? "transform 0.1s ease" : "transform 0.5s ease",
+    width: "100%",
+    maxWidth: "100%",
   };
 
   const lineStyle = {

@@ -55,7 +55,7 @@ const BlackHole = ({
     const scene = new THREE.Scene();
     sceneRef.current.scene = scene;
 
-    const fov = isMobile ? 90 : 75;
+    const fov = isMobile ? 75 : 75;
     const camera = new THREE.PerspectiveCamera(
       fov,
       sizes.width / sizes.height,
@@ -64,7 +64,7 @@ const BlackHole = ({
     );
 
     const initialPosition = isMobile
-      ? { x: -8, y: 2, z: 6 }
+      ? { x: -18, y: 5, z: 15 }
       : { x: -15, y: 5, z: 10 };
 
     camera.position.set(
@@ -216,56 +216,106 @@ const BlackHole = ({
      * Stars
      */
     const stars = {};
-    stars.count = isMobile ? starsCount / 2 : starsCount;
+    stars.count = starsCount; // Original full star count for PC
 
-    const positionsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
-    const sizesArray = new THREE.Float32BufferAttribute(stars.count, 1);
-    const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
+    // Create separate position arrays based on device type
+    if (isMobile) {
+      // Mobile version - simplified stars
+      const radius = 40;
+      const actualStarsCount = Math.floor(starsCount * 0.6);
 
-    // Create stars that are purely white - no color artifacts
-    for (let i = 0; i < stars.count; i++) {
-      // Use a modified uniform spherical distribution
-      // with more stars closer to center
-      let radius, theta, phi;
+      stars.geometry = new THREE.BufferGeometry();
+      const positionArray = new Float32Array(actualStarsCount * 3);
+      const sizesArray = new Float32Array(actualStarsCount);
+      const colorsArray = new Float32Array(actualStarsCount * 3);
 
-      const distributionChoice = Math.random();
+      for (let i = 0; i < actualStarsCount; i++) {
+        // Distribute stars more uniformly
+        const distance = Math.random() * radius;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1); // for uniform distribution on a sphere
 
-      if (distributionChoice < 0.7) {
-        // Distant background stars - avoid edges of screen
-        radius = 400 + Math.random() * 500;
-        theta = Math.random() * Math.PI * 2;
-        phi = Math.acos(2 * Math.random() - 1);
-      } else {
-        // Mid-distance stars with spherical distribution
-        radius = 200 + Math.random() * 200;
-        theta = Math.random() * Math.PI * 2;
-        phi = Math.acos(2 * Math.random() - 1);
+        positionArray[i * 3] = distance * Math.sin(phi) * Math.cos(theta);
+        positionArray[i * 3 + 1] = distance * Math.sin(phi) * Math.sin(theta);
+        positionArray[i * 3 + 2] = distance * Math.cos(phi);
+
+        // Vary star sizes - smaller on mobile
+        sizesArray[i] = 0.5 * (Math.random() * 1.5 + 0.5);
+
+        // Use only pure white stars to eliminate RGB artifacts
+        // Slight brightness variation for depth
+        const brightness = 0.7 + Math.random() * 0.3;
+        colorsArray[i * 3] = brightness;
+        colorsArray[i * 3 + 1] = brightness;
+        colorsArray[i * 3 + 2] = brightness;
       }
 
-      const x = Math.cos(theta) * Math.sin(phi) * radius;
-      const y = Math.sin(theta) * Math.sin(phi) * radius;
-      const z = Math.cos(phi) * radius;
+      stars.geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positionArray, 3)
+      );
+      stars.geometry.setAttribute(
+        "size",
+        new THREE.BufferAttribute(sizesArray, 1)
+      );
+      stars.geometry.setAttribute(
+        "color",
+        new THREE.BufferAttribute(colorsArray, 3)
+      );
+    } else {
+      // PC version - original star implementation
+      const positionsArray = new THREE.Float32BufferAttribute(
+        stars.count * 3,
+        3
+      );
+      const sizesArray = new THREE.Float32BufferAttribute(stars.count, 1);
+      const colorsArray = new THREE.Float32BufferAttribute(stars.count * 3, 3);
 
-      positionsArray.setXYZ(i, x, y, z);
+      // Create stars that are purely white - no color artifacts
+      for (let i = 0; i < stars.count; i++) {
+        // Use a modified uniform spherical distribution
+        // with more stars closer to center
+        let radius, theta, phi;
 
-      // Star size - smaller stars with occasional larger ones
-      const starSize =
-        Math.random() < 0.98
-          ? 0.1 + Math.random() * (starsSize * 0.2) // 98% small stars
-          : 0.3 + Math.random() * (starsSize * 0.6); // 2% larger stars
+        const distributionChoice = Math.random();
 
-      sizesArray.setX(i, starSize);
+        if (distributionChoice < 0.7) {
+          // Distant background stars - avoid edges of screen
+          radius = 400 + Math.random() * 500;
+          theta = Math.random() * Math.PI * 2;
+          phi = Math.acos(2 * Math.random() - 1);
+        } else {
+          // Mid-distance stars with spherical distribution
+          radius = 200 + Math.random() * 200;
+          theta = Math.random() * Math.PI * 2;
+          phi = Math.acos(2 * Math.random() - 1);
+        }
 
-      // Use only pure white stars to eliminate RGB artifacts
-      // Slight brightness variation for depth
-      const brightness = 0.7 + Math.random() * 0.3;
-      colorsArray.setXYZ(i, brightness, brightness, brightness);
+        const x = Math.cos(theta) * Math.sin(phi) * radius;
+        const y = Math.sin(theta) * Math.sin(phi) * radius;
+        const z = Math.cos(phi) * radius;
+
+        positionsArray.setXYZ(i, x, y, z);
+
+        // Star size - smaller stars with occasional larger ones
+        const starSize =
+          Math.random() < 0.98
+            ? 0.1 + Math.random() * (starsSize * 0.2) // 98% small stars
+            : 0.3 + Math.random() * (starsSize * 0.6); // 2% larger stars
+
+        sizesArray.setX(i, starSize);
+
+        // Use only pure white stars to eliminate RGB artifacts
+        // Slight brightness variation for depth
+        const brightness = 0.7 + Math.random() * 0.3;
+        colorsArray.setXYZ(i, brightness, brightness, brightness);
+      }
+
+      stars.geometry = new THREE.BufferGeometry();
+      stars.geometry.setAttribute("position", positionsArray);
+      stars.geometry.setAttribute("size", sizesArray);
+      stars.geometry.setAttribute("color", colorsArray);
     }
-
-    stars.geometry = new THREE.BufferGeometry();
-    stars.geometry.setAttribute("position", positionsArray);
-    stars.geometry.setAttribute("size", sizesArray);
-    stars.geometry.setAttribute("color", colorsArray);
 
     stars.material = new THREE.ShaderMaterial({
       transparent: true,
@@ -274,7 +324,7 @@ const BlackHole = ({
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       uniforms: {
-        uSize: { value: isMobile ? 1.0 : 1.5 },
+        uSize: { value: isMobile ? 0.8 : 1.5 },
       },
     });
 
@@ -370,7 +420,7 @@ const BlackHole = ({
       });
 
       camera.aspect = newWidth / newHeight;
-      camera.fov = isMobile ? 90 : 75;
+      camera.fov = isMobile ? 75 : 75;
       camera.updateProjectionMatrix();
 
       renderer.setSize(newWidth, newHeight);
@@ -520,14 +570,16 @@ const BlackHole = ({
       const smoothProgress = easeInOutExpo(progress);
 
       const isMobileView = windowSize.width <= 768;
+      const isExtraSmallDevice = windowSize.width <= 480;
 
-      const startX = isMobileView ? -8 : -15;
-      const startY = isMobileView ? 2 : 5;
-      const startZ = isMobileView ? 6 : 10;
+      // Further adjust camera positioning based on screen size - position farther rather than making models smaller
+      const startX = isExtraSmallDevice ? -20 : isMobileView ? -18 : -15;
+      const startY = 5; // Keep Y consistent across devices
+      const startZ = isExtraSmallDevice ? 18 : isMobileView ? 15 : 10;
 
       const endX = 0;
       const endY = 0;
-      const endZ = isMobileView ? 2 : 3;
+      const endZ = isExtraSmallDevice ? 6 : isMobileView ? 4 : 3;
 
       targetCameraPos.current.set(
         startX + (endX - startX) * smoothProgress,

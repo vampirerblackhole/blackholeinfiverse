@@ -39,6 +39,14 @@
 #p11 .card {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(15px);
+  max-width: 100%;
+  width: 100%;
+}
+
+#p12 .description,
+#p11 .description {
+  max-width: 100%;
+  width: 100%;
 }
 
 /* Heading styles for main intro text */
@@ -141,7 +149,7 @@
 @media (max-width: 1200px) {
   #p12,
   #p11 {
-    width: 45%;
+    width: 60%;
   }
 
   .text-heading {
@@ -152,10 +160,13 @@
 @media (max-width: 768px) {
   #p12,
   #p11 {
-    width: 80%;
-    left: 10%;
-    right: auto;
-    padding: 20px;
+    width: 90%;
+    position: absolute;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 10px !important;
   }
 
   #p12 {
@@ -173,10 +184,52 @@
   #p12 p,
   #p11 p {
     font-size: 1rem;
+    width: 100% !important;
+  }
+
+  /* Ensure card containers are centered */
+  #p12 > div,
+  #p11 > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  /* Make card content wider */
+  #p12 .card,
+  #p11 .card {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 1.5rem !important;
+  }
+
+  #p12 .title,
+  #p11 .title {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 1.6rem !important;
+  }
+
+  #p12 .description,
+  #p11 .description {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
 @media (max-width: 480px) {
+  #p12,
+  #p11 {
+    width: 92% !important;
+    left: 4% !important;
+    right: 4% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    position: absolute;
+  }
+
   .text-heading {
     font-size: 1.2rem;
   }
@@ -184,5 +237,72 @@
   #p12 p,
   #p11 p {
     font-size: 0.9rem;
+    width: 100% !important;
+  }
+
+  /* Ensure card containers are centered and full width */
+  #p12 > div,
+  #p11 > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Make card take up full space on small screens */
+  #p12 .card,
+  #p11 .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem 0.8rem !important;
+  }
+
+  #p12 .title,
+  #p11 .title {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 1.3rem !important;
+  }
+
+  #p12 .description,
+  #p11 .description {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 0.85rem !important;
+    padding: 0 !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Fix text wrapping */
+  #p12 .description *,
+  #p11 .description * {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  #p12 .card,
+  #p11 .card {
+    padding: 0.8rem 0.6rem !important;
+  }
+
+  #p12 .title,
+  #p11 .title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  #p12 .description,
+  #p11 .description {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .line {
+    margin-bottom: 0.8rem !important;
   }
 }

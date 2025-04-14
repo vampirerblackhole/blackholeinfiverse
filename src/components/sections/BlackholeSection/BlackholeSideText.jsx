@@ -204,6 +204,11 @@ function BlackholeSideText() {
           <TiltCard
             title="Redefining transformation of Digital with AI Integration"
             description="The cyberspace is transforming, and so are we. At BlackHole Infiverse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, and Robotics, we are crafting the future of Web3 and beyond."
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              margin: "0 auto",
+            }}
           />
         </div>
 
@@ -211,6 +216,11 @@ function BlackholeSideText() {
           <TiltCard
             title="Empowering Industries with Innovation"
             description="Our mission is to empower industries with innovative solutions that not only meet today's demands but also anticipate tomorrow's needs. Together, we're shaping a world where digital and physical realities converge seamlessly, driving progress and unlocking endless possibilities for the future."
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              margin: "0 auto",
+            }}
           />
         </div>
       </div>

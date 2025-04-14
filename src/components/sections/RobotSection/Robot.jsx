@@ -1,21 +1,25 @@
-import React, { useEffect, useRef, useMemo } from 'react';
-import { useGLTF, useAnimations } from '@react-three/drei';
-import { useFrame, useGraph } from '@react-three/fiber';
-import { SkeletonUtils } from 'three-stdlib';
+import { useEffect, useRef, useMemo } from "react";
+import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame, useGraph } from "@react-three/fiber";
+import { SkeletonUtils } from "three-stdlib";
+import PropTypes from "prop-types";
 
 // Preload model with Draco compression
-useGLTF.preload('./model/Robot.glb', { dracoDecoder: { url: '/draco-gltf/' } });
+useGLTF.preload("./model/Robot.glb", { dracoDecoder: { url: "/draco-gltf/" } });
 
 export function Robot({ scrollPosition, ...props }) {
   const group = useRef(null);
 
   // Load the GLTF model with Draco
-  const { scene, animations } = useGLTF('./model/Robot.glb', { 
-    dracoDecoder: { url: '/draco-gltf/' } 
+  const { scene, animations } = useGLTF("./model/Robot.glb", {
+    dracoDecoder: { url: "/draco-gltf/" },
   });
 
   // Clone model to avoid mutations
-  const clone = useMemo(() => (scene ? SkeletonUtils.clone(scene) : null), [scene]);
+  const clone = useMemo(
+    () => (scene ? SkeletonUtils.clone(scene) : null),
+    [scene]
+  );
 
   // Extract nodes and materials
   const { nodes, materials } = useGraph(clone);
@@ -42,21 +46,34 @@ export function Robot({ scrollPosition, ...props }) {
     }
   });
 
+  // Get model position based on device size (position farther rather than scaling)
+  const getPosition = () => {
+    if (window.innerWidth <= 480) return [0, -24, -6]; // Extra small - position farther back
+    if (window.innerWidth <= 768) return [0, -20, -3]; // Tablet - position farther back
+    return props.position || [0, -16, 0]; // Desktop - original position
+  };
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} position={getPosition()} dispose={null}>
       <group name="Scene">
         <group name="Armature" rotation={[0, 12.571, 0]} scale={10.027}>
           <primitive object={nodes.RL_BoneRoot} />
           <skinnedMesh
             name="default"
-            geometry={nodes['default'].geometry}
+            geometry={nodes["default"].geometry}
             material={materials.Face}
-            skeleton={nodes['default'].skeleton}
-            morphTargetDictionary={nodes['default'].morphTargetDictionary}
-            morphTargetInfluences={nodes['default'].morphTargetInfluences}
+            skeleton={nodes["default"].skeleton}
+            morphTargetDictionary={nodes["default"].morphTargetDictionary}
+            morphTargetInfluences={nodes["default"].morphTargetInfluences}
           />
         </group>
       </group>
     </group>
   );
 }
+
+// Add PropTypes validation to fix linter errors
+Robot.propTypes = {
+  scrollPosition: PropTypes.number,
+  position: PropTypes.array,
+};
