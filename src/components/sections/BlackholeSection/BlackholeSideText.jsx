@@ -202,8 +202,8 @@ function BlackholeSideText() {
 
         <div id="p12" className="fade-in" ref={paragraphRef1}>
           <TiltCard
-            title="Redefining Digital with AI Integration"
-            description="The cyberspace is transforming, and so are we. At BlackHole InVerse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, and Robotics, we are crafting the future of Web3 and beyond."
+            title="Redefining transformation of Digital with AI Integration"
+            description="The cyberspace is transforming, and so are we. At BlackHole Infiverse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, and Robotics, we are crafting the future of Web3 and beyond."
           />
         </div>
 
