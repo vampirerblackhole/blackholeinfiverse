@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Contact from "./components/Contact";
 import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
+import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";
 
 // Add a loading fallback
 const PageLoadingFallback = () => (
@@ -186,6 +187,7 @@ function App() {
               <Route path="/" element={<Website />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/coming-soon" element={<ComingSoonPage />} />
             </Routes>
           </Suspense>
         </div>
