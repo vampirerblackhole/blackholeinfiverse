@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Gamepad2, Brain, Notebook as Robot, Bitcoin } from "lucide-react";
@@ -11,6 +11,112 @@ function About() {
   const mainRef = useRef(null);
   const sectionsRef = useRef(null);
   const heroRef = useRef(null);
+  const cardRef = useRef(null);
+
+  // State to track mouse position for 3D effect
+  const [transform, setTransform] = useState({
+    rotateX: 0,
+    rotateY: 0,
+    active: false,
+  });
+
+  // Handle mouse movement for 3D card effect
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    // Calculate mouse position relative to card center
+    const mouseX = e.clientX - rect.left - width / 2;
+    const mouseY = e.clientY - rect.top - height / 2;
+
+    // Convert to rotation values (-10 to 10 degrees)
+    const rotateY = -(mouseX / (width / 2)) * 10;
+    const rotateX = (mouseY / (height / 2)) * 10;
+
+    setTransform({
+      rotateX,
+      rotateY,
+      active: true,
+    });
+  };
+
+  // Reset transform when mouse leaves
+  const handleMouseLeave = () => {
+    setTransform({
+      rotateX: 0,
+      rotateY: 0,
+      active: false,
+    });
+  };
+
+  // Enter transform when mouse enters
+  const handleMouseEnter = () => {
+    setTransform((prev) => ({
+      ...prev,
+      active: true,
+    }));
+  };
+
+  // Calculate the transform style for the card
+  const cardStyle = {
+    transform: `perspective(1000px) rotateX(${transform.rotateX}deg) rotateY(${
+      transform.rotateY
+    }deg) scale(${transform.active ? 1.03 : 1})`,
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+    boxShadow: transform.active
+      ? `${transform.rotateY * 0.5}px ${
+          transform.rotateX * -0.5
+        }px 50px rgba(111, 66, 193, 0.8)`
+      : "0 10px 30px rgba(0, 0, 0, 0.3)",
+    border: transform.active
+      ? "3px solid rgba(155, 89, 182, 0.48)"
+      : "1px solid rgba(255, 255, 255, 0.1)",
+    transformStyle: "preserve-3d",
+    cursor: "pointer",
+  };
+
+  // Styles for inner elements
+  const titleStyle = {
+    transform: transform.active
+      ? `translateZ(50px) translateX(${
+          transform.rotateY * -1.5
+        }px) translateY(${transform.rotateX * -1.5}px)`
+      : "none",
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+    transformStyle: "preserve-3d",
+  };
+
+  const paragraphStyle = {
+    transform: transform.active
+      ? `translateZ(30px) translateX(${transform.rotateY * -1}px) translateY(${
+          transform.rotateX * -1
+        }px)`
+      : "none",
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+    transformStyle: "preserve-3d",
+  };
+
+  const lineStyle = {
+    transform: transform.active
+      ? `translateZ(20px) translateX(${transform.rotateY * 0.5}px) translateY(${
+          transform.rotateX * 0.5
+        }px)`
+      : "none",
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+    transformStyle: "preserve-3d",
+  };
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -65,16 +171,32 @@ function About() {
       >
         <div className="absolute inset-0 bg-[url('/about/bh-mainH.jpg')] bg-cover bg-center opacity-80"></div>
         <div className="relative z-10 max-w-4xl mx-auto pt-16">
-          <div className="backdrop-blur-md bg-black/20 p-10 rounded-3xl border border-white/10 shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_20px_rgba(0,0,0,0.3)] hover:bg-black/25">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+          <div
+            ref={cardRef}
+            className="backdrop-blur-md bg-black/20 p-10 rounded-3xl shadow-2xl"
+            style={cardStyle}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <h1
+              className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
+              style={titleStyle}
+            >
               Shaping Tomorrow's Reality
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
+            <p
+              className="text-xl md:text-2xl text-gray-300 mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
+              style={paragraphStyle}
+            >
               A pioneering startup at the intersection of VR, AI, Robotics, and
               Blockchain
             </p>
 
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto rounded-full"></div>
+            <div
+              className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto rounded-full"
+              style={lineStyle}
+            ></div>
           </div>
         </div>
       </div>

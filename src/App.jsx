@@ -6,7 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import PropTypes from "prop-types";
-import About from "./About/About";
+import About from "./components/About";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Contact from "./components/Contact";
