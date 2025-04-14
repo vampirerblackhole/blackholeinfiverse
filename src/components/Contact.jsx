@@ -153,16 +153,16 @@ const Contact = () => {
     "transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 bg-gray-900/80 text-white rounded-lg border border-purple-500/30 focus:outline-none focus:border-purple-400/60 focus:ring-1 focus:ring-purple-400/40";
 
   return (
-    <div className="relative z-10">
+    <div className="relative z-10 pt-[85px]">
       <div
         className="flex justify-center items-center px-5 sm:px-10"
         style={{ background: "transparent" }}
       >
         <div
           ref={cardRef}
-          className="contact-card-form w-full sm:w-96 mt-[10rem] p-6 rounded-lg text-center will-change-transform"
+          className="contact-card-form w-full sm:w-96 p-6 rounded-lg text-center will-change-transform"
           style={{
-            zIndex: 1000,
+            zIndex: 10,
             position: "relative",
             background: "rgba(10,10,20,0.25)",
             backdropFilter: "blur(5px)",

@@ -70,8 +70,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className="w-full mt-[1rem] h-[65px] bg-transparent fixed top-0 transition-all duration-500"
-      style={{ zIndex: 50 }}
+      className="w-full h-[65px] fixed top-0 transition-all duration-500"
+      style={{
+        zIndex: 9999,
+        background: "rgba(0,0,0,0.3)",
+        backdropFilter: "blur(8px)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+      }}
     >
       <div className="w-full h-full flex flex-row items-center justify-between m-auto px-4 md:px-10">
         {" "}
