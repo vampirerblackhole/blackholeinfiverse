@@ -535,7 +535,8 @@ const BlackHole = ({
         startZ + (endZ - startZ) * smoothProgress
       );
 
-      targetRotation.current = -smoothProgress * Math.PI * 2;
+      // Change rotation direction to maintain counter-clockwise rotation
+      targetRotation.current = smoothProgress * Math.PI * 2;
 
       // Control opacity of black hole and accretion disc based on scroll
       // Start fading out at 70% of scroll progress, fully transparent at 100%
