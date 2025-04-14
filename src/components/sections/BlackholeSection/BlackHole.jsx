@@ -64,7 +64,7 @@ const BlackHole = ({
     );
 
     const initialPosition = isMobile
-      ? { x: -18, y: 5, z: 15 }
+      ? { x: -15, y: 5, z: 15 }
       : { x: -15, y: 5, z: 10 };
 
     camera.position.set(
@@ -572,14 +572,14 @@ const BlackHole = ({
       const isMobileView = windowSize.width <= 768;
       const isExtraSmallDevice = windowSize.width <= 480;
 
-      // Further adjust camera positioning based on screen size - position farther rather than making models smaller
-      const startX = isExtraSmallDevice ? -20 : isMobileView ? -18 : -15;
-      const startY = 5; // Keep Y consistent across devices
-      const startZ = isExtraSmallDevice ? 18 : isMobileView ? 15 : 10;
+      // Keep the same angles, just position farther on Z axis
+      const startX = isMobileView ? -15 : -15; // Same X position as PC
+      const startY = 5; // Same Y position as PC
+      const startZ = isMobileView ? (isExtraSmallDevice ? 18 : 15) : 10; // Reduced distance on mobile
 
       const endX = 0;
       const endY = 0;
-      const endZ = isExtraSmallDevice ? 6 : isMobileView ? 4 : 3;
+      const endZ = isMobileView ? (isExtraSmallDevice ? 5 : 4) : 3; // Increase end Z position proportionally
 
       targetCameraPos.current.set(
         startX + (endX - startX) * smoothProgress,

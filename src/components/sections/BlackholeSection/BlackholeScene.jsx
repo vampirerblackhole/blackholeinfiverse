@@ -57,8 +57,8 @@ export default function BlackholeScene() {
       setScrollProgress(Math.min(scrollPercent, 1));
 
       // Fade out more gradually - start at 75% and use a longer transition (0.5 instead of 0.3)
-      if (scrollPercent > 0.75) {
-        setOpacity(Math.max(0, 1 - ((scrollPercent - 0.75) / 0.5) * 1));
+      if (scrollPercent > 0.6) {
+        setOpacity(Math.max(0, 1 - ((scrollPercent - 0.6) / 0.4) * 1));
       } else {
         setOpacity(1); // Fully visible until fade point
       }

@@ -48,8 +48,8 @@ export function Robot({ scrollPosition, ...props }) {
 
   // Get model position based on device size (position farther rather than scaling)
   const getPosition = () => {
-    if (window.innerWidth <= 480) return [0, -24, -6]; // Extra small - position farther back
-    if (window.innerWidth <= 768) return [0, -20, -3]; // Tablet - position farther back
+    if (window.innerWidth <= 480) return [0, -24, -2]; // Extra small - moved closer
+    if (window.innerWidth <= 768) return [0, -20, -1]; // Tablet - moved closer
     return props.position || [0, -16, 0]; // Desktop - original position
   };
 

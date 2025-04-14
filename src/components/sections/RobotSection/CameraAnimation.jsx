@@ -19,13 +19,22 @@ export default function CameraAnimation() {
 
   useEffect(() => {
     const timeline = t1.current;
+
+    // Get the initial camera position from Experience.jsx
+    const initialX = camera.position.x;
+    const initialY = camera.position.y;
+    const initialZ = camera.position.z;
+
+    // Adjust distances based on initial Z position
+    const zRatio = initialZ / 5; // Calculate ratio compared to original Z=5
+
     timeline.fromTo(
       camera.position,
-      { x: 0, y: -1, z: 5 },
+      { x: initialX, y: initialY, z: initialZ },
       {
-        x: -2,
-        y: -1,
-        z: 4,
+        x: -2 * zRatio,
+        y: initialY,
+        z: 4 * zRatio,
         scrollTrigger: {
           trigger: ".s-para1",
           start: "top bottom",
@@ -53,11 +62,11 @@ export default function CameraAnimation() {
     );
     timeline.fromTo(
       camera.position,
-      { x: -2, y: -1, z: 4 },
+      { x: -2 * zRatio, y: initialY, z: 4 * zRatio },
       {
-        x: 2,
-        y: -1,
-        z: 4,
+        x: 2 * zRatio,
+        y: initialY,
+        z: 4 * zRatio,
         immediateRender: false,
 
         scrollTrigger: {
@@ -91,11 +100,11 @@ export default function CameraAnimation() {
     // Section 2 animations
     timeline.fromTo(
       camera.position,
-      { x: 2, y: -1, z: 4 },
+      { x: 2 * zRatio, y: initialY, z: 4 * zRatio },
       {
-        x: -2,
-        y: -1,
-        z: 4,
+        x: -2 * zRatio,
+        y: initialY,
+        z: 4 * zRatio,
         immediateRender: false,
         scrollTrigger: {
           trigger: ".section2",
@@ -125,11 +134,11 @@ export default function CameraAnimation() {
     );
     timeline.fromTo(
       camera.position,
-      { x: -2, y: -1, z: 4 },
+      { x: -2 * zRatio, y: initialY, z: 4 * zRatio },
       {
-        x: 0,
-        y: -1,
-        z: 5,
+        x: initialX,
+        y: initialY,
+        z: initialZ,
         immediateRender: false,
         scrollTrigger: {
           trigger: ".section7",

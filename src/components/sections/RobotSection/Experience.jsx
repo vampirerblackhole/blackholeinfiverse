@@ -1,19 +1,16 @@
-import { Canvas } from '@react-three/fiber';
-import React, { Suspense, useState, useEffect } from 'react';
-import { Robot } from './Robot';
-import { useProgress, Html, ScrollControls, OrbitControls } from '@react-three/drei';
-import CameraAnimation from './CameraAnimation';
+import { Canvas } from "@react-three/fiber";
+import { Suspense, useState, useEffect } from "react";
+import { Robot } from "./Robot";
+import { useProgress, Html } from "@react-three/drei";
+import CameraAnimation from "./CameraAnimation";
+import PropTypes from "prop-types";
 
 function Loader() {
   const { progress } = useProgress();
-  return (
-    <Html center>
-      {progress.toFixed(1)} % loaded
-    </Html>
-  );
+  return <Html center>{progress.toFixed(1)} % loaded</Html>;
 }
 
-function Experience({scrollPosition}) {
+function Experience({ scrollPosition }) {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -29,29 +26,35 @@ function Experience({scrollPosition}) {
     };
 
     // Add resize event listener
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup event listeners on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  // Calculate camera position based on screen size
+  const getCameraPosition = () => {
+    if (windowSize.width <= 480) return [0, 5, 12]; // Higher and further back for mobile
+    if (windowSize.width <= 768) return [0, 2, 8]; // Higher and further back for tablets
+    return [0, -1, 5]; // Original position for desktop
+  };
 
   return (
     <Canvas
       camera={{
-        position: [0, -1, 5],
+        position: getCameraPosition(),
         aspect: windowSize.width / windowSize.height, // Aspect ratio based on window size
-        fov: 75, // Optional: Adjust the field of view
+        fov: 75, // Keep consistent field of view
         near: 0.1,
         far: 1000,
       }}
       style={{
         width: windowSize.width, // Full width of the window
         height: windowSize.height, // Full height of the window
-        display: 'block', // Avoid scrollbars
-        position: 'absolute', // Position canvas correctly in the layout
+        display: "block", // Avoid scrollbars
+        position: "absolute", // Position canvas correctly in the layout
         top: 0,
         left: 0,
       }}
@@ -60,10 +63,14 @@ function Experience({scrollPosition}) {
       <Suspense fallback={<Loader />}>
         {/* <Name position={[-3.5, 3.7, -1]} /> */}
         <Robot position={[0, -16, 0]} scrollPosition={scrollPosition} />
-        <CameraAnimation/>
+        <CameraAnimation />
       </Suspense>
     </Canvas>
   );
 }
 
 export default Experience;
+
+Experience.propTypes = {
+  scrollPosition: PropTypes.number,
+};
