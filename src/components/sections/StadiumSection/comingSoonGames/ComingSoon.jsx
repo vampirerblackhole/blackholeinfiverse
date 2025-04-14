@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./ComingSoon.module.css";
 import { useState, useEffect } from "react";
+import LazyImage from "./LazyImage";
 
 // Create a simplified version of the 3D card effect
 const ComingSoon = ({
@@ -137,13 +138,15 @@ const ComingSoon = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
+        {/* Use our LazyImage component instead of regular img */}
         {game?.image && (
-          <img
+          <LazyImage
             src={game.image}
             alt={game.title || "Coming Soon Game"}
             className={styles.gameImage}
           />
         )}
+
         <div className={styles.cornerTag} style={tagStyle}>
           <span>Coming Soon!</span>
         </div>

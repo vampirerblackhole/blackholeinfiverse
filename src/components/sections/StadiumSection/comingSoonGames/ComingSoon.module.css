@@ -78,12 +78,33 @@
   z-index: 2;
 }
 
-.gameImage {
+/* Image placeholder for blur-up effect */
+.imagePlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: contrast(1.05) saturate(1.1);
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+  transform: scale(1.1);
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+
+.gameImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
+  filter: contrast(1.05) saturate(1.1);
+}
+
+.imageLoaded {
+  opacity: 1; /* Fade in when loaded */
 }
 
 .overlay {
