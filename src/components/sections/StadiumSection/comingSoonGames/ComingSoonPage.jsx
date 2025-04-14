@@ -21,10 +21,30 @@ const ComingSoonPage = () => {
         image: "/images/games/default-game.jpg",
       });
     }
+
+    // Set body to dark background as fallback
+    document.body.style.backgroundColor = "#000";
+
+    // Force refresh of stars visibility
+    try {
+      // Try to refresh the global stars
+      const appContainer = document.querySelector(".App");
+      if (appContainer) {
+        const starsContainer = appContainer.querySelector(
+          ".stars-container-override"
+        );
+        if (starsContainer) {
+          console.log("Found stars container, adjusting visibility");
+          starsContainer.style.opacity = "1";
+          starsContainer.style.zIndex = "0";
+        }
+      }
+    } catch (e) {
+      console.error("Error accessing stars:", e);
+    }
   }, [location.state]);
 
   const handleGoHome = () => {
-    // Use navigate instead of window.location for SPA navigation
     navigate("/");
   };
 

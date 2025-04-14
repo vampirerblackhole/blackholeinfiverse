@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { useRef, useEffect } from "react";
 import styles from "./ComingSoon.module.css";
+import { useState, useEffect } from "react";
 
+// Create a simplified version of the 3D card effect
 const ComingSoon = ({
   game = {
     title: "Game Title",
@@ -9,110 +10,133 @@ const ComingSoon = ({
       "This game is currently in development and will be available soon!",
   },
 }) => {
-  const cardRef = useRef(null);
-  const titleRef = useRef(null);
-  const descRef = useRef(null);
-  const tagRef = useRef(null);
+  // State to track mouse position
+  const [transform, setTransform] = useState({
+    rotateX: 0,
+    rotateY: 0,
+    active: false,
+  });
 
+  // Add custom stars as a backup
   useEffect(() => {
-    const card = cardRef.current;
-    const title = titleRef.current;
-    const desc = descRef.current;
-    const tag = tagRef.current;
+    // Check if the global stars are visible
+    const starsContainer = document.querySelector(".stars-container-override");
+    if (!starsContainer || getComputedStyle(starsContainer).opacity === "0") {
+      console.log("Adding custom stars as backup");
+      // If global stars aren't visible, add our own
+      const customStars = document.createElement("div");
+      customStars.className = styles.customStars;
+      document.body.appendChild(customStars);
 
-    if (!card) return;
-
-    const handleMouseMove = (e) => {
-      try {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Calculate rotation (maximum 10 degrees)
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateY = ((x - centerX) / centerX) * 10;
-        const rotateX = ((centerY - y) / centerY) * 10;
-
-        // Apply transform to card
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-        // Title with stronger effect (deeper in Z)
-        if (title) {
-          title.style.transform = `translateZ(50px) translateX(${
-            rotateY * -1.5
-          }px) translateY(${rotateX * -1.5}px)`;
-        }
-
-        // Description with medium effect
-        if (desc) {
-          desc.style.transform = `translateZ(30px) translateX(${
-            rotateY * -1
-          }px) translateY(${rotateX * -1}px)`;
-        }
-
-        // Corner tag with opposite effect
-        if (tag) {
-          tag.style.transform = `translateZ(80px) translateX(${
-            rotateY * 0.5
-          }px) translateY(${rotateX * 0.5}px)`;
-        }
-
-        // Dynamic shadow based on tilt
-        const shadowX = rotateY * 0.5;
-        const shadowY = rotateX * -0.5;
-        card.style.boxShadow = `${shadowX}px ${shadowY}px 30px rgba(111, 66, 193, 0.4)`;
-      } catch (err) {
-        console.error("Error in mouse move handler:", err);
-      }
-    };
-
-    const handleMouseEnter = () => {
-      try {
-        card.style.transition =
-          "transform 0.1s ease-out, box-shadow 0.1s ease-out";
-        setTimeout(() => {
-          card.style.transition =
-            "transform 0.1s ease-out, box-shadow 0.1s ease-out";
-        }, 100);
-      } catch (err) {
-        console.error("Error in mouse enter handler:", err);
-      }
-    };
-
-    const handleMouseLeave = () => {
-      try {
-        card.style.transition = "transform 0.5s ease, box-shadow 0.5s ease";
-        card.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
-        card.style.boxShadow = "0 10px 30px rgba(111, 66, 193, 0.3)";
-
-        // Reset all elements
-        if (title) title.style.transform = "translateZ(0)";
-        if (desc) desc.style.transform = "translateZ(0)";
-        if (tag) tag.style.transform = "translateZ(0)";
-      } catch (err) {
-        console.error("Error in mouse leave handler:", err);
-      }
-    };
-
-    // Add event listeners
-    card.addEventListener("mousemove", handleMouseMove);
-    card.addEventListener("mouseenter", handleMouseEnter);
-    card.addEventListener("mouseleave", handleMouseLeave);
-
-    // Cleanup
-    return () => {
-      if (card) {
-        card.removeEventListener("mousemove", handleMouseMove);
-        card.removeEventListener("mouseenter", handleMouseEnter);
-        card.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
+      return () => {
+        document.body.removeChild(customStars);
+      };
+    }
   }, []);
+
+  // Handle mouse movement
+  const handleMouseMove = (e) => {
+    if (!e.currentTarget) return;
+
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    // Calculate mouse position relative to card center
+    const mouseX = e.clientX - rect.left - width / 2;
+    const mouseY = e.clientY - rect.top - height / 2;
+
+    // Convert to rotation values (-10 to 10 degrees)
+    const rotateY = -(mouseX / (width / 2)) * 10;
+    const rotateX = (mouseY / (height / 2)) * 10;
+
+    setTransform({
+      rotateX,
+      rotateY,
+      active: true,
+    });
+  };
+
+  // Reset transform when mouse leaves
+  const handleMouseLeave = () => {
+    setTransform({
+      rotateX: 0,
+      rotateY: 0,
+      active: false,
+    });
+  };
+
+  // Enter transform when mouse enters
+  const handleMouseEnter = () => {
+    setTransform((prev) => ({
+      ...prev,
+      active: true,
+    }));
+  };
+
+  // Calculate the transform style for the card
+  const cardStyle = {
+    transform: `perspective(1000px) rotateX(${transform.rotateX}deg) rotateY(${
+      transform.rotateY
+    }deg) scale(${transform.active ? 1.03 : 1})`,
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+    boxShadow: transform.active
+      ? `${transform.rotateY * 0.5}px ${
+          transform.rotateX * -0.5
+        }px 50px rgba(111, 66, 193, 0.8)`
+      : "0 10px 30px rgba(111, 66, 193, 0.3)",
+    border: transform.active
+      ? "3px solid rgba(155, 89, 182, 0.8)"
+      : "2px solid rgba(155, 89, 182, 0.3)",
+    pointerEvents: "auto",
+  };
+
+  // Styles for inner elements
+  const titleStyle = {
+    transform: transform.active
+      ? `translateZ(50px) translateX(${
+          transform.rotateY * -1.5
+        }px) translateY(${transform.rotateX * -1.5}px)`
+      : "none",
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+  };
+
+  const descStyle = {
+    transform: transform.active
+      ? `translateZ(30px) translateX(${transform.rotateY * -1}px) translateY(${
+          transform.rotateX * -1
+        }px)`
+      : "none",
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+  };
+
+  const tagStyle = {
+    transform: transform.active
+      ? `translateZ(80px) translateX(${transform.rotateY * 0.5}px) translateY(${
+          transform.rotateX * 0.5
+        }px)`
+      : "none",
+    transition: transform.active
+      ? "transform 0.1s ease"
+      : "transform 0.5s ease",
+  };
 
   return (
     <div className={styles.container}>
-      <div className={styles.gameImageContainer} ref={cardRef}>
+      <div
+        className={styles.gameImageContainer}
+        style={cardStyle}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {game?.image && (
           <img
             src={game.image}
@@ -120,14 +144,14 @@ const ComingSoon = ({
             className={styles.gameImage}
           />
         )}
-        <div className={styles.cornerTag} ref={tagRef}>
+        <div className={styles.cornerTag} style={tagStyle}>
           <span>Coming Soon!</span>
         </div>
         <div className={styles.overlay}>
-          <h1 className={styles.title} ref={titleRef}>
+          <h1 className={styles.title} style={titleStyle}>
             {game?.title || "Game Title"}
           </h1>
-          <p className={styles.description} ref={descRef}>
+          <p className={styles.description} style={descStyle}>
             {game?.description ||
               "This game is currently in development and will be available soon!"}
           </p>
