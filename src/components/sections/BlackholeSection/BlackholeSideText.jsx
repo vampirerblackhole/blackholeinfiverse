@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../../styles/BH.css";
+import TiltCard from "../../common/TiltCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -200,29 +201,17 @@ function BlackholeSideText() {
         </div>
 
         <div id="p12" className="fade-in" ref={paragraphRef1}>
-          <h2 className="text-heading">
-            Redefining Digital with AI Integration
-          </h2>
-          <p>
-            The cyberspace is transforming, and so are we. At BlackHole InVerse,
-            we are at the forefront of the next digital revolution. Specialising
-            in cutting-edge technologies such as AI, Machine Learning, XR,
-            Blockchain, and Robotics, we are crafting the future of Web3 and
-            beyond.
-          </p>
+          <TiltCard
+            title="Redefining Digital with AI Integration"
+            description="The cyberspace is transforming, and so are we. At BlackHole InVerse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, and Robotics, we are crafting the future of Web3 and beyond."
+          />
         </div>
 
         <div id="p11" className="fade-in" ref={paragraphRef2}>
-          <h2 className="text-heading">
-            Empowering Industries with Innovation
-          </h2>
-          <p>
-            Our mission is to empower industries with innovative solutions that
-            not only meet today&apos;s demands but also anticipate
-            tomorrow&apos;s needs. Together, we&apos;re shaping a world where
-            digital and physical realities converge seamlessly, driving progress
-            and unlocking endless possibilities for the future.
-          </p>
+          <TiltCard
+            title="Empowering Industries with Innovation"
+            description="Our mission is to empower industries with innovative solutions that not only meet today's demands but also anticipate tomorrow's needs. Together, we're shaping a world where digital and physical realities converge seamlessly, driving progress and unlocking endless possibilities for the future."
+          />
         </div>
       </div>
     </>

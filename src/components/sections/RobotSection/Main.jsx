@@ -3,6 +3,8 @@ import Experience from "./Experience"; // This renders the robot model
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import "@/styles/Robot.css";
+import RoboticsCard from "./RoboticsCard";
+import TiltCard from "../../common/TiltCard";
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
@@ -139,22 +141,11 @@ function Main() {
           <Experience scrollPosition={scrollPosition} />
         </div>
         <div className="cover">
-          <div className="section section0">
-            <h1> from 10</h1>
-          </div>
           <div
             className="section s-para1"
             style={{ position: "relative", zIndex: 1000 }}
           >
-            <div className="para1">
-              <h1 className="para-h">Welcome to BlackHole InVerse Robotics</h1>
-              <p className="para">
-                Our cutting-edge robotics division is pushing the boundaries of
-                what&apos;s possible with advanced AI and mechanical
-                engineering. We&apos;re creating intelligent machines that help
-                solve real-world problems while advancing the field of robotics.
-              </p>
-            </div>
+            <RoboticsCard />
           </div>
 
           <div
@@ -162,38 +153,22 @@ function Main() {
             style={{ position: "relative", zIndex: 1000 }}
           >
             <div className="para2">
-              <h1 className="para-h">
-                Redefining Robotics with AI Integration
-              </h1>
-              <p className="para">
-                At BlackHole InVerse, we&apos;re developing the next generation
-                of humanoid robotics that are intelligent, adaptable, and
-                designed to seamlessly integrate into the Web3 ecosystem. Our
-                humanoid robots are equipped with advanced AI systems that
-                enable them to perform a wide range of tasks, from customer
-                service to complex industrial operations.
-              </p>
+              <TiltCard
+                title="Redefining Robotics with AI Integration"
+                description="At BlackHole InVerse, we're developing the next generation of humanoid robotics that are intelligent, adaptable, and designed to seamlessly integrate into the Web3 ecosystem. Our humanoid robots are equipped with advanced AI systems that enable them to perform a wide range of tasks, from customer service to complex industrial operations."
+              />
             </div>
           </div>
+
           <div
             className="section s-para3"
             style={{ position: "relative", zIndex: 1000 }}
           >
             <div className="para2-left">
-              <h1 className="para-h">
-                Empowering Industries with Smart Gadgets
-              </h1>
-              <p className="para">
-                We&apos;re not just building robots; we&apos;re creating an
-                ecosystem of smart gadgets that work together to enhance both
-                human productivity and interaction. Our robotics solutions are
-                designed for multiple applications, including healthcare,
-                education, manufacturing, and entertainment. From assistive
-                devices for people with disabilities to robotic arms in
-                factories, our products are helping industries embrace
-                automation and AI in a way that is both practical and
-                revolutionary
-              </p>
+              <TiltCard
+                title="Empowering Industries with Smart Gadgets"
+                description="We're not just building robots; we're creating an ecosystem of smart gadgets that work together to enhance both human productivity and interaction. Our robotics solutions are designed for multiple applications, including healthcare, education, manufacturing, and entertainment. From assistive devices for people with disabilities to robotic arms in factories, our products are helping industries embrace automation and AI in a way that is both practical and revolutionary."
+              />
             </div>
           </div>
 
@@ -202,19 +177,10 @@ function Main() {
             style={{ position: "relative", zIndex: 1000 }}
           >
             <div className="para3">
-              <h1 className="para-h">Humanoid Robotics for a New Era </h1>
-              <p className="para">
-                Humanoid robots are poised to revolutionise industries that
-                require human-like interaction and dexterity. At BlackHole
-                InVerse, we&apos;re leading the way with humanoid robots that
-                can engage with people, understand complex scenarios, and
-                execute intricate tasks. Whether it&apos;s a robot serving as a
-                virtual assistant, a healthcare companion, or a precision
-                machine operator, our humanoid robots are equipped with advanced
-                AI capabilities to perform their roles effectively and
-                naturally. The future of robotics is intelligent, autonomous,
-                and deeply integrated into the Web3 world
-              </p>
+              <TiltCard
+                title="Humanoid Robotics for a New Era"
+                description="Humanoid robots are poised to revolutionise industries that require human-like interaction and dexterity. At BlackHole InVerse, we're leading the way with humanoid robots that can engage with people, understand complex scenarios, and execute intricate tasks. Whether it's a robot serving as a virtual assistant, a healthcare companion, or a precision machine operator, our humanoid robots are equipped with advanced AI capabilities to perform their roles effectively and naturally. The future of robotics is intelligent, autonomous, and deeply integrated into the Web3 world."
+              />
             </div>
           </div>
         </div>
