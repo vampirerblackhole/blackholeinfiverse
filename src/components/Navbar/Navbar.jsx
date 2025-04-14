@@ -70,7 +70,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="w-full h-[65px] fixed top-0 transition-all duration-500"
+      className="w-full h-[60px] fixed top-0 transition-all duration-500"
       style={{
         zIndex: 9999,
         background: "rgba(0,0,0,0.3)",
@@ -78,7 +78,7 @@ const Navbar = () => {
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
       }}
     >
-      <div className="w-full h-full flex flex-row items-center justify-between m-auto px-4 md:px-10">
+      <div className="w-full h-full flex flex-row items-center justify-between m-auto px-6 md:px-10">
         {" "}
         <a href="/" className="group relative overflow-hidden">
           <span className="font-bold text-xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-gray-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-15">
