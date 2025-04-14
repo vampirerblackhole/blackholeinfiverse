@@ -28,7 +28,7 @@ export default function BlackholeScene() {
     if (!isHomePage) return;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY * 3.5;
+      const scrollPosition = window.scrollY * 5; // Reduced from 10 to 5 for slower zoom effect
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = scrollPosition / maxScroll;
@@ -36,11 +36,11 @@ export default function BlackholeScene() {
       // Set scroll progress for blackhole zoom effect
       setScrollProgress(Math.min(scrollPercent, 1));
 
-      // Fade out when reaching 70% of the page
-      if (scrollPercent > 0.9) {
-        setOpacity(Math.max(0, 0.9 - ((scrollPercent - 0.9) / 0.3) * 0.9));
+      // Fade out more gradually - start at 75% and use a longer transition (0.5 instead of 0.3)
+      if (scrollPercent > 0.75) {
+        setOpacity(Math.max(0, 1 - ((scrollPercent - 0.75) / 0.5) * 1));
       } else {
-        setOpacity(0.9); // Slightly transparent
+        setOpacity(1); // Fully visible until fade point
       }
     };
 
@@ -87,7 +87,7 @@ export default function BlackholeScene() {
         zIndex: 0,
         pointerEvents: "auto",
         opacity: opacity,
-        transition: "opacity 0.3s ease-out",
+        transition: "opacity 0.5s ease-out", // Increased from 0.3s to 0.5s for smoother transition
         mixBlendMode: "normal",
       }}
     >
