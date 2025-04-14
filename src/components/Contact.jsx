@@ -153,9 +153,9 @@ const Contact = () => {
     "transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 bg-gray-900/80 text-white rounded-lg border border-purple-500/30 focus:outline-none focus:border-purple-400/60 focus:ring-1 focus:ring-purple-400/40";
 
   return (
-    <div className="relative z-10 pt-[85px]">
+    <div className="relative z-10 min-h-screen flex items-center justify-center">
       <div
-        className="flex justify-center items-center px-5 sm:px-10"
+        className="flex justify-center items-center px-5 sm:px-10 w-full"
         style={{ background: "transparent" }}
       >
         <div
@@ -257,8 +257,9 @@ const Contact = () => {
           </form>
         </div>
       </div>
+
       {/* Privacy Policy */}
-      <div className="mt-2 flex justify-center">
+      <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <div className="max-w-[22rem] relative">
           <p className="text-purple-200/70 pl-6 relative text-sm">
             <Lock
