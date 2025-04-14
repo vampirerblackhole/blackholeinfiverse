@@ -13,6 +13,27 @@
   animation-duration: 10s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1),
+    /* Subtle white glow */ 0 0 4px rgba(255, 255, 255, 0.05),
+    /* Very faint outer glow */ 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  color: #ffffff; /* Ensure consistent base color */
+}
+
+.loop-h1 span {
+  opacity: 0.95; /* Slightly reduce opacity for better glow effect */
+  color: #ffffff; /* Ensure consistent color */
+}
+
+.loop-h1 b i {
+  color: #ffffff; /* Match the base text color */
+  background: none; /* Remove the gradient background */
+  -webkit-background-clip: initial; /* Remove background clip */
+  background-clip: initial; /* Remove background clip */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.1),
+    /* Match the base text shadow */ 0 0 4px rgba(255, 255, 255, 0.05),
+    2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold; /* Keep the bold weight */
+  font-style: italic; /* Keep the italic style */
 }
 
 /* Media Query for smaller screens */
