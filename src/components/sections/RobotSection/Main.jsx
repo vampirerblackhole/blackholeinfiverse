@@ -145,7 +145,9 @@ function Main() {
             className="section s-para1"
             style={{ position: "relative", zIndex: 500 }}
           >
-            <RoboticsCard />
+            <div className="para2">
+              <RoboticsCard />
+            </div>
           </div>
 
           <div

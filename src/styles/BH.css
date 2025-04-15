@@ -52,7 +52,8 @@
 /* Heading styles for main intro text */
 #hh h1 {
   letter-spacing: 2px;
-  font-weight: 700;
+  font-weight: 900;
+  font-family: Montserrat, sans-serif;
   transform: translateZ(0);
   will-change: transform;
   -webkit-font-smoothing: antialiased;
