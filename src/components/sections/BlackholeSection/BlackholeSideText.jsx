@@ -111,27 +111,31 @@ function BlackholeSideText() {
         end: "bottom 80%",
         scrub: 1,
         anticipatePin: 1, // Improve performance by pre-calculating positions
+        // Add markers: true for debugging if needed
       },
     });
+
+    // Adjust animation values for better mobile experience
+    const isMobile = window.innerWidth <= 768;
+    const xOffsetTitle1 = isMobile ? -600 : -1450;
+    const xOffsetTitle2 = isMobile ? 600 : 1500;
 
     // Add animations to the timeline
     tl.to(
       ".bh-head",
       {
-        x: -1450,
+        x: xOffsetTitle1,
         ease: "power4.out",
         force3D: true,
-        clearProps: "transform",
       },
       0
     )
       .to(
         ".bh-head2",
         {
-          x: 1500,
+          x: xOffsetTitle2,
           ease: "power4.out",
           force3D: true,
-          clearProps: "transform",
         },
         0
       )
@@ -163,13 +167,15 @@ function BlackholeSideText() {
           height: "500vh",
           width: "100vw",
           overflowX: "hidden",
-          overflowY: "hidden",
+          overflowY: "auto",
           transition: "opacity 1s ease-in-out",
           zIndex: 5,
           background: "transparent",
           display: isLoaded ? "block" : "none",
           transform: "translateZ(0)",
           willChange: "transform",
+          touchAction: "pan-y",
+          WebkitOverflowScrolling: "touch",
         }}
       >
         <canvas
@@ -189,6 +195,7 @@ function BlackholeSideText() {
             mixBlendMode: "normal",
             transform: "translateZ(0)",
             willChange: "transform, opacity",
+            pointerEvents: "none", // Add pointer-events: none to prevent canvas from blocking interactions
           }}
         />
         <div
@@ -196,64 +203,55 @@ function BlackholeSideText() {
           className="fixed top-0 left-0 w-full h-screen flex items-center justify-center"
           style={{
             zIndex: 25,
+            pointerEvents: "none", // Add pointer-events: none to prevent blocking interactions
           }}
         >
-          <div
-            style={{
-              textAlign: "center",
-              width: "100%",
-              maxWidth: "1400px",
-              overflow: "visible",
-              padding: "0 20px",
-            }}
-          >
+          <div className="text-center max-w-full px-4">
             <h1
-              className="gradient-text bh-head font-bold"
+              className="gradient-text bh-head font-bold text-[120px] mb-4 mobile-welcome-text"
               style={{
-                fontSize: "7.5rem",
-                lineHeight: 1.1,
-                marginBottom: "1.5rem",
                 transform: "translateZ(0)",
                 willChange: "transform",
-                whiteSpace: "nowrap",
-                width: "100%",
-                display: "block",
               }}
             >
               Welcome to
             </h1>
             <h1
-              className="gradient-text bh-head2 font-bold"
+              className="gradient-text bh-head2 font-bold text-[120px] mobile-infiverse-text"
               style={{
-                fontSize: "7.5rem",
-                lineHeight: 1.1,
                 transform: "translateZ(0)",
                 willChange: "transform",
-                whiteSpace: "nowrap",
-                width: "100%",
-                display: "block",
               }}
             >
               Blackhole Infiverse!
             </h1>
           </div>
+
+          {/* Add custom CSS that you can modify later */}
           <style>
             {`
-            @media (max-width: 1200px) {
-              .gradient-text {
-                font-size: 6rem !important;
+              /* Custom mobile styles that you can modify */
+              @media (max-width: 768px) {
+                .mobile-welcome-text {
+                  font-size: 3rem !important;
+                  margin-top: -1rem !important;
+                  /* Add your custom mobile styles here */
+                }
+                
+                .mobile-infiverse-text {
+                  margin-left: 1rem;
+                  font-size: 2.8rem !important;
+                  margin-top: -1rem !important;
+                  text-align: center !important;
+                  /* Add your custom mobile styles here */
+                }
+
+                /* Fix for the card positioning on mobile scroll */
+                #p12, #p11 {
+                  position: absolute !important;
+                  z-index: 30 !important;
+                }
               }
-            }
-            @media (max-width: 768px) {
-              .gradient-text {
-                font-size: 4rem !important;
-              }
-            }
-            @media (max-width: 480px) {
-              .gradient-text {
-                font-size: 2.5rem !important;
-              }
-            }
             `}
           </style>
         </div>

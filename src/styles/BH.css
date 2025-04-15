@@ -176,14 +176,16 @@
     margin-left: auto !important;
     margin-right: auto !important;
     padding: 10px !important;
+    z-index: 30;
+    pointer-events: auto;
   }
 
   #p12 {
-    top: 100vh;
+    top: 110vh;
   }
 
   #p11 {
-    top: 200vh;
+    top: 220vh;
   }
 
   .text-heading {
@@ -196,21 +198,24 @@
     width: 100% !important;
   }
 
-  /* Ensure card containers are centered */
+  /* Ensure card containers are centered and interactive */
   #p12 > div,
   #p11 > div {
     max-width: 100% !important;
     width: 100% !important;
     margin: 0 auto !important;
     padding: 0 !important;
+    pointer-events: auto;
   }
 
-  /* Make card content wider */
+  /* Make card content wider and ensure interactions work */
   #p12 .card,
   #p11 .card {
     width: 100% !important;
     margin: 0 auto !important;
     padding: 1.5rem !important;
+    touch-action: auto;
+    will-change: transform;
   }
 
   #p12 .title,
@@ -237,6 +242,7 @@
     margin-right: 0 !important;
     padding: 0 !important;
     position: absolute;
+    z-index: 30;
   }
 
   .text-heading {
@@ -247,6 +253,15 @@
   #p11 p {
     font-size: 0.9rem;
     width: 100% !important;
+  }
+
+  /* Adjust positions for smaller devices */
+  #p12 {
+    top: 100vh;
+  }
+
+  #p11 {
+    top: 190vh;
   }
 
   /* Ensure card containers are centered and full width */
