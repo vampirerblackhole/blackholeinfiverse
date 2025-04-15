@@ -8,10 +8,14 @@
   background-color: white;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s, opacity 0.3s;
-  will-change: transform;
+  transform-origin: center;
+  transition: width 0.2s ease-out, height 0.2s ease-out,
+    background-color 0.2s ease-out;
+  will-change: transform, width, height;
   mix-blend-mode: difference;
+  backface-visibility: hidden;
+  margin-left: -3px;
+  margin-top: -3px;
 }
 
 .custom-cursor-ring {
@@ -24,11 +28,13 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s,
-    transform 0.1s ease-out;
-  will-change: transform;
+  transform-origin: center;
+  transition: all 0.15s ease-out;
+  will-change: transform, width, height;
   mix-blend-mode: difference;
+  backface-visibility: hidden;
+  margin-left: -12.5px;
+  margin-top: -12.5px;
 }
 
 /* Cursor styles for clickable elements */
@@ -37,12 +43,16 @@
   height: 10px;
   background-color: white;
   mix-blend-mode: difference;
+  transition: all 0.15s ease-out;
+  transform: translate(-50%, -50%);
 }
 
 .custom-cursor-ring.pointer {
   width: 40px;
   height: 40px;
   border-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.15s ease-out;
+  transform: translate(-50%, -50%);
 }
 
 /* Click animations */
@@ -50,38 +60,48 @@
   width: 12px !important;
   height: 12px !important;
   background-color: #a855f7 !important;
-  transition: width 0.1s, height 0.1s, background-color 0.1s;
+  margin-left: -6px !important;
+  margin-top: -6px !important;
+  transition: all 0.1s ease-out !important;
 }
 
 .cursor-ring-click {
   width: 20px !important;
   height: 20px !important;
   border-color: #a855f7 !important;
-  transition: width 0.1s, height 0.1s, border-color 0.1s;
+  margin-left: -10px !important;
+  margin-top: -10px !important;
+  transition: all 0.1s ease-out !important;
 }
 
-/* Enhanced hover effect for special elements - add .cursor-attract class to elements */
+/* Enhanced hover effect for special elements */
 .cursor-attract {
   cursor: none !important;
-  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 /* Text attraction effect */
 .cursor-attract-text:hover ~ .custom-cursor-ring {
-  width: 120px !important;
-  height: 120px !important;
+  width: 70px !important;
+  height: 70px !important;
   background-color: rgba(255, 255, 255, 0.03);
   mix-blend-mode: difference;
-  backdrop-filter: blur(2px);
+  margin-left: -35px;
+  margin-top: -35px;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: transform, width, height;
 }
 
 /* Button attraction effect */
 .cursor-attract-button:hover ~ .custom-cursor-ring {
-  width: 70px !important;
-  height: 70px !important;
+  width: 60px !important;
+  height: 60px !important;
   background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(1px);
   border-color: rgba(255, 255, 255, 0.8);
+  margin-left: -30px;
+  margin-top: -30px;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: transform, width, height;
 }
 
 /* Remove intro animation - now handled by JavaScript */

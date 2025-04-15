@@ -103,38 +103,54 @@ function BlackholeSideText() {
   }, []);
 
   useEffect(() => {
-    gsap.to(".bh-head", {
-      scrollTrigger: {
-        trigger: "#bh", // Element that will trigger the animation when scrolled into view
-        start: "top top", // When the top of the `.portal` reaches 80% of the viewport height
-        end: "bottom 80%", // When the bottom of the `.portal` reaches 20% of the viewport height
-        scrub: 1, // This will link the animation progress to the scroll
-      },
-      x: -1450,
-      ease: "power4.out",
-    });
-    gsap.to(".bh-head2", {
-      scrollTrigger: {
-        trigger: "#bh", // Element that will trigger the animation when scrolled into view
-        start: "top top", // When the top of the `.portal` reaches 80% of the viewport height
-        end: "bottom 80%", // When the bottom of the `.portal` reaches 20% of the viewport height
-        scrub: 1, // This will link the animation progress to the scroll
-      },
-      x: 1500,
-      ease: "power4.out",
-    });
-
-    // Add fade-out for canvas when approaching robot section
-    gsap.to(canvasRef.current, {
+    // Create a single timeline for better performance
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#bh",
-        start: "80% top",
-        end: "bottom top",
-        scrub: true,
+        start: "top top",
+        end: "bottom 80%",
+        scrub: 1,
+        anticipatePin: 1, // Improve performance by pre-calculating positions
       },
-      opacity: 0,
-      ease: "power2.out",
     });
+
+    // Add animations to the timeline
+    tl.to(
+      ".bh-head",
+      {
+        x: -1450,
+        ease: "power4.out",
+        force3D: true,
+        clearProps: "transform",
+      },
+      0
+    )
+      .to(
+        ".bh-head2",
+        {
+          x: 1500,
+          ease: "power4.out",
+          force3D: true,
+          clearProps: "transform",
+        },
+        0
+      )
+      .to(
+        canvasRef.current,
+        {
+          opacity: 0,
+          ease: "power2.out",
+          force3D: true,
+        },
+        0
+      );
+
+    return () => {
+      // Cleanup
+      if (tl.scrollTrigger) {
+        tl.scrollTrigger.kill();
+      }
+    };
   }, []);
 
   return (
@@ -148,10 +164,12 @@ function BlackholeSideText() {
           width: "100vw",
           overflowX: "hidden",
           overflowY: "hidden",
-          transition: "opacity 1.5s ease-in-out",
-          zIndex: 5, // Reduced from 10 to allow the global StarsScene to be visible
-          background: "transparent", // Ensure background is transparent
-          display: isLoaded ? "block" : "none", // Only display when loaded
+          transition: "opacity 1s ease-in-out", // Reduced from 1.5s
+          zIndex: 5,
+          background: "transparent",
+          display: isLoaded ? "block" : "none",
+          transform: "translateZ(0)", // Add hardware acceleration
+          willChange: "transform", // Optimize transforms
         }}
       >
         {/* Stars Canvas - Removed */}
@@ -164,14 +182,15 @@ function BlackholeSideText() {
             position: "fixed",
             top: 0,
             left: 0,
-            zIndex: 5, // Higher than stars (z-index 0) to ensure BlackholeText is above stars
+            zIndex: 5,
             width: "100vw",
             height: "100vh",
             objectFit: "cover",
             margin: 0,
             padding: 0,
-            // Semi-transparent to let stars be subtly visible
-            mixBlendMode: "normal", // Normal blend
+            mixBlendMode: "normal",
+            transform: "translateZ(0)", // Add hardware acceleration
+            willChange: "transform, opacity", // Optimize transforms and opacity
           }}
         />
         <div
@@ -181,15 +200,31 @@ function BlackholeSideText() {
             position: "relative",
             top: "3%",
             zIndex: 25,
-            fontSize: "5vw", // Make text size responsive using viewport width
+            fontSize: "5vw",
             paddingTop: "5vh",
             height: "100vh",
+            transform: "translateZ(0)", // Add hardware acceleration
+            willChange: "transform", // Optimize transforms
           }}
         >
-          <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head cursor-attract-text">
+          <h1
+            className="gradient-text transition-opacity duration-300 ease-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head cursor-attract-text"
+            style={{
+              transform: "translateZ(0)",
+              willChange: "transform",
+              backfaceVisibility: "hidden",
+            }}
+          >
             <span>Welcome to</span>
           </h1>
-          <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head2 cursor-attract-text">
+          <h1
+            className="gradient-text transition-opacity duration-300 ease-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head2 cursor-attract-text"
+            style={{
+              transform: "translateZ(0)",
+              willChange: "transform",
+              backfaceVisibility: "hidden",
+            }}
+          >
             <span className="">Blackhole Infiverse</span>
           </h1>
         </div>

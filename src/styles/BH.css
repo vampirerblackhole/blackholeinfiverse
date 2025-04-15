@@ -53,23 +53,25 @@
 #hh h1 {
   letter-spacing: 2px;
   font-weight: 700;
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Animation for heading */
 .gradient-text {
   background: linear-gradient(
     135deg,
-    #61acef,
-    #9987ed,
-    #b679e1,
-    #9791db,
-    #74bdcc,
-    #59d2bf
-  );
+    #61acef 0%,
+    #9987ed 50%,
+    #74bdcc 100%
+  ); /* Simplified gradient */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-weight: bold; /* Optional */
+  font-weight: bold;
+  transform: translateZ(0); /* Hardware acceleration */
+  will-change: transform;
 }
 @keyframes gradient {
   0% {

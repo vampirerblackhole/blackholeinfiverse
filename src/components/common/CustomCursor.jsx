@@ -37,11 +37,12 @@ const CustomCursor = () => {
 
     // Add listener for mousemove to update initial position if mouse moves before setup completes
     const onInitialMouseMove = (e) => {
-      mousePosition.current = { x: e.clientX, y: e.clientY };
+      const { clientX, clientY } = e;
+      mousePosition.current = { x: clientX, y: clientY };
 
       if (cursorRef.current && cursorRingRef.current) {
-        cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        cursorRingRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px)`;
+        cursorRingRef.current.style.transform = `translate(${clientX}px, ${clientY}px)`;
       }
     };
 
@@ -56,20 +57,50 @@ const CustomCursor = () => {
     if (!isReady || !cursorRef.current || !cursorRingRef.current) return;
 
     document.body.style.cursor = "none";
+    let rafId = null;
+    const lerp = (start, end, factor) => start + (end - start) * factor;
 
     const onMouseMove = (e) => {
       const { clientX, clientY } = e;
-
-      // Store the mouse position
       mousePosition.current = { x: clientX, y: clientY };
 
       // Handle magnetic attraction effect
       if (isAttract && attractElementRef.current) {
         // This is handled in animation frame
       } else {
-        // Normal cursor movement
-        cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px)`;
-        cursorRingRef.current.style.transform = `translate(${clientX}px, ${clientY}px)`;
+        // Smooth cursor movement using requestAnimationFrame
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+        }
+
+        const smoothCursor = () => {
+          if (!cursorRef.current || !cursorRingRef.current) return;
+
+          // Get current position from transform
+          const currentTransform = cursorRef.current.style.transform;
+          let currentX = mousePosition.current.x;
+          let currentY = mousePosition.current.y;
+
+          if (currentTransform) {
+            const matches = currentTransform.match(
+              /translate\(([\d.-]+)px, ([\d.-]+)px\)/
+            );
+            if (matches) {
+              currentX = parseFloat(matches[1]);
+              currentY = parseFloat(matches[2]);
+            }
+          }
+
+          // Smooth movement for main cursor
+          const newX = lerp(currentX, mousePosition.current.x, 0.2);
+          const newY = lerp(currentY, mousePosition.current.y, 0.2);
+
+          // Apply transforms
+          cursorRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+          cursorRingRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+        };
+
+        rafId = requestAnimationFrame(smoothCursor);
       }
     };
 
@@ -247,6 +278,10 @@ const CustomCursor = () => {
 
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
+      }
+
+      if (rafId) {
+        cancelAnimationFrame(rafId);
       }
     };
   }, [isReady, isAttract, isPointer]);
