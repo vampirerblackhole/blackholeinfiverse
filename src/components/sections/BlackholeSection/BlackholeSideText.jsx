@@ -193,55 +193,69 @@ function BlackholeSideText() {
         />
         <div
           id="hh"
-          className="absolute top-0 left-0 w-full h-screen flex items-center justify-center"
+          className="fixed top-0 left-0 w-full h-screen flex items-center justify-center"
           style={{
             zIndex: 25,
-            transform: "translateZ(0)",
-            willChange: "transform",
           }}
         >
-          <div className="text-left absolute top-[40%] left-[40%] -translate-x-1/2 -translate-y-1/2">
+          <div
+            style={{
+              textAlign: "center",
+              width: "100%",
+              maxWidth: "1400px",
+              overflow: "visible",
+              padding: "0 20px",
+            }}
+          >
             <h1
-              className="gradient-text transition-opacity duration-300 ease-out text-[120px] leading-none cursor-attract-text font-bold bh-head"
+              className="gradient-text bh-head font-bold"
               style={{
+                fontSize: "7.5rem",
+                lineHeight: 1.1,
+                marginBottom: "1.5rem",
                 transform: "translateZ(0)",
                 willChange: "transform",
-                backfaceVisibility: "hidden",
-                letterSpacing: "0.05em",
                 whiteSpace: "nowrap",
-                marginBottom: "0",
+                width: "100%",
+                display: "block",
               }}
             >
               Welcome to
             </h1>
             <h1
-              className="gradient-text transition-opacity duration-300 ease-out text-[120px] leading-none cursor-attract-text font-bold bh-head2"
+              className="gradient-text bh-head2 font-bold"
               style={{
+                fontSize: "7.5rem",
+                lineHeight: 1.1,
                 transform: "translateZ(0)",
                 willChange: "transform",
-                backfaceVisibility: "hidden",
-                letterSpacing: "0.05em",
                 whiteSpace: "nowrap",
-                marginTop: "0",
-                marginBottom: "0",
+                width: "100%",
+                display: "block",
               }}
             >
-              Blackhole
-            </h1>
-            <h1
-              className="gradient-text transition-opacity duration-300 ease-out text-[120px] leading-none cursor-attract-text font-bold bh-head"
-              style={{
-                transform: "translateZ(0)",
-                willChange: "transform",
-                backfaceVisibility: "hidden",
-                letterSpacing: "0.05em",
-                whiteSpace: "nowrap",
-                marginTop: "0",
-              }}
-            >
-              Infiverse!
+              Blackhole Infiverse!
             </h1>
           </div>
+          <style>
+            {`
+            @media (max-width: 1200px) {
+              .gradient-text {
+                font-size: 6rem !important;
+              }
+            }
+            @media (max-width: 768px) {
+              .gradient-text {
+                font-size: 4rem !important;
+              }
+            }
+            @media (max-width: 480px) {
+              .gradient-text {
+                font-size: 2.5rem !important;
+              }
+            }
+            `}
+          </style>
         </div>
 
         <div id="p12" className="fade-in" ref={paragraphRef1}>
