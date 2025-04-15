@@ -26,7 +26,7 @@ const NavLink = ({ href, children, mobile = false, onClick = () => {} }) => {
       <a
         href={href}
         onClick={onClick}
-        className="cursor-attract-button block w-full py-4 px-4 text-xl font-medium text-white hover:bg-purple-600 transition-colors"
+        className="cursor-attract-button block w-full py-4 px-4 text-xl font-medium text-white hover:bg-orange-600 transition-colors"
       >
         {children}
       </a>
@@ -39,8 +39,8 @@ const NavLink = ({ href, children, mobile = false, onClick = () => {} }) => {
       className="cursor-attract relative group nav-item-hover text-gray-300 tracking-wide hover:text-white transition-all duration-300"
     >
       <span className="relative z-10">{children}</span>
-      <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
-      <span className="absolute inset-0 w-full h-full bg-purple-500/10 rounded-lg transform scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"></span>
+      <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
+      <span className="absolute inset-0 w-full h-full bg-orange-500/10 rounded-lg transform scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"></span>
     </a>
   );
 };
@@ -106,19 +106,19 @@ const Navbar = () => {
             className="cursor-attract-text group relative overflow-hidden"
           >
             <span
-              className={`font-bold text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-gray-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-105 ${
+              className={`font-bold text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-gray-300 hover:to-orange-400 transition-all duration-500 hover:text-glow transform hover:scale-105 ${
                 scrolled ? "py-2" : "py-3"
               }`}
             >
               Blackhole Infiverse
             </span>
-            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
           </a>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              className="p-2 rounded-full bg-purple-900/30 text-white"
+              className="p-2 rounded-full bg-orange-900/30 text-white"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
@@ -172,7 +172,7 @@ const Navbar = () => {
               <button
                 onClick={handleMobileNavClick}
                 style={{
-                  background: "rgba(139, 92, 246, 0.3)",
+                  background: "rgba(255, 126, 29, 0.3)",
                   padding: "8px",
                   borderRadius: "50%",
                 }}
@@ -272,7 +272,7 @@ const Navbar = () => {
                     >
                       {FEATURED_CONFIG.title}
                     </h4>
-                    <p style={{ color: "#d8b4fe" }}>
+                    <p style={{ color: "#ffe0b4" }}>
                       {FEATURED_CONFIG.description}
                     </p>
                   </div>

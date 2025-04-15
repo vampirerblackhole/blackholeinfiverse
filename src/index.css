@@ -34,7 +34,7 @@ html {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(147, 51, 234, 0.5) 50%,
+    rgba(255, 126, 29, 0.5) 50%,
     transparent 100%
   );
   transform: scaleX(0);

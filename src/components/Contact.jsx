@@ -150,7 +150,7 @@ const Contact = () => {
   };
 
   const inputStyle =
-    "transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 bg-gray-900/80 text-white rounded-lg border border-purple-500/30 focus:outline-none focus:border-purple-400/60 focus:ring-1 focus:ring-purple-400/40";
+    "transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 bg-gray-900/80 text-white rounded-lg border border-orange-500/30 focus:outline-none focus:border-orange-400/60 focus:ring-1 focus:ring-orange-400/40";
 
   return (
     <div className="relative z-10 min-h-screen flex items-center justify-center">
@@ -194,7 +194,7 @@ const Contact = () => {
           />
 
           <h4
-            className="text-4xl font-bold text-gray-200 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-300"
+            className="text-4xl font-bold text-gray-200 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-300"
             style={{ transform: "translateZ(60px)" }}
           >
             Contact Us
@@ -249,7 +249,7 @@ const Contact = () => {
 
             <button
               type="submit"
-              className="duration-300 hover:scale-105 w-full p-3 mt-4 text-gray-200 rounded-full transition-all bg-gradient-to-r from-purple-600/80 to-blue-500/80 hover:from-purple-500/90 hover:to-blue-400/90 border border-white/10"
+              className="duration-300 hover:scale-105 w-full p-3 mt-4 text-gray-200 rounded-full transition-all bg-gradient-to-r from-orange-600/80 to-yellow-500/80 hover:from-orange-500/90 hover:to-yellow-400/90 border border-white/10"
               style={{ transform: "translateZ(50px)" }}
             >
               Send Message
@@ -261,9 +261,9 @@ const Contact = () => {
       {/* Privacy Policy */}
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <div className="max-w-[22rem] relative">
-          <p className="text-purple-200/70 pl-6 relative text-sm">
+          <p className="text-orange-200/70 pl-6 relative text-sm">
             <Lock
-              color="#d8b4fe"
+              color="#ffb680"
               size={16}
               className="absolute left-0 top-1/2 transform -translate-y-1/2"
             />

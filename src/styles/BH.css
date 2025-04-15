@@ -66,10 +66,10 @@
 .gradient-text {
   background: linear-gradient(
     135deg,
-    #61acef 0%,
-    #9987ed 50%,
-    #74bdcc 100%
-  ); /* Simplified gradient */
+    #ff7e1d 0%,
+    #ff9500 50%,
+    #ff8c00 100%
+  ); /* Orange gradient */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

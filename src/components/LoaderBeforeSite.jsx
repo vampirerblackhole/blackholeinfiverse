@@ -267,7 +267,7 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
       >
         <div className="w-80 h-2 bg-gray-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300"
+            className="h-full bg-gradient-to-r from-yellow-300 via-orange-300 to-amber-300"
             style={{
               width: `${loadingProgress}%`,
               transition: "width 0.2s ease-out",

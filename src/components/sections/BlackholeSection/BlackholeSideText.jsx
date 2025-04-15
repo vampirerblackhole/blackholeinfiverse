@@ -208,7 +208,7 @@ function BlackholeSideText() {
         >
           <div className="text-center max-w-full px-4">
             <h1
-              className="gradient-text bh-head font-bold text-[120px] mb-4 mobile-welcome-text"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-gray-300 bh-head font-bold text-[120px] mb-4 mobile-welcome-text"
               style={{
                 transform: "translateZ(0)",
                 willChange: "transform",
@@ -217,7 +217,7 @@ function BlackholeSideText() {
               Welcome to
             </h1>
             <h1
-              className="gradient-text bh-head2 font-bold text-[120px] mobile-infiverse-text"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-gray-300 bh-head2 font-bold text-[120px] mobile-infiverse-text"
               style={{
                 transform: "translateZ(0)",
                 willChange: "transform",

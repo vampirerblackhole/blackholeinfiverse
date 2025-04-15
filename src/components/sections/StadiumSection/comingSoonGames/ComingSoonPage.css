@@ -27,7 +27,7 @@
   position: fixed;
   bottom: 2rem;
   padding: 1rem;
-  background: linear-gradient(135deg, #6f42c1, #9b59b6);
+  background: linear-gradient(135deg, #ff7e1d, #ff9500);
   color: white;
   border: none;
   border-radius: 50%;
@@ -35,17 +35,17 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 126, 29, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 100;
 }
 
 .back-button:hover {
   transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 6px 15px rgba(155, 89, 182, 0.5);
+  box-shadow: 0 6px 15px rgba(255, 140, 0, 0.5);
 }
 
 .back-button:active {
   transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(111, 66, 193, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 126, 29, 0.3);
 }

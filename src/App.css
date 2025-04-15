@@ -60,7 +60,7 @@ body {
 .contact-card-form textarea {
   background-color: rgba(20, 20, 30, 0.8) !important;
   color: white !important;
-  border-color: rgba(138, 43, 226, 0.3) !important;
+  border-color: rgba(255, 126, 29, 0.3) !important;
 }
 
 /* Media query for screens smaller than 1024px (tablets and small screens) */
@@ -212,12 +212,12 @@ canvas:not(.webgl) {
 .gradient-text {
   background: linear-gradient(
     135deg,
-    #61acef,
-    #9987ed,
-    #b679e1,
-    #9791db,
-    #74bdcc,
-    #59d2bf
+    #ff7e1d,
+    #ff9500,
+    #ffa700,
+    #ffb700,
+    #ff8c00,
+    #ff6200
   );
   -webkit-background-clip: text;
   background-clip: text;

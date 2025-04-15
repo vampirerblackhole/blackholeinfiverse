@@ -59,7 +59,7 @@
 .cursor-click {
   width: 12px !important;
   height: 12px !important;
-  background-color: #a855f7 !important;
+  background-color: #ff7e1d !important;
   margin-left: -6px !important;
   margin-top: -6px !important;
   transition: all 0.1s ease-out !important;
@@ -68,7 +68,7 @@
 .cursor-ring-click {
   width: 20px !important;
   height: 20px !important;
-  border-color: #a855f7 !important;
+  border-color: #ff7e1d !important;
   margin-left: -10px !important;
   margin-top: -10px !important;
   transition: all 0.1s ease-out !important;

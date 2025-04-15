@@ -72,10 +72,10 @@ function About() {
     boxShadow: transform.active
       ? `${transform.rotateY * 0.5}px ${
           transform.rotateX * -0.5
-        }px 50px rgba(111, 66, 193, 0.8)`
+        }px 50px rgba(255, 126, 29, 0.8)`
       : "0 10px 30px rgba(0, 0, 0, 0.3)",
     border: transform.active
-      ? "3px solid rgba(155, 89, 182, 0.48)"
+      ? "3px solid rgba(255, 140, 0, 0.48)"
       : "1px solid rgba(255, 255, 255, 0.1)",
     transformStyle: "preserve-3d",
     cursor: "pointer",
@@ -180,7 +180,7 @@ function About() {
             onMouseLeave={handleMouseLeave}
           >
             <h1
-              className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
+              className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
               style={titleStyle}
             >
               Shaping Tomorrow's Reality
@@ -194,7 +194,7 @@ function About() {
             </p>
 
             <div
-              className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto rounded-full"
+              className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-600 mx-auto rounded-full"
               style={lineStyle}
             ></div>
           </div>
@@ -227,7 +227,7 @@ function About() {
               <img
                 src="/about/vrwoman-img.jpg"
                 alt="VR Gaming"
-                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-pink-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-orange-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -237,7 +237,7 @@ function About() {
         <section className="relative">
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
-              <Brain className="w-16 h-16 text-purple-400 floating-icon mb-6" />
+              <Brain className="w-16 h-16 text-orange-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">AI Innovation Hub</h2>
               <p className="text-gray-300 text-lg mb-6">
                 Pioneering the future of artificial intelligence through
@@ -253,7 +253,7 @@ function About() {
               <img
                 src="/about/ai-img.png"
                 alt="AI Development"
-                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-purple-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-orange-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
