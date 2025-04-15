@@ -57,6 +57,7 @@ function Experience({ scrollPosition }) {
         position: "absolute", // Position canvas correctly in the layout
         top: 0,
         left: 0,
+        zIndex: 1, // Set a low z-index so content can appear above it
       }}
     >
       <directionalLight position={[0, 5, 5]} intensity={15} />

@@ -84,7 +84,7 @@ function Main() {
         <div className="canvas-container">
           {/* <NameCanva /> */}
           <div
-            style={{ color: "white", position: "absolute", top: 30 }}
+            style={{ color: "white", position: "absolute", top: 30, zIndex: 5 }}
             id="loop"
           >
             <h1 className="loop-h1">
@@ -143,14 +143,14 @@ function Main() {
         <div className="cover">
           <div
             className="section s-para1"
-            style={{ position: "relative", zIndex: 1000 }}
+            style={{ position: "relative", zIndex: 500 }}
           >
             <RoboticsCard />
           </div>
 
           <div
             className="section s-para2"
-            style={{ position: "relative", zIndex: 1000 }}
+            style={{ position: "relative", zIndex: 500 }}
           >
             <div className="para2">
               <TiltCard
@@ -162,7 +162,7 @@ function Main() {
 
           <div
             className="section s-para3"
-            style={{ position: "relative", zIndex: 1000 }}
+            style={{ position: "relative", zIndex: 500 }}
           >
             <div className="para2-left">
               <TiltCard
@@ -174,7 +174,7 @@ function Main() {
 
           <div
             className="section section2"
-            style={{ position: "relative", zIndex: 1000 }}
+            style={{ position: "relative", zIndex: 500 }}
           >
             <div className="para3">
               <TiltCard

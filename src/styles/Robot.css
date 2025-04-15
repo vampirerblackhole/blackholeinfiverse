@@ -55,7 +55,7 @@
   padding: 0;
   text-align: center;
   position: relative;
-  z-index: 1000;
+  z-index: 5;
 }
 
 .para1 .para-h {
@@ -100,7 +100,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 1000;
+  z-index: 5;
 }
 
 .para-h {
@@ -117,7 +117,7 @@
   background: transparent;
   padding: 10px 0;
   position: relative;
-  z-index: 1000;
+  z-index: 5;
 }
 
 .para {
@@ -127,7 +127,7 @@
   margin-top: 0.5rem;
   text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
   white-space: normal;
-  z-index: 1000;
+  z-index: 5;
   position: relative;
   opacity: 1;
   transform: translateY(0);
@@ -139,7 +139,7 @@
 .para1,
 .para2,
 .para3 {
-  z-index: 1000;
+  z-index: 5;
   position: relative;
   opacity: 1;
   display: flex;
@@ -156,7 +156,7 @@
 .para2-left {
   width: 50%;
   margin-left: 2%;
-  z-index: 1000;
+  z-index: 5;
   position: relative;
   opacity: 1;
   display: flex;

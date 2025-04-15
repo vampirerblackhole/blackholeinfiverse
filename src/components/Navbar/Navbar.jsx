@@ -20,7 +20,7 @@ const FEATURED_CONFIG = {
   link: "https://www.meta.com/experiences/9250693884966271/", // Add the URL you want to link to here
 };
 
-const NavLink = ({ href, children, mobile, onClick }) => {
+const NavLink = ({ href, children, mobile = false, onClick = () => {} }) => {
   if (mobile) {
     return (
       <a
@@ -50,11 +50,6 @@ NavLink.propTypes = {
   children: PropTypes.node.isRequired,
   mobile: PropTypes.bool,
   onClick: PropTypes.func,
-};
-
-NavLink.defaultProps = {
-  mobile: false,
-  onClick: () => {},
 };
 
 const Navbar = () => {
@@ -99,7 +94,7 @@ const Navbar = () => {
           scrolled ? "h-[70px] shadow-lg" : "h-[90px]"
         }`}
         style={{
-          zIndex: 10,
+          zIndex: 1000,
           background: scrolled ? "rgba(10,10,20,0.8)" : "rgba(0,0,0,0.4)",
           backdropFilter: "blur(12px)",
           borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
@@ -146,7 +141,7 @@ const Navbar = () => {
             right: 0,
             bottom: 0,
             backgroundColor: "#000",
-            zIndex: 9999,
+            zIndex: 1001,
             paddingTop: "90px",
             paddingBottom: "20px",
             display: "flex",
