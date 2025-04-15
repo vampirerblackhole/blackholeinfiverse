@@ -146,17 +146,24 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 50%;
+  margin: 8vh auto;
 }
 
 .para2 {
   width: 50%;
   margin-left: auto;
   margin-right: 2%;
+  margin-top: 15vh;
+  margin-bottom: 25vh;
 }
 
 .para2-left {
   width: 50%;
   margin-left: 2%;
+  margin-right: auto;
+  margin-top: 15vh;
+  margin-bottom: 25vh;
   z-index: 5;
   position: relative;
   opacity: 1;
@@ -166,9 +173,11 @@
 }
 
 .para3 {
-  width: 45%;
-  margin-left: 50%;
-  margin-top: 15%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: 2%;
+  margin-top: 15vh;
+  margin-bottom: 20vh;
 }
 
 /* Media query for smaller screens */
@@ -180,7 +189,8 @@
     width: 90%; /* Make paragraphs take up more space on smaller screens */
     margin-left: auto !important; /* Center the cards */
     margin-right: auto !important; /* Center the cards */
-    font-size: 40%;
+    margin-top: 10vh !important;
+    margin-bottom: 10vh !important;
   }
 
   .para1 {
@@ -225,10 +235,11 @@
   .para2,
   .para2-left,
   .para3 {
-    width: 90%; /* Use more screen width on smaller devices */
-    font-size: 12px;
+    width: 92% !important; /* Use more screen width on smaller devices */
     margin-left: auto !important; /* Force center alignment */
     margin-right: auto !important; /* Force center alignment */
+    margin-top: 8vh !important;
+    margin-bottom: 8vh !important;
   }
 
   .para1 {

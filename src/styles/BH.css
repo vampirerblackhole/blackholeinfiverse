@@ -1,6 +1,6 @@
 #p12,
 #p11 {
-  width: 45%;
+  width: 50%;
   position: absolute;
   opacity: 0;
   color: white;
@@ -33,6 +33,7 @@
   max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
+  height: 100%; /* Ensure full height usage */
 }
 
 #p12 .card,
@@ -41,6 +42,8 @@
   backdrop-filter: blur(15px);
   max-width: 100%;
   width: 100%;
+  min-height: 300px; /* Match the min-height from TiltCard */
+  aspect-ratio: 1.6 / 1; /* Match the aspect ratio from TiltCard */
 }
 
 #p12 .description,
@@ -216,6 +219,8 @@
     padding: 1.5rem !important;
     touch-action: auto;
     will-change: transform;
+    min-height: 250px; /* Match TiltCard mobile height */
+    aspect-ratio: 1.4 / 1; /* Match TiltCard mobile aspect ratio */
   }
 
   #p12 .title,
@@ -280,6 +285,8 @@
     max-width: 100% !important;
     margin: 0 !important;
     padding: 1rem 0.8rem !important;
+    min-height: 220px; /* Match TiltCard mobile height */
+    aspect-ratio: 1.2 / 1; /* Match TiltCard mobile aspect ratio */
   }
 
   #p12 .title,
@@ -311,7 +318,9 @@
 @media (max-width: 360px) {
   #p12 .card,
   #p11 .card {
-    padding: 0.8rem 0.6rem !important;
+    padding: 1.2rem 1rem !important;
+    min-height: 200px; /* Match TiltCard mobile height */
+    aspect-ratio: 1.1 / 1; /* Match TiltCard mobile aspect ratio */
   }
 
   #p12 .title,
