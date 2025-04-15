@@ -172,13 +172,13 @@ const BlackHole = ({
       disc.gradient.canvas.height
     );
     disc.gradient.style.addColorStop(0, "#ffffff");
-    disc.gradient.style.addColorStop(0.05, "#fffbf0");
-    disc.gradient.style.addColorStop(0.15, "#ffe0a3");
-    disc.gradient.style.addColorStop(0.3, "#ffb265");
-    disc.gradient.style.addColorStop(0.45, "#ff7d45");
-    disc.gradient.style.addColorStop(0.6, "#ff4136");
-    disc.gradient.style.addColorStop(0.75, "#c93180");
-    disc.gradient.style.addColorStop(0.9, "#8d2a8f");
+    disc.gradient.style.addColorStop(0.05, "#f3e0ff");
+    disc.gradient.style.addColorStop(0.15, "#e4c1ff");
+    disc.gradient.style.addColorStop(0.3, "#d3a3ff");
+    disc.gradient.style.addColorStop(0.45, "#b87fff");
+    disc.gradient.style.addColorStop(0.6, "#9d4eff");
+    disc.gradient.style.addColorStop(0.75, "#8b31c9");
+    disc.gradient.style.addColorStop(0.9, "#6a1b9a");
     disc.gradient.context.fillStyle = disc.gradient.style;
     disc.gradient.context.fillRect(
       0,

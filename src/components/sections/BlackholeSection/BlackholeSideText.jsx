@@ -186,17 +186,11 @@ function BlackholeSideText() {
             height: "100vh",
           }}
         >
-          <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head ">
-            <span>
-              Take A
-              <span>
-                {" "}
-                Step Towards <br />
-              </span>
-            </span>
+          <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head cursor-attract-text">
+            <span>Welcome to</span>
           </h1>
-          <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head2 ">
-            <span className="">The New Generation</span>
+          <h1 className="gradient-text transition-opacity duration-500 ease-in-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head2 cursor-attract-text">
+            <span className="">Blackhole Infiverse</span>
           </h1>
         </div>
 

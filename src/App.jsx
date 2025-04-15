@@ -13,6 +13,7 @@ import Contact from "./components/Contact";
 import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
 import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";
+import CustomCursor from "./components/common/CustomCursor";
 
 // Add a loading fallback
 const PageLoadingFallback = () => (
@@ -50,6 +51,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
   const [pageReady, setPageReady] = useState(false);
+  const [cursorReady, setCursorReady] = useState(false);
 
   // Track route changes
   const handleRouteChange = (pathname) => {
@@ -154,10 +156,23 @@ function App() {
     }, 100);
   };
 
+  // Add cursor ready effect
+  useEffect(() => {
+    // Slight delay to ensure DOM is loaded
+    const cursorTimer = setTimeout(() => {
+      setCursorReady(true);
+    }, 1000);
+
+    return () => clearTimeout(cursorTimer);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-black">
       <Router>
         <RouteObserver onRouteChange={handleRouteChange} />
+
+        {/* Custom Cursor - only render when page is ready */}
+        {cursorReady && <CustomCursor />}
 
         {/* Loader shown for all routes */}
         {loading && (

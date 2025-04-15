@@ -26,7 +26,7 @@ const NavLink = ({ href, children, mobile = false, onClick = () => {} }) => {
       <a
         href={href}
         onClick={onClick}
-        className="block w-full py-4 px-4 text-xl font-medium text-white hover:bg-purple-600 transition-colors"
+        className="cursor-attract-button block w-full py-4 px-4 text-xl font-medium text-white hover:bg-purple-600 transition-colors"
       >
         {children}
       </a>
@@ -36,7 +36,7 @@ const NavLink = ({ href, children, mobile = false, onClick = () => {} }) => {
   return (
     <a
       href={href}
-      className="relative group nav-item-hover text-gray-300 tracking-wide hover:text-white transition-all duration-300"
+      className="cursor-attract relative group nav-item-hover text-gray-300 tracking-wide hover:text-white transition-all duration-300"
     >
       <span className="relative z-10">{children}</span>
       <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
@@ -101,7 +101,10 @@ const Navbar = () => {
         }}
       >
         <div className="w-full h-full flex flex-row items-center justify-between m-auto px-6 md:px-10">
-          <a href="/" className="group relative overflow-hidden">
+          <a
+            href="/"
+            className="cursor-attract-text group relative overflow-hidden"
+          >
             <span
               className={`font-bold text-xl md:text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-300 to-gray-300 hover:to-purple-400 transition-all duration-500 hover:text-glow transform hover:scale-105 ${
                 scrolled ? "py-2" : "py-3"
