@@ -1,0 +1,177 @@
+.mobileMenuContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.mobileMenu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  flex: 1;
+}
+
+.tab:hover {
+  color: white;
+  transform: translateY(-2px);
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  transition: transform 0.3s ease;
+}
+
+.label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.active {
+  color: white;
+}
+
+.active .icon {
+  transform: scale(1.1);
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Add a subtle glow effect on hover */
+.tab:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Add a subtle animation for the active state */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.active .icon {
+  animation: pulse 1.5s infinite;
+}
+
+/* Add a subtle gradient background for the active tab */
+.active {
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: 8px;
+}
+
+/* Add a subtle shadow effect */
+.mobileMenuContainer {
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle border gradient */
+.mobileMenuContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+}
+
+/* Add a subtle animation for the container */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.mobileMenuContainer {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Add responsive adjustments */
+@media (max-width: 480px) {
+  .mobileMenu {
+    padding: 0 0.5rem;
+  }
+
+  .icon {
+    font-size: 1.3rem;
+  }
+
+  .label {
+    font-size: 0.6rem;
+  }
+
+  .tab {
+    padding: 0.3rem;
+  }
+}
+
+/* Add a subtle hover effect for the entire menu */
+.mobileMenuContainer:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* Add a subtle transition for the background */
+.mobileMenuContainer {
+  transition: background 0.3s ease;
+}
