@@ -56,7 +56,11 @@ export function Robot({ scrollPosition, ...props }) {
   return (
     <group ref={group} {...props} position={getPosition()} dispose={null}>
       <group name="Scene">
-        <group name="Armature" rotation={[0, 12.571, 0]} scale={10.027}>
+        <group
+          name="Armature"
+          rotation={[0, 12.571, 0]}
+          scale={window.innerWidth <= 768 ? 14.027 : 10.027}
+        >
           <primitive object={nodes.RL_BoneRoot} />
           <skinnedMesh
             name="default"

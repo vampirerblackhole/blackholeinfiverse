@@ -36,8 +36,8 @@ function Experience({ scrollPosition }) {
 
   // Calculate camera position based on screen size
   const getCameraPosition = () => {
-    if (windowSize.width <= 480) return [0, 5, 12]; // Higher and further back for mobile
-    if (windowSize.width <= 768) return [0, 2, 8]; // Higher and further back for tablets
+    if (windowSize.width <= 480) return [0, 6, 14]; // Higher and further back for mobile
+    if (windowSize.width <= 768) return [0, 3, 10]; // Higher and further back for tablets
     return [0, -1, 5]; // Original position for desktop
   };
 
