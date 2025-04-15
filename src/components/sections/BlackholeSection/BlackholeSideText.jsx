@@ -164,16 +164,14 @@ function BlackholeSideText() {
           width: "100vw",
           overflowX: "hidden",
           overflowY: "hidden",
-          transition: "opacity 1s ease-in-out", // Reduced from 1.5s
+          transition: "opacity 1s ease-in-out",
           zIndex: 5,
           background: "transparent",
           display: isLoaded ? "block" : "none",
-          transform: "translateZ(0)", // Add hardware acceleration
-          willChange: "transform", // Optimize transforms
+          transform: "translateZ(0)",
+          willChange: "transform",
         }}
       >
-        {/* Stars Canvas - Removed */}
-
         <canvas
           ref={canvasRef}
           width={canvasSize.width}
@@ -189,44 +187,61 @@ function BlackholeSideText() {
             margin: 0,
             padding: 0,
             mixBlendMode: "normal",
-            transform: "translateZ(0)", // Add hardware acceleration
-            willChange: "transform, opacity", // Optimize transforms and opacity
+            transform: "translateZ(0)",
+            willChange: "transform, opacity",
           }}
         />
         <div
           id="hh"
-          className="h-100 w-full relative font-bold text-white leading-tight"
+          className="absolute top-0 left-0 w-full h-screen flex items-center justify-center"
           style={{
-            position: "relative",
-            top: "3%",
             zIndex: 25,
-            fontSize: "5vw",
-            paddingTop: "5vh",
-            height: "100vh",
-            transform: "translateZ(0)", // Add hardware acceleration
-            willChange: "transform", // Optimize transforms
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
         >
-          <h1
-            className="gradient-text transition-opacity duration-300 ease-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head cursor-attract-text"
-            style={{
-              transform: "translateZ(0)",
-              willChange: "transform",
-              backfaceVisibility: "hidden",
-            }}
-          >
-            <span>Welcome to</span>
-          </h1>
-          <h1
-            className="gradient-text transition-opacity duration-300 ease-out text-6vw sm:text-[6vw] md:text-[6vw] lg:text-6xl xl:text-6xl bh-head2 cursor-attract-text"
-            style={{
-              transform: "translateZ(0)",
-              willChange: "transform",
-              backfaceVisibility: "hidden",
-            }}
-          >
-            <span className="">Blackhole Infiverse</span>
-          </h1>
+          <div className="text-left absolute top-[40%] left-[40%] -translate-x-1/2 -translate-y-1/2">
+            <h1
+              className="gradient-text transition-opacity duration-300 ease-out text-[120px] leading-none cursor-attract-text font-bold bh-head"
+              style={{
+                transform: "translateZ(0)",
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                letterSpacing: "0.05em",
+                whiteSpace: "nowrap",
+                marginBottom: "0",
+              }}
+            >
+              Welcome to
+            </h1>
+            <h1
+              className="gradient-text transition-opacity duration-300 ease-out text-[120px] leading-none cursor-attract-text font-bold bh-head2"
+              style={{
+                transform: "translateZ(0)",
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                letterSpacing: "0.05em",
+                whiteSpace: "nowrap",
+                marginTop: "0",
+                marginBottom: "0",
+              }}
+            >
+              Blackhole
+            </h1>
+            <h1
+              className="gradient-text transition-opacity duration-300 ease-out text-[120px] leading-none cursor-attract-text font-bold bh-head"
+              style={{
+                transform: "translateZ(0)",
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                letterSpacing: "0.05em",
+                whiteSpace: "nowrap",
+                marginTop: "0",
+              }}
+            >
+              Infiverse!
+            </h1>
+          </div>
         </div>
 
         <div id="p12" className="fade-in" ref={paragraphRef1}>

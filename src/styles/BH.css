@@ -73,6 +73,12 @@
   transform: translateZ(0); /* Hardware acceleration */
   will-change: transform;
 }
+
+.heading-spacing {
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
