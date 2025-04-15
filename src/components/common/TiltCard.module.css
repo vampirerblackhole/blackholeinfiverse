@@ -94,14 +94,16 @@
     max-width: 100%;
     margin: 0 auto;
     padding: 0 0.5rem;
+    height: auto;
   }
 
   .card {
     padding: 2rem 1.5rem;
     margin: 0 auto;
     width: 100%;
-    min-height: 250px;
-    aspect-ratio: 1.4 / 1;
+    min-height: auto;
+    height: auto;
+    aspect-ratio: auto;
   }
 
   .title {
@@ -130,6 +132,7 @@
     max-width: 100%;
     margin: 0 auto;
     width: 100%;
+    height: auto;
   }
 
   .card {
@@ -137,8 +140,9 @@
     border-radius: 12px;
     margin: 0 auto;
     width: 100%;
-    min-height: 220px;
-    aspect-ratio: 1.2 / 1;
+    min-height: auto;
+    height: auto;
+    aspect-ratio: auto;
   }
 
   .title {
@@ -167,13 +171,15 @@
   .container {
     padding: 0;
     margin: 0 auto;
+    height: auto;
   }
 
   .card {
     padding: 1.2rem 1rem;
     border-radius: 10px;
-    min-height: 200px;
-    aspect-ratio: 1.1 / 1;
+    min-height: auto;
+    height: auto;
+    aspect-ratio: auto;
   }
 
   .title {

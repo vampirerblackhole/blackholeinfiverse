@@ -173,7 +173,7 @@
   #p12,
   #p11 {
     width: 90%;
-    position: absolute;
+    position: relative;
     left: 0 !important;
     right: 0 !important;
     margin-left: auto !important;
@@ -181,14 +181,16 @@
     padding: 10px !important;
     z-index: 30;
     pointer-events: auto;
+    height: auto !important;
+    top: auto !important;
   }
 
   #p12 {
-    top: 110vh;
+    margin-top: 110vh !important;
   }
 
   #p11 {
-    top: 220vh;
+    margin-top: 30vh !important;
   }
 
   .text-heading {
@@ -209,6 +211,7 @@
     margin: 0 auto !important;
     padding: 0 !important;
     pointer-events: auto;
+    height: auto !important;
   }
 
   /* Make card content wider and ensure interactions work */
@@ -219,8 +222,11 @@
     padding: 1.5rem !important;
     touch-action: auto;
     will-change: transform;
-    min-height: 250px; /* Match TiltCard mobile height */
-    aspect-ratio: 1.4 / 1; /* Match TiltCard mobile aspect ratio */
+    min-height: auto !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   #p12 .title,
@@ -234,20 +240,32 @@
   #p11 .description {
     width: 100% !important;
     max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 
 @media (max-width: 480px) {
   #p12,
   #p11 {
-    width: 92% !important;
-    left: 4% !important;
-    right: 4% !important;
+    width: 95% !important;
+    left: 2.5% !important;
+    right: 2.5% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 0 !important;
-    position: absolute;
+    position: relative;
     z-index: 30;
+    top: auto !important;
+  }
+
+  #p12 {
+    margin-top: 100vh !important;
+  }
+
+  #p11 {
+    margin-top: 30vh !important;
   }
 
   .text-heading {
@@ -260,15 +278,6 @@
     width: 100% !important;
   }
 
-  /* Adjust positions for smaller devices */
-  #p12 {
-    top: 100vh;
-  }
-
-  #p11 {
-    top: 190vh;
-  }
-
   /* Ensure card containers are centered and full width */
   #p12 > div,
   #p11 > div {
@@ -276,6 +285,7 @@
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    height: auto !important;
   }
 
   /* Make card take up full space on small screens */
@@ -285,8 +295,11 @@
     max-width: 100% !important;
     margin: 0 !important;
     padding: 1rem 0.8rem !important;
-    min-height: 220px; /* Match TiltCard mobile height */
-    aspect-ratio: 1.2 / 1; /* Match TiltCard mobile aspect ratio */
+    min-height: auto !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   #p12 .title,
@@ -300,9 +313,12 @@
   #p11 .description {
     width: 100% !important;
     max-width: 100% !important;
-    font-size: 0.85rem !important;
+    font-size: 0.9rem !important;
     padding: 0 !important;
     line-height: 1.5 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   /* Fix text wrapping */

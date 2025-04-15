@@ -248,8 +248,55 @@ function BlackholeSideText() {
 
                 /* Fix for the card positioning on mobile scroll */
                 #p12, #p11 {
-                  position: absolute !important;
+                  position: relative !important;
                   z-index: 30 !important;
+                  width: 90% !important;
+                  margin: 0 auto !important;
+                  left: 0 !important;
+                  right: 0 !important;
+                  top: auto !important;
+                  padding: 1rem !important;
+                  height: auto !important;
+                }
+                
+                #p12 {
+                  margin-top: 120vh !important;
+                }
+                
+                #p11 {
+                  margin-top: 40vh !important;
+                }
+                
+                #p12 > div, #p11 > div {
+                  width: 100% !important;
+                  height: auto !important;
+                }
+                
+                #p12 .card, #p11 .card {
+                  height: auto !important;
+                  min-height: auto !important;
+                  aspect-ratio: auto !important;
+                  display: flex !important;
+                  flex-direction: column !important;
+                }
+                
+                #p12 .description, #p11 .description {
+                  width: 100% !important;
+                  max-width: 100% !important;
+                }
+              }
+              
+              @media (max-width: 480px) {
+                #p12, #p11 {
+                  width: 95% !important;
+                }
+                
+                #p12 {
+                  margin-top: 100vh !important;
+                }
+                
+                #p11 {
+                  margin-top: 30vh !important;
                 }
               }
             `}
@@ -264,6 +311,7 @@ function BlackholeSideText() {
               width: "100%",
               maxWidth: "100%",
               margin: "0 auto",
+              height: "auto",
             }}
           />
         </div>
@@ -276,6 +324,7 @@ function BlackholeSideText() {
               width: "100%",
               maxWidth: "100%",
               margin: "0 auto",
+              height: "auto",
             }}
           />
         </div>
