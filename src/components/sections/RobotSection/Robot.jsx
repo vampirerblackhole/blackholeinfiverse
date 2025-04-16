@@ -51,7 +51,7 @@ export function Robot({ scrollPosition, ...props }) {
 
   // Get model position based on device size - different positions for different screen sizes
   const getPosition = () => {
-    if (window.innerWidth <= 480) return [0, -18, 6]; // Extra small - mobile phones
+    if (window.innerWidth <= 480) return [0, -20, 6]; // Extra small - mobile phones
     if (window.innerWidth <= 768) return [0, -20, 4]; // Tablet - moved back and down
     return props.position || [0, -16, 0]; // Desktop - original position
   };

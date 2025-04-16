@@ -118,7 +118,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              className="p-2 rounded-full bg-orange-900/30 text-white"
+              className="p-2 rounded-full bg-orange-600/40 text-white hover:bg-orange-500/60 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
@@ -134,54 +134,16 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu - Simple Version */}
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div
+          className="fixed inset-0 bg-black z-[999] overflow-y-auto"
           style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "#000",
-            zIndex: 1001,
-            paddingTop: "90px",
-            paddingBottom: "20px",
-            display: "flex",
-            flexDirection: "column",
+            paddingTop: scrolled ? "70px" : "90px",
           }}
         >
-          <div style={{ padding: "24px" }}>
-            <div
-              style={{
-                marginBottom: "40px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "24px",
-                  fontWeight: "bold",
-                  color: "white",
-                }}
-              >
-                Menu
-              </h2>
-              <button
-                onClick={handleMobileNavClick}
-                style={{
-                  background: "rgba(255, 126, 29, 0.3)",
-                  padding: "8px",
-                  borderRadius: "50%",
-                }}
-              >
-                <X size={24} color="white" />
-              </button>
-            </div>
-
-            <div>
+          <div className="px-6 py-6">
+            <div className="space-y-1 mb-8">
               <NavLink href="/" mobile={true} onClick={handleMobileNavClick}>
                 Home
               </NavLink>
@@ -202,46 +164,22 @@ const Navbar = () => {
             </div>
 
             <div
+              className="mt-8 pt-6"
               style={{
-                marginTop: "40px",
-                paddingTop: "20px",
                 borderTop: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              <h3
-                style={{
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                  color: "white",
-                  marginBottom: "16px",
-                }}
-              >
-                Featured
-              </h3>
-              <div
-                style={{
-                  position: "relative",
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                }}
-              >
+              <h3 className="text-xl font-bold text-white mb-4">Featured</h3>
+              <div className="relative rounded-lg overflow-hidden">
                 <a
                   href={FEATURED_CONFIG.link}
                   onClick={handleMobileNavClick}
-                  style={{
-                    display: "block",
-                    textDecoration: "none",
-                    color: "inherit",
-                  }}
+                  className="block"
                 >
                   <img
                     src={FEATURED_CONFIG.imagePath}
                     alt={FEATURED_CONFIG.imageAlt}
-                    style={{
-                      width: "100%",
-                      height: "180px",
-                      objectFit: "cover",
-                    }}
+                    className="w-full h-48 object-cover"
                     onError={(e) => {
                       e.target.style.height = "180px";
                       e.target.style.background = "#111";
@@ -253,26 +191,16 @@ const Navbar = () => {
                     }}
                   />
                   <div
+                    className="absolute bottom-0 left-0 right-0 p-4"
                     style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      padding: "16px",
                       background:
                         "linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))",
                     }}
                   >
-                    <h4
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        color: "white",
-                      }}
-                    >
+                    <h4 className="text-xl font-bold text-white">
                       {FEATURED_CONFIG.title}
                     </h4>
-                    <p style={{ color: "#ffe0b4" }}>
+                    <p className="text-orange-200">
                       {FEATURED_CONFIG.description}
                     </p>
                   </div>

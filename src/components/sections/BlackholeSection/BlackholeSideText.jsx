@@ -214,7 +214,7 @@ function BlackholeSideText() {
                 willChange: "transform",
               }}
             >
-              Welcome to
+              Infinitely curious.
             </h1>
             <h1
               className="text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-gray-300 bh-head2 font-bold text-[120px] mobile-infiverse-text"
@@ -223,7 +223,7 @@ function BlackholeSideText() {
                 willChange: "transform",
               }}
             >
-              Blackhole Infiverse!
+              Relentlessly advanced.
             </h1>
           </div>
 
