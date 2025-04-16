@@ -1,16 +1,10 @@
-import { Lock } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { toast } from "react-toastify";
+import { Mail } from "lucide-react";
+import { useRef, useEffect } from "react";
 
 const Contact = () => {
   const cardRef = useRef(null);
   const glareRef = useRef(null);
-  const [contactData, setContactData] = useState({
-    name: "",
-    email: "",
-    message: "",
-    number: "",
-  });
+  const emailAddress = "bh@blackholeinfiverse.com";
 
   // Card tilt effect
   useEffect(() => {
@@ -19,9 +13,9 @@ const Contact = () => {
     if (!card || !glare) return;
 
     // Values for the tilt effect
-    const maxTilt = 25; // Increased from 15 to 25 for more movement
-    const maxGlare = 0.3; // Reduced from 0.6 to 0.3 (50% less intense)
-    const perspective = 1500; // Perspective value for 3D effect
+    const maxTilt = 25;
+    const maxGlare = 0.3;
+    const perspective = 1500;
     let ticking = false;
     let animationFrame = null;
 
@@ -105,52 +99,13 @@ const Contact = () => {
     };
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setContactData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleEmailClick = () => {
+    // Open a new window to Gmail compose with pre-filled email
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`,
+      "_blank"
+    );
   };
-
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    const { name, email, message, number } = contactData;
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "796a812d-8e22-41bc-b79d-17e780629030", // Replace with your Web3Forms API key
-          name,
-          email,
-          message,
-          number,
-        }),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        toast.success("Message sent successfully!", { autoClose: 3000 });
-        setContactData({ name: "", email: "", message: "", number: "" }); // Reset form
-      } else {
-        toast.error("Failed to send message. Please try again.", {
-          autoClose: 3000,
-        });
-      }
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.", {
-        autoClose: 3000,
-        error,
-      });
-    }
-  };
-
-  const inputStyle =
-    "transition duration-300 hover:scale-105 hover:opacity-90 w-full p-3 bg-gray-900/80 text-white rounded-lg border border-orange-500/30 focus:outline-none focus:border-orange-400/60 focus:ring-1 focus:ring-orange-400/40";
 
   return (
     <div className="relative z-10 min-h-screen flex items-center justify-center">
@@ -160,7 +115,7 @@ const Contact = () => {
       >
         <div
           ref={cardRef}
-          className="contact-card-form w-full sm:w-96 p-6 rounded-lg text-center will-change-transform"
+          className="contact-card w-full sm:w-96 p-8 rounded-lg text-center will-change-transform cursor-pointer"
           style={{
             zIndex: 10,
             position: "relative",
@@ -172,6 +127,7 @@ const Contact = () => {
             transformStyle: "preserve-3d",
             overflow: "hidden",
           }}
+          onClick={handleEmailClick}
         >
           {/* Glare effect */}
           <div
@@ -194,80 +150,56 @@ const Contact = () => {
           />
 
           <h4
-            className="text-4xl font-bold text-gray-200 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-300"
+            className="text-4xl font-bold text-gray-200 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-300"
             style={{ transform: "translateZ(60px)" }}
           >
             Contact Us
           </h4>
 
-          <form
-            onSubmit={handleOnSubmit}
-            style={{ transform: "translateZ(30px)" }}
+          <div
+            className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-500/30 to-yellow-500/30 flex items-center justify-center"
+            style={{ transform: "translateZ(50px)" }}
           >
-            <input
-              required
-              className={`${inputStyle} mt-10`}
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={contactData.name}
-              onChange={handleChange}
-              style={{ transform: "translateZ(40px)" }}
+            <Mail
+              size={36}
+              className="text-orange-300"
+              style={{ transform: "translateZ(10px)" }}
             />
+          </div>
 
-            <input
-              required
-              className={`${inputStyle} mt-4`}
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={contactData.email}
-              onChange={handleChange}
-              style={{ transform: "translateZ(40px)" }}
-            />
+          <p
+            className="text-gray-300 mb-6 text-lg"
+            style={{ transform: "translateZ(40px)" }}
+          >
+            Send us an email at:
+          </p>
 
-            <input
-              required
-              className={`${inputStyle} mt-4`}
-              type="tel"
-              name="number"
-              placeholder="Your Contact Number"
-              value={contactData.number}
-              onChange={handleChange}
-              style={{ transform: "translateZ(40px)" }}
-            />
+          <p
+            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-200 mb-8"
+            style={{ transform: "translateZ(40px)" }}
+          >
+            {emailAddress}
+          </p>
 
-            <textarea
-              className={`${inputStyle} min-h-[8rem] max-h-[16rem] mt-4`}
-              name="message"
-              placeholder="Your Message"
-              rows="4"
-              value={contactData.message}
-              onChange={handleChange}
-              style={{ transform: "translateZ(40px)" }}
-            />
-
-            <button
-              type="submit"
-              className="duration-300 hover:scale-105 w-full p-3 mt-4 text-gray-200 rounded-full transition-all bg-gradient-to-r from-orange-600/80 to-yellow-500/80 hover:from-orange-500/90 hover:to-yellow-400/90 border border-white/10"
-              style={{ transform: "translateZ(50px)" }}
-            >
-              Send Message
-            </button>
-          </form>
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent double-firing
+              handleEmailClick();
+            }}
+            className="duration-300 hover:scale-105 w-full p-3 text-gray-200 rounded-full transition-all bg-gradient-to-r from-orange-600/80 to-yellow-500/80 hover:from-orange-500/90 hover:to-yellow-400/90 border border-white/10 flex items-center justify-center"
+            style={{ transform: "translateZ(50px)" }}
+          >
+            <Mail className="mr-2" size={18} />
+            Mail Us
+          </button>
         </div>
       </div>
 
-      {/* Privacy Policy */}
+      {/* Privacy Note */}
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <div className="max-w-[22rem] relative">
-          <p className="text-orange-200/70 pl-6 relative text-sm">
-            <Lock
-              color="#ffb680"
-              size={16}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2"
-            />
-            We value your privacy and will not share your information.
+          <p className="text-orange-200/70 text-sm text-center">
+            We&apos;ll get back to you as soon as possible!
           </p>
         </div>
       </div>
