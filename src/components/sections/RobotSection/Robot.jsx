@@ -4,6 +4,9 @@ import { useFrame, useGraph } from "@react-three/fiber";
 import { SkeletonUtils } from "three-stdlib";
 import PropTypes from "prop-types";
 
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
+
 // Preload model with Draco compression
 useGLTF.preload("./model/Robot.glb", { dracoDecoder: { url: "/draco-gltf/" } });
 
@@ -46,10 +49,10 @@ export function Robot({ scrollPosition, ...props }) {
     }
   });
 
-  // Get model position based on device size (position farther rather than scaling)
+  // Get model position based on device size - different positions for different screen sizes
   const getPosition = () => {
-    if (window.innerWidth <= 480) return [0, -18, 6]; // Extra small - moved closer
-    if (window.innerWidth <= 768) return [0, -20, 4]; // Tablet - moved closer
+    if (window.innerWidth <= 480) return [0, -18, 6]; // Extra small - mobile phones
+    if (window.innerWidth <= 768) return [0, -20, 4]; // Tablet - moved back and down
     return props.position || [0, -16, 0]; // Desktop - original position
   };
 
@@ -76,7 +79,7 @@ export function Robot({ scrollPosition, ...props }) {
   );
 }
 
-// Add PropTypes validation to fix linter errors
+// Add PropTypes validation
 Robot.propTypes = {
   scrollPosition: PropTypes.number,
   position: PropTypes.array,

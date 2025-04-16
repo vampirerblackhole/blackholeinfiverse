@@ -5,6 +5,9 @@ import { useProgress, Html } from "@react-three/drei";
 import CameraAnimation from "./CameraAnimation";
 import PropTypes from "prop-types";
 
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
+
 function Loader() {
   const { progress } = useProgress();
   return <Html center>{progress.toFixed(1)} % loaded</Html>;
@@ -34,9 +37,9 @@ function Experience({ scrollPosition }) {
     };
   }, []);
 
-  // Calculate camera position based on screen size
+  // Calculate camera position based on screen size - use exact values for best results
   const getCameraPosition = () => {
-    if (windowSize.width <= 480) return [0, 6, 14]; // Higher and further back for mobile
+    if (windowSize.width <= 480) return [0, 6, 14]; // Higher and further back for mobile phones
     if (windowSize.width <= 768) return [0, 3, 10]; // Higher and further back for tablets
     return [0, -1, 5]; // Original position for desktop
   };
@@ -60,7 +63,7 @@ function Experience({ scrollPosition }) {
         zIndex: 1, // Set a low z-index so content can appear above it
       }}
     >
-      <directionalLight position={[0, 5, 5]} intensity={15} />
+      <directionalLight position={[0, 5, 5]} intensity={15} castShadow />
       <Suspense fallback={<Loader />}>
         {/* <Name position={[-3.5, 3.7, -1]} /> */}
         <Robot position={[0, -16, 0]} scrollPosition={scrollPosition} />

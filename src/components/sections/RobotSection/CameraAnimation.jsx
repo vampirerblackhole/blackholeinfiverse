@@ -4,14 +4,19 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
+
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const cameraTarget = new THREE.Vector3(0, 0.5, 0); // Initial camera target
+// Initial camera target - centered position
+const cameraTarget = new THREE.Vector3(0, 0.5, 0);
 
 export default function CameraAnimation() {
   const camera = useThree((state) => state.camera);
   const t1 = useRef(gsap.timeline());
+  const isMobile = window.innerWidth <= 768;
 
   useFrame(() => {
     camera.lookAt(cameraTarget); // Keep updating the camera's lookAt target
@@ -28,155 +33,296 @@ export default function CameraAnimation() {
     // Adjust distances based on initial Z position
     const zRatio = initialZ / 5; // Calculate ratio compared to original Z=5
 
-    timeline.fromTo(
-      camera.position,
-      { x: initialX, y: initialY, z: initialZ },
-      {
-        x: -2 * zRatio,
-        y: initialY,
-        z: 4 * zRatio,
-        scrollTrigger: {
-          trigger: ".s-para1",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      }
-    );
+    // Clear any existing animations to avoid conflicts
+    timeline.clear();
 
-    timeline.fromTo(
-      cameraTarget,
-      { x: 0, y: 0.5, z: 0 },
-      {
-        x: 2.56,
-        y: 1,
-        z: 0,
-        scrollTrigger: {
-          trigger: ".s-para1",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      },
-      "<"
-    );
-    timeline.fromTo(
-      camera.position,
-      { x: -2 * zRatio, y: initialY, z: 4 * zRatio },
-      {
-        x: 2 * zRatio,
-        y: initialY,
-        z: 4 * zRatio,
-        immediateRender: false,
+    if (!isMobile) {
+      // DESKTOP ANIMATIONS
+      timeline.fromTo(
+        camera.position,
+        { x: initialX, y: initialY, z: initialZ },
+        {
+          x: -2 * zRatio,
+          y: initialY,
+          z: 4 * zRatio,
+          scrollTrigger: {
+            trigger: ".s-para1",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
 
-        scrollTrigger: {
-          trigger: ".s-para3",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
+      timeline.fromTo(
+        cameraTarget,
+        { x: 0, y: 0.5, z: 0 },
+        {
+          x: 2.56,
+          y: 1,
+          z: 0,
+          scrollTrigger: {
+            trigger: ".s-para1",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
         },
-      }
-    );
+        "<"
+      );
 
-    timeline.fromTo(
-      cameraTarget,
-      { x: 2.56, y: 1, z: 0 },
-      {
-        x: -2.56,
-        y: 1,
-        z: 0,
-        immediateRender: false,
+      timeline.fromTo(
+        camera.position,
+        { x: -2 * zRatio, y: initialY, z: 4 * zRatio },
+        {
+          x: 2 * zRatio,
+          y: initialY,
+          z: 4 * zRatio,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".s-para3",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
 
-        scrollTrigger: {
-          trigger: ".s-para3",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
+      timeline.fromTo(
+        cameraTarget,
+        { x: 2.56, y: 1, z: 0 },
+        {
+          x: -2.56,
+          y: 1,
+          z: 0,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".s-para3",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
         },
-      },
-      "<"
-    );
+        "<"
+      );
 
-    // Section 2 animations
-    timeline.fromTo(
-      camera.position,
-      { x: 2 * zRatio, y: initialY, z: 4 * zRatio },
-      {
-        x: -2 * zRatio,
-        y: initialY,
-        z: 4 * zRatio,
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: ".section2",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      }
-    );
+      // Section 2 animations
+      timeline.fromTo(
+        camera.position,
+        { x: 2 * zRatio, y: initialY, z: 4 * zRatio },
+        {
+          x: -2 * zRatio,
+          y: initialY,
+          z: 4 * zRatio,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section2",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
 
-    timeline.fromTo(
-      cameraTarget,
-      { x: -2.56, y: 1, z: 0 },
-      {
-        x: 2.56,
-        y: 1,
-        z: 0,
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: ".section2",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
+      timeline.fromTo(
+        cameraTarget,
+        { x: -2.56, y: 1, z: 0 },
+        {
+          x: 2.56,
+          y: 1,
+          z: 0,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section2",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
         },
-      },
-      "<"
-    );
-    timeline.fromTo(
-      camera.position,
-      { x: -2 * zRatio, y: initialY, z: 4 * zRatio },
-      {
-        x: initialX,
-        y: initialY,
-        z: initialZ,
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: ".section7",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      }
-    );
+        "<"
+      );
 
-    timeline.fromTo(
-      cameraTarget,
-      { x: 2.56, y: 1, z: 0 },
-      {
-        x: 0,
-        y: 0.5,
-        z: 0,
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: ".section7",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      },
-      "<"
-    );
+      timeline.fromTo(
+        camera.position,
+        { x: -2 * zRatio, y: initialY, z: 4 * zRatio },
+        {
+          x: initialX,
+          y: initialY,
+          z: initialZ,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section7",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
 
-    // Fade out canvas
-    // timeline.to('.canvas-container', {
-    //   opacity: 0,
-    //   scrollTrigger: {
-    //     trigger: '.section7',
-    //     start: 'top bottom',
-    //     end: 'bottom bottom',
-    //     scrub: 1,
-    //   },
-    // });
+      timeline.fromTo(
+        cameraTarget,
+        { x: 2.56, y: 1, z: 0 },
+        {
+          x: 0,
+          y: 0.5,
+          z: 0,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section7",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        },
+        "<"
+      );
+    } else {
+      // MOBILE ANIMATIONS
+      // These won't affect desktop behavior at all
+      timeline.fromTo(
+        camera.position,
+        { x: 0, y: initialY, z: initialZ },
+        {
+          x: 0,
+          y: initialY + 2,
+          z: initialZ,
+          scrollTrigger: {
+            trigger: ".s-para1",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
+
+      timeline.fromTo(
+        cameraTarget,
+        { x: 0, y: 0.5, z: 0 },
+        {
+          x: 0,
+          y: 1.5,
+          z: 0,
+          scrollTrigger: {
+            trigger: ".s-para1",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        },
+        "<"
+      );
+
+      timeline.fromTo(
+        camera.position,
+        { x: 0, y: initialY + 2, z: initialZ },
+        {
+          x: 0,
+          y: initialY + 4,
+          z: initialZ,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".s-para3",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
+
+      timeline.fromTo(
+        cameraTarget,
+        { x: 0, y: 1.5, z: 0 },
+        {
+          x: 0,
+          y: 2.5,
+          z: 0,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".s-para3",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        },
+        "<"
+      );
+
+      // Section 2 animations for mobile
+      timeline.fromTo(
+        camera.position,
+        { x: 0, y: initialY + 4, z: initialZ },
+        {
+          x: 0,
+          y: initialY + 6,
+          z: initialZ,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section2",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
+
+      timeline.fromTo(
+        cameraTarget,
+        { x: 0, y: 2.5, z: 0 },
+        {
+          x: 0,
+          y: 3.5,
+          z: 0,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section2",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        },
+        "<"
+      );
+
+      // Return to initial position for mobile
+      timeline.fromTo(
+        camera.position,
+        {
+          x: 0,
+          y: initialY + 6,
+          z: initialZ,
+        },
+        {
+          x: initialX,
+          y: initialY,
+          z: initialZ,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section7",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        }
+      );
+
+      timeline.fromTo(
+        cameraTarget,
+        { x: 0, y: 3.5, z: 0 },
+        {
+          x: 0,
+          y: 0.5,
+          z: 0,
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: ".section7",
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        },
+        "<"
+      );
+    }
 
     gsap.to("#loop", {
       y: -1000,
@@ -187,6 +333,7 @@ export default function CameraAnimation() {
         scrub: 1,
       },
     });
+
     gsap.utils.toArray(".fade-in").forEach((el) => {
       gsap.fromTo(
         el,
@@ -248,7 +395,7 @@ export default function CameraAnimation() {
       ScrollTrigger.clearMatchMedia(); // Cleanup ScrollTrigger
       timeline.kill(); // Cleanup timeline
     };
-  }, [camera]);
+  }, [camera, isMobile]);
 
   return null;
 }
