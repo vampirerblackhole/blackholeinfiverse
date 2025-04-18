@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body,
 html {
   margin: 0;
@@ -11,7 +14,7 @@ html {
 
 @layer base {
   body {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
@@ -40,4 +43,10 @@ html {
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hero text keeps system font */
+.bh-head,
+.bh-head2 {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
