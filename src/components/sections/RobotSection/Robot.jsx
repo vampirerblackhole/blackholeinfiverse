@@ -13,6 +13,13 @@ useGLTF.preload("./model/Robot.glb", { dracoDecoder: { url: "/draco-gltf/" } });
 export function Robot({ scrollPosition, ...props }) {
   const group = useRef(null);
 
+  // -------- FADE CONFIGURATION --------
+  // Adjust these values to control the robot's fade out effect
+  const FADE_START = 0.79; // When to start fading (0.6 = 60% of scroll)
+  const FADE_END = 1; // When fade should complete (0.8 = 80% of scroll)
+  const MIN_OPACITY = 0; // Minimum opacity (0 = fully transparent)
+  // ----------------------------------
+
   // Load the GLTF model with Draco
   const { scene, animations } = useGLTF("./model/Robot.glb", {
     dracoDecoder: { url: "/draco-gltf/" },
@@ -42,6 +49,14 @@ export function Robot({ scrollPosition, ...props }) {
     }
   }, [actions]);
 
+  useEffect(() => {
+    if (materials.Face) {
+      materials.Face.transparent = true;
+      materials.Face.depthWrite = true;
+      materials.Face.needsUpdate = true;
+    }
+  }, [materials]);
+
   useFrame(() => {
     const action = actions["ArmatureAction.001"];
     if (action) {
@@ -55,6 +70,19 @@ export function Robot({ scrollPosition, ...props }) {
     if (window.innerWidth <= 768) return [0, -20, 4]; // Tablet - moved back and down
     return props.position || [0, -16, 0]; // Desktop - original position
   };
+
+  // Calculate opacity based on scroll position
+  const calculateOpacity = () => {
+    if (scrollPosition <= FADE_START) return 1; // Before fade starts
+    if (scrollPosition >= FADE_END) return MIN_OPACITY; // After fade completes
+
+    // During fade - calculate opacity
+    const fadeProgress =
+      (scrollPosition - FADE_START) / (FADE_END - FADE_START);
+    return 1 - fadeProgress * (1 - MIN_OPACITY);
+  };
+
+  const opacity = calculateOpacity();
 
   return (
     <group ref={group} {...props} position={getPosition()} dispose={null}>
@@ -72,6 +100,8 @@ export function Robot({ scrollPosition, ...props }) {
             skeleton={nodes["default"].skeleton}
             morphTargetDictionary={nodes["default"].morphTargetDictionary}
             morphTargetInfluences={nodes["default"].morphTargetInfluences}
+            material-opacity={opacity}
+            material-transparent={true}
           />
         </group>
       </group>
