@@ -87,11 +87,11 @@ const ComingSoon = ({
     boxShadow: transform.active
       ? `${transform.rotateY * 0.5}px ${
           transform.rotateX * -0.5
-        }px 50px rgba(255, 126, 29, 0.8)`
-      : "0 10px 30px rgba(255, 126, 29, 0.3)",
+        }px 50px rgba(255, 255, 255, 0.6)`
+      : "0 10px 30px rgba(255, 255, 255, 0.3)",
     border: transform.active
-      ? "3px solid rgba(255, 140, 0, 0.8)"
-      : "2px solid rgba(255, 140, 0, 0.3)",
+      ? "3px solid rgba(255, 255, 255, 0.8)"
+      : "2px solid rgba(255, 255, 255, 0.4)",
     pointerEvents: "auto",
   };
 

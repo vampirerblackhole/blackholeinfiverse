@@ -1,7 +1,7 @@
-import { Mail } from "lucide-react";
+import { Mail as MailIcon } from "lucide-react";
 import { useRef, useEffect } from "react";
 
-const Contact = () => {
+const Mail = () => {
   const cardRef = useRef(null);
   const glareRef = useRef(null);
   const emailAddress = "bh@blackholeinfiverse.com";
@@ -115,13 +115,13 @@ const Contact = () => {
       >
         <div
           ref={cardRef}
-          className="contact-card w-full sm:w-96 p-8 rounded-lg text-center will-change-transform cursor-pointer"
+          className="mail-card w-full sm:w-96 p-8 rounded-lg text-center will-change-transform cursor-pointer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           style={{
             zIndex: 10,
             position: "relative",
-            background: "rgba(10,10,20,0.25)",
+            background: "rgba(10,10,20,0.3)",
             backdropFilter: "blur(5px)",
-            border: "1px solid rgba(255,255,255,0.1)",
+            border: "1px solid rgba(255,255,255,0.15)",
             boxShadow:
               "0 25px 45px rgba(0,0,0,0.25), inset 0 0 1px rgba(255,255,255,0.3)",
             transformStyle: "preserve-3d",
@@ -153,14 +153,14 @@ const Contact = () => {
             className="text-4xl font-bold text-gray-200 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-300"
             style={{ transform: "translateZ(60px)" }}
           >
-            Contact Us
+            Let&apos;s Talk
           </h4>
 
           <div
             className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-500/30 to-yellow-500/30 flex items-center justify-center"
             style={{ transform: "translateZ(50px)" }}
           >
-            <Mail
+            <MailIcon
               size={36}
               className="text-orange-300"
               style={{ transform: "translateZ(10px)" }}
@@ -171,27 +171,15 @@ const Contact = () => {
             className="text-gray-300 mb-6 text-lg"
             style={{ transform: "translateZ(40px)" }}
           >
-            Send us an email at:
+            Click here to email us:
           </p>
 
           <p
-            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-200 mb-8"
+            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-200 transition-all duration-500 hover:text-glow"
             style={{ transform: "translateZ(40px)" }}
           >
             {emailAddress}
           </p>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent double-firing
-              handleEmailClick();
-            }}
-            className="duration-300 hover:scale-105 w-full p-3 text-gray-200 rounded-full transition-all bg-gradient-to-r from-orange-600/80 to-yellow-500/80 hover:from-orange-500/90 hover:to-yellow-400/90 border border-white/10 flex items-center justify-center"
-            style={{ transform: "translateZ(50px)" }}
-          >
-            <Mail className="mr-2" size={18} />
-            Mail Us
-          </button>
         </div>
       </div>
 
@@ -207,4 +195,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Mail;

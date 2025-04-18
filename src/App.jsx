@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import About from "./components/About";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import Contact from "./components/Contact";
+import Mail from "./components/Mail";
 import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
 import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";
@@ -201,7 +201,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Website />} />
               <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<Mail />} />
               <Route path="/coming-soon" element={<ComingSoonPage />} />
             </Routes>
           </Suspense>
