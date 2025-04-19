@@ -39,20 +39,22 @@
 
 /* Cursor styles for clickable elements */
 .custom-cursor.pointer {
-  width: 10px;
-  height: 10px;
-  background-color: white;
-  mix-blend-mode: difference;
+  width: 8px;
+  height: 8px;
+  background-color: #ffcc00; /* Yellow color */
+  mix-blend-mode: normal;
   transition: all 0.15s ease-out;
-  transform: translate(-50%, -50%);
+  margin-left: -4px;
+  margin-top: -4px;
 }
 
 .custom-cursor-ring.pointer {
-  width: 40px;
-  height: 40px;
-  border-color: rgba(255, 255, 255, 0.8);
+  width: 30px;
+  height: 30px;
+  border-color: rgba(255, 204, 0, 0.8); /* Yellow color */
   transition: all 0.15s ease-out;
-  transform: translate(-50%, -50%);
+  margin-left: -15px;
+  margin-top: -15px;
 }
 
 /* Click animations */

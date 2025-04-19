@@ -115,8 +115,7 @@ export function Stadium(props) {
           rotation={[Math.PI, 0, Math.PI]}
           scale={[0.803, 14.625, 10.283]}
           onClick={() => handleComingSoonClick(games.tennis)}
-          onPointerOver={() => (document.body.style.cursor = "pointer")}
-          onPointerOut={() => (document.body.style.cursor = "default")}
+          className="cursor-attract-button"
         />
         {/* Front side - Table Tennis (released) */}
         <mesh
@@ -126,8 +125,7 @@ export function Stadium(props) {
           rotation={[0, 1.571, 0]}
           scale={[0.803, 14.625, 10.283]}
           onClick={() => handleMeshClick(games.tableTennis.metaLink)}
-          onPointerOver={() => (document.body.style.cursor = "pointer")}
-          onPointerOut={() => (document.body.style.cursor = "default")}
+          className="cursor-attract-button"
         />
         {/* Back side - badminton */}
         <mesh
@@ -137,16 +135,14 @@ export function Stadium(props) {
           rotation={[0, -1.571, 0]}
           scale={[0.803, 14.625, 10.283]}
           onClick={() => handleComingSoonClick(games.badminton)}
-          onPointerOver={() => (document.body.style.cursor = "pointer")}
-          onPointerOut={() => (document.body.style.cursor = "default")}
+          className="cursor-attract-button"
         />
         {/* Left side - bowling */}
         <group
           position={[-50.881, 0, 0.044]}
           scale={[0.803, 14.625, 10.283]}
           onClick={() => handleComingSoonClick(games.bowling)}
-          onPointerOver={() => (document.body.style.cursor = "pointer")}
-          onPointerOut={() => (document.body.style.cursor = "default")}
+          className="cursor-attract-button"
         >
           <mesh
             geometry={nodes.Cube002_1.geometry}

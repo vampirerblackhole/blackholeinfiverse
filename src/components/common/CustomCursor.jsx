@@ -10,20 +10,16 @@ const CustomCursor = () => {
   const mousePosition = useRef({ x: 0, y: 0 });
   const [isReady, setIsReady] = useState(false);
 
-  // First mount effect - set initial position based on mouse position
   useEffect(() => {
     const initialSetup = () => {
-      // Set initial position to center of screen to avoid top-left corner issue
       const initialX = window.innerWidth / 2;
       const initialY = window.innerHeight / 2;
 
       mousePosition.current = { x: initialX, y: initialY };
 
-      // Mark as ready after a small delay to ensure DOM is fully loaded
       setTimeout(() => {
         setIsReady(true);
 
-        // Apply initial position
         if (cursorRef.current && cursorRingRef.current) {
           cursorRef.current.style.transform = `translate(${initialX}px, ${initialY}px)`;
           cursorRingRef.current.style.transform = `translate(${initialX}px, ${initialY}px)`;
@@ -35,7 +31,6 @@ const CustomCursor = () => {
 
     initialSetup();
 
-    // Add listener for mousemove to update initial position if mouse moves before setup completes
     const onInitialMouseMove = (e) => {
       const { clientX, clientY } = e;
       mousePosition.current = { x: clientX, y: clientY };
@@ -53,6 +48,28 @@ const CustomCursor = () => {
     };
   }, []);
 
+  // Create a style element to override all cursors
+  useEffect(() => {
+    // Create a global style to hide all default cursors
+    const styleEl = document.createElement('style');
+    styleEl.id = 'cursor-override-style';
+    styleEl.innerHTML = `
+      * {
+        cursor: none !important;
+      }
+      a, button, input, textarea, select, [role="button"], [onclick], [class*="clickable"], [class*="button"], [class*="link"], [class*="btn"] {
+        cursor: none !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
+    
+    return () => {
+      if (document.getElementById('cursor-override-style')) {
+        document.head.removeChild(styleEl);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (!isReady || !cursorRef.current || !cursorRingRef.current) return;
 
@@ -64,11 +81,9 @@ const CustomCursor = () => {
       const { clientX, clientY } = e;
       mousePosition.current = { x: clientX, y: clientY };
 
-      // Handle magnetic attraction effect
       if (isAttract && attractElementRef.current) {
-        // This is handled in animation frame
+        // Handled in animation frame
       } else {
-        // Smooth cursor movement using requestAnimationFrame
         if (rafId) {
           cancelAnimationFrame(rafId);
         }
@@ -76,7 +91,6 @@ const CustomCursor = () => {
         const smoothCursor = () => {
           if (!cursorRef.current || !cursorRingRef.current) return;
 
-          // Get current position from transform
           const currentTransform = cursorRef.current.style.transform;
           let currentX = mousePosition.current.x;
           let currentY = mousePosition.current.y;
@@ -91,11 +105,9 @@ const CustomCursor = () => {
             }
           }
 
-          // Smooth movement for main cursor
           const newX = lerp(currentX, mousePosition.current.x, 0.2);
           const newY = lerp(currentY, mousePosition.current.y, 0.2);
 
-          // Apply transforms
           cursorRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
           cursorRingRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
         };
@@ -116,7 +128,6 @@ const CustomCursor = () => {
       cursorRingRef.current.classList.remove("cursor-ring-click");
     };
 
-    // Check for clickable elements to change cursor style
     const onMouseOver = (e) => {
       const targetElement = e.target;
       const isClickable =
@@ -134,7 +145,6 @@ const CustomCursor = () => {
         setIsPointer(true);
       }
 
-      // Check for magnetic attraction elements
       const isAttractElement =
         targetElement.classList.contains("cursor-attract") ||
         targetElement.classList.contains("cursor-attract-text") ||
@@ -274,7 +284,7 @@ const CustomCursor = () => {
       document.removeEventListener("mouseout", onMouseOut, true);
       document.removeEventListener("mouseenter", onMouseEnter);
       document.removeEventListener("mouseleave", onMouseLeave);
-      document.body.style.cursor = "auto";
+      // Default cursor will be restored by the cleanup of the first effect
 
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
@@ -285,6 +295,8 @@ const CustomCursor = () => {
       }
     };
   }, [isReady, isAttract, isPointer]);
+
+
 
   return (
     <>
