@@ -50,3 +50,106 @@ html {
 .bh-head2 {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+/* Custom Scrollbar to match Lusion.co style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF7E29, #FEBF35);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FF9B36, #FFD580);
+}
+/* Hide scrollbar arrow buttons for both axes */
+*::-webkit-scrollbar-button:vertical:decrement,
+*::-webkit-scrollbar-button:vertical:increment,
+*::-webkit-scrollbar-button:horizontal:decrement,
+*::-webkit-scrollbar-button:horizontal:increment {
+  display: none;
+  width: 0;
+  height: 0;
+}
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #FF7E29 transparent;
+}
+
+/* Force hide all scrollbar buttons */
+::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-appearance: none !important;
+}
+::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Reinforce hiding all scrollbar arrow buttons */
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:vertical:decrement,
+::-webkit-scrollbar-button:vertical:increment,
+::-webkit-scrollbar-button:horizontal:decrement,
+::-webkit-scrollbar-button:horizontal:increment {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  -webkit-appearance: none !important;
+}
+
+/* Remove remaining scrollbar arrow buttons and track ends */
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-track-piece:start,
+::-webkit-scrollbar-track-piece:end {
+  background: transparent !important;
+}
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:vertical:decrement,
+::-webkit-scrollbar-button:vertical:increment,
+::-webkit-scrollbar-button:horizontal:decrement,
+::-webkit-scrollbar-button:horizontal:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* Additional selectors to hide all scrollbar button variants */
+::-webkit-scrollbar-button:decrement,
+::-webkit-scrollbar-button:increment,
+::-webkit-scrollbar-button:single-button:decrement,
+::-webkit-scrollbar-button:single-button:increment,
+::-webkit-scrollbar-button:double-button:decrement,
+::-webkit-scrollbar-button:double-button:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Remove scrollbar arrow buttons and corner icons */
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:vertical:decrement,
+::-webkit-scrollbar-button:vertical:increment,
+::-webkit-scrollbar-button:horizontal:decrement,
+::-webkit-scrollbar-button:horizontal:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: none !important;
+  border: none !important;
+  background-image: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+}
