@@ -10,6 +10,7 @@ import About from "./pages/About";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Mail from "./pages/Mail";
+import WhyUs from "./pages/WhyUs";
 import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
 import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";
@@ -201,6 +202,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Website />} />
               <Route path="/about" element={<About />} />
+              <Route path="/whyus" element={<WhyUs />} />
               <Route path="/contact" element={<Mail />} />
               <Route path="/coming-soon" element={<ComingSoonPage />} />
             </Routes>

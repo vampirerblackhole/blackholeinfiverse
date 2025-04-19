@@ -129,6 +129,7 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8 lg:gap-12">
             <NavLink href="/about">About</NavLink>
+            <NavLink href="/whyus">Why Us?</NavLink>
             <NavLink href="/contact">Let&apos;s Talk</NavLink>
           </div>
         </div>
@@ -153,6 +154,13 @@ const Navbar = () => {
                 onClick={handleMobileNavClick}
               >
                 About
+              </NavLink>
+              <NavLink
+                href="/whyus"
+                mobile={true}
+                onClick={handleMobileNavClick}
+              >
+                Why Us?
               </NavLink>
               <NavLink
                 href="/contact"

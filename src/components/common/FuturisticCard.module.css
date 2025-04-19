@@ -1,0 +1,52 @@
+.container {
+  perspective: 1200px;
+}
+
+.card {
+  background: rgba(10, 10, 20, 0.85);
+  border: 1px solid #00ffff;
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 16px;
+  background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ff0000);
+  background-size: 300% 300%;
+  filter: blur(8px);
+  opacity: 0.6;
+  animation: gradientGlow 6s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 2.25rem;
+  color: #00ffff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #ccc;
+  line-height: 1.6;
+}
