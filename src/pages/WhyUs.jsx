@@ -27,8 +27,8 @@ function WhyUs() {
     <div className="text-white pt-[90px] md:pt-[70px]">
       {/* Cards Container */}
       <div ref={servicesRef} className="max-w-6xl mx-auto px-6 pb-20 flex flex-nowrap overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-2 lg:overflow-visible gap-8">
-        <BlurCard className="mt-8 snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0" colSpan="lg:col-span-2">
-          <h1 className="text-6xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 mb-4">Why Us?</h1>
+        <BlurCard className="mt-16 snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0" colSpan="lg:col-span-2">
+          <h1 className="text-6xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-orange-300 to-gray-300 mb-4" style={{ paddingBottom: "15px" }}>Why Us?</h1>
           <p className="mt-4 text-lg text-gray-400 max-w-2xl">Fresh paradigms in quantum computing and autonomous cybersecurity.</p>
         </BlurCard>
 
