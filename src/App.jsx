@@ -6,10 +6,10 @@ import {
   useLocation,
 } from "react-router-dom";
 import PropTypes from "prop-types";
-import About from "./components/About";
+import About from "./pages/About";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import Mail from "./components/Mail";
+import Mail from "./pages/Mail";
 import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
 import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";

@@ -110,7 +110,7 @@ const Navbar = () => {
                 scrolled ? "py-2" : "py-3"
               }`}
             >
-              Blackhole Infiverse
+              Blackhole InfiVerse
             </span>
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
           </a>
