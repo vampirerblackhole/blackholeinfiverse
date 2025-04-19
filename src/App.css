@@ -237,3 +237,17 @@ canvas:not(.webgl) {
 p {
   color: white;
 }
+
+/* WhyUs Cards Blur & Hover */
+.whyus-card {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease-out;
+}
+.whyus-card:hover {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  transform: scale(1.05);
+}
