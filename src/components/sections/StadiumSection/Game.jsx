@@ -1,16 +1,16 @@
-import React, { useRef, useEffect } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useThree } from '@react-three/fiber'
+import React, { useRef, useEffect } from "react";
+import { useGLTF } from "@react-three/drei";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useThree } from "@react-three/fiber";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 export function Game(props) {
-  const oculusRef = useRef() // Reference to the Oculus model
-  const { camera } = useThree()  // Access the camera
-  const { nodes, materials } = useGLTF('https://storage.googleapis.com/threejssss/public/model/Vr.glb', {
-    dracoDecoder: { url: '/draco-gltf/' }
+  const oculusRef = useRef(); // Reference to the Oculus model
+  const { camera } = useThree(); // Access the camera
+  const { nodes, materials } = useGLTF("./model/Vr.glb", {
+    dracoDecoder: { url: "/draco-gltf/" },
   });
 
   useEffect(() => {
@@ -21,11 +21,11 @@ export function Game(props) {
     t1.to(".Game", {
       opacity: 0,
       scrollTrigger: {
-        trigger: '.Game',
-        start: '80% bottom',
-        end: 'bottom bottom',
+        trigger: ".Game",
+        start: "80% bottom",
+        end: "bottom bottom",
         scrub: 1,
-      }
+      },
     });
 
     // Scroll-triggered rotation for the Oculus model
@@ -34,11 +34,11 @@ export function Game(props) {
       x: Math.PI / 3,
       duration: 1,
       scrollTrigger: {
-        trigger: '.Game',
-        start: '10% top',
-        end: '70% bottom',
+        trigger: ".Game",
+        start: "10% top",
+        end: "70% bottom",
         scrub: 1,
-      }
+      },
     });
 
     // Scroll-triggered scaling
@@ -48,11 +48,11 @@ export function Game(props) {
       z: 2,
       duration: 1.5,
       scrollTrigger: {
-        trigger: '.Game',
-        start: '10% top',
-        end: 'bottom bottom',
+        trigger: ".Game",
+        start: "10% top",
+        end: "bottom bottom",
         scrub: 1,
-      }
+      },
     });
 
     // Scroll-triggered position animation
@@ -60,11 +60,11 @@ export function Game(props) {
       y: 2.5,
       duration: 1.5,
       scrollTrigger: {
-        trigger: '.Game',
-        start: '10% top',
-        end: 'bottom bottom',
+        trigger: ".Game",
+        start: "10% top",
+        end: "bottom bottom",
         scrub: 1,
-      }
+      },
     });
 
     // Scroll-triggered camera movement
@@ -72,9 +72,9 @@ export function Game(props) {
       z: -3,
       y: 5,
       scrollTrigger: {
-        trigger: '.Game',
-        start: '10% top',
-        end: 'bottom bottom',
+        trigger: ".Game",
+        start: "10% top",
+        end: "bottom bottom",
         scrub: 1,
       },
       onUpdate: () => camera.updateProjectionMatrix(), // Ensure the camera updates correctly
@@ -90,21 +90,66 @@ export function Game(props) {
       <group rotation={[-Math.PI / 3, Math.PI, 3.14]} scale={0.331}>
         <group position={[0, 0.305, -1.413]}>
           <group position={[0, 1.413, 0.305]}>
-            <mesh geometry={nodes.Object_1001.geometry} material={materials.Quest_Stoff} />
-            <mesh geometry={nodes.Object_1001_1.geometry} material={materials.Quest_Front} />
-            <mesh geometry={nodes.Object_1001_2.geometry} material={materials.Quest_Stecker} />
-            <mesh geometry={nodes.Object_1001_3.geometry} material={materials.Quest_Samt} />
-            <mesh geometry={nodes.Object_1001_4.geometry} material={materials.Quest_Foam} />
-            <mesh geometry={nodes.Object_1001_5.geometry} material={materials.Quest_Headstrap} />
-            <mesh geometry={nodes.Object_1001_6.geometry} material={materials.Quest_Headstrap2} />
-            <mesh geometry={nodes.Object_1001_7.geometry} material={materials.Quest_Plastik} />
-            <mesh geometry={nodes.Object_1001_8.geometry} material={materials.Quest_Kamera_Linsen} />
-            <mesh geometry={nodes.Object_1001_9.geometry} material={materials.Quest_Kamera} />
-            <mesh geometry={nodes.Object_1001_10.geometry} material={materials.Quest_Samt_2} />
-            <mesh geometry={nodes.Object_1001_11.geometry} material={materials.Quest_Screen} />
-            <mesh geometry={nodes.Object_1001_12.geometry} material={materials.Quest_Gummi_Linse} />
-            <mesh geometry={nodes.Object_1001_13.geometry} material={materials.Quest_Lautstrketaste} />
-            <mesh geometry={nodes.Object_1001_14.geometry} material={materials.Quest_Linsen} />
+            <mesh
+              geometry={nodes.Object_1001.geometry}
+              material={materials.Quest_Stoff}
+            />
+            <mesh
+              geometry={nodes.Object_1001_1.geometry}
+              material={materials.Quest_Front}
+            />
+            <mesh
+              geometry={nodes.Object_1001_2.geometry}
+              material={materials.Quest_Stecker}
+            />
+            <mesh
+              geometry={nodes.Object_1001_3.geometry}
+              material={materials.Quest_Samt}
+            />
+            <mesh
+              geometry={nodes.Object_1001_4.geometry}
+              material={materials.Quest_Foam}
+            />
+            <mesh
+              geometry={nodes.Object_1001_5.geometry}
+              material={materials.Quest_Headstrap}
+            />
+            <mesh
+              geometry={nodes.Object_1001_6.geometry}
+              material={materials.Quest_Headstrap2}
+            />
+            <mesh
+              geometry={nodes.Object_1001_7.geometry}
+              material={materials.Quest_Plastik}
+            />
+            <mesh
+              geometry={nodes.Object_1001_8.geometry}
+              material={materials.Quest_Kamera_Linsen}
+            />
+            <mesh
+              geometry={nodes.Object_1001_9.geometry}
+              material={materials.Quest_Kamera}
+            />
+            <mesh
+              geometry={nodes.Object_1001_10.geometry}
+              material={materials.Quest_Samt_2}
+            />
+            <mesh
+              geometry={nodes.Object_1001_11.geometry}
+              material={materials.Quest_Screen}
+            />
+            <mesh
+              geometry={nodes.Object_1001_12.geometry}
+              material={materials.Quest_Gummi_Linse}
+            />
+            <mesh
+              geometry={nodes.Object_1001_13.geometry}
+              material={materials.Quest_Lautstrketaste}
+            />
+            <mesh
+              geometry={nodes.Object_1001_14.geometry}
+              material={materials.Quest_Linsen}
+            />
           </group>
         </group>
       </group>
@@ -112,6 +157,6 @@ export function Game(props) {
   );
 }
 
-useGLTF.preload('https://storage.googleapis.com/threejssss/public/model/Vr.glb', {
-  dracoDecoder: { url: '/draco-gltf/' }
+useGLTF.preload("./model/Vr.glb", {
+  dracoDecoder: { url: "/draco-gltf/" },
 });
