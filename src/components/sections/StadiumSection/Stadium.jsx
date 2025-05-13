@@ -4,7 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-gsap.registerPlugin(ScrollTrigger);
+// Register ScrollTrigger plugin globally
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // Preload the model using Draco Loader
 useGLTF.preload("./model/Game6.glb", { dracoDecoder: { url: "/draco-gltf/" } });
@@ -63,44 +66,58 @@ export function Stadium(props) {
   useEffect(() => {
     if (!sheet.current) return;
 
+    // Ensure ScrollTrigger is properly refreshed
+    ScrollTrigger.refresh();
+
+    // Create a single timeline for better control
     const t1 = gsap.timeline();
 
-    // Fade in animation
-    t1.to(".stadium", {
-      opacity: 1,
-      scrollTrigger: {
-        trigger: ".stadium-container",
-        start: "98% bottom",
-        end: "bottom bottom",
-        scrub: 1,
-      },
-    });
+    // Delay the animations slightly to ensure DOM is ready
+    setTimeout(() => {
+      // Fade in animation
+      t1.to(".stadium", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: ".stadium-container",
+          start: "98% bottom",
+          end: "bottom bottom",
+          scrub: 1,
+          invalidateOnRefresh: true, // Recalculate on window resize
+          fastScrollEnd: true, // Better performance
+        },
+      });
 
-    // Move stadium up
-    t1.to(sheet.current.position, {
-      y: 55.5,
-      scrollTrigger: {
-        trigger: ".stadium-container",
-        start: "8% top",
-        end: "20% 10%",
-        scrub: 1,
-      },
-    });
+      // Move stadium up
+      t1.to(sheet.current.position, {
+        y: 55.5,
+        scrollTrigger: {
+          trigger: ".stadium-container",
+          start: "8% top",
+          end: "20% 10%",
+          scrub: 1,
+          invalidateOnRefresh: true,
+          fastScrollEnd: true,
+        },
+      });
 
-    // Rotate stadium
-    t1.to(sheet.current.rotation, {
-      y: 4.7,
-      duration: 1,
-      scrollTrigger: {
-        trigger: ".stadium-container",
-        start: "25% 13%",
-        end: "bottom bottom",
-        scrub: 5,
-      },
-    });
+      // Rotate stadium
+      t1.to(sheet.current.rotation, {
+        y: 4.7,
+        duration: 1,
+        scrollTrigger: {
+          trigger: ".stadium-container",
+          start: "25% 13%",
+          end: "bottom bottom",
+          scrub: 5,
+          invalidateOnRefresh: true,
+          fastScrollEnd: true,
+        },
+      });
+    }, 500); // Short delay to ensure DOM is ready
 
     return () => {
-      ScrollTrigger.killAll();
+      // Clean up all ScrollTrigger instances
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 

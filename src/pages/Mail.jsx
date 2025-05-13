@@ -175,7 +175,7 @@ const Mail = () => {
           </p>
 
           <p
-            className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-200 transition-all duration-500 hover:text-glow"
+            className="mail-email-address"
             style={{ transform: "translateZ(40px)" }}
           >
             {emailAddress}

@@ -1,11 +1,29 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-// Removed SimpleBar integration to restore original scroll behavior
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { initFirebaseOptimizations } from "../firebase.js";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+// Initialize Firebase optimizations
+initFirebaseOptimizations();
+
+// Create a function to handle initial rendering
+const renderApp = () => {
+  createRoot(document.getElementById("root")).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+};
+
+// Check if the document is already loaded
+if (
+  document.readyState === "complete" ||
+  document.readyState === "interactive"
+) {
+  // Document is already ready, render immediately
+  renderApp();
+} else {
+  // Wait for the document to be ready
+  document.addEventListener("DOMContentLoaded", renderApp);
+}

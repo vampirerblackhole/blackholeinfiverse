@@ -87,19 +87,29 @@ function App() {
         "/model/blackhole.glb",
         "/model/Robot.glb",
         "/model/Game6.glb",
+        "/model/Vr.glb", // Add the VR model to preload list
       ];
 
       try {
-        // Concurrent loading with a short timeout
+        // Improved preloading with longer timeout and better error handling
         const results = await Promise.allSettled(
           modelPaths.map((path) =>
             Promise.race([
-              fetch(path, { priority: "high" }),
-              new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Asset load timeout")), 3000)
+              fetch(path, {
+                priority: "high",
+                cache: "force-cache", // Force caching of models
+              }),
+              new Promise(
+                (_, reject) =>
+                  setTimeout(
+                    () => reject(new Error(`Asset load timeout: ${path}`)),
+                    10000
+                  ) // Longer timeout
               ),
             ]).then((res) => {
-              if (!res.ok) throw new Error(`Failed to load ${path}`);
+              if (!res.ok)
+                throw new Error(`Failed to load ${path}: ${res.status}`);
+              console.log(`Successfully preloaded: ${path}`);
               return res;
             })
           )
@@ -110,12 +120,14 @@ function App() {
         );
         if (failedLoads.length > 0) {
           console.warn("Some assets failed to load:", failedLoads);
+          // Continue anyway - models will be loaded by their components
         }
 
         return true;
       } catch (error) {
         console.error("Asset preloading error:", error);
-        return false;
+        // Continue anyway - don't fail the entire app if preloading fails
+        return true;
       }
     };
 

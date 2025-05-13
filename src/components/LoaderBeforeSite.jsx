@@ -10,7 +10,7 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
 
   // Update progress handling with guaranteed completion
   useEffect(() => {
-    // Smoothly update the progress
+    // Smoothly update the progress with safety checks
     const targetProgress = Math.min(Math.max(0, progress), 100);
 
     // Use a faster transition for progress updates
@@ -19,7 +19,7 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
         // Move towards target by larger increments
         const nextProgress =
           current < targetProgress
-            ? Math.min(current + 2, targetProgress)
+            ? Math.min(current + 3, targetProgress) // Faster progress
             : current;
 
         // Return same value if no change needed
@@ -38,16 +38,34 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
         clearTimeout(timeoutRef.current);
       }
 
+      // Force progress to 100% after a short delay if it's not already there
+      const forceCompleteTimer = setTimeout(() => {
+        setLoadingProgress(100);
+      }, 500);
+
       // Shorter delay before transition
       timeoutRef.current = setTimeout(() => {
         setIsTransitioning(true);
+
+        // Force scroll to top before removing loader
+        window.scrollTo(0, 0);
 
         // Shorter fade out animation
         timeoutRef.current = setTimeout(() => {
           setShowLoader(false);
           onLoadingComplete?.();
+
+          // Force a scroll event to ensure all scroll-based animations initialize correctly
+          setTimeout(() => {
+            window.dispatchEvent(new Event("scroll"));
+          }, 100);
         }, 300); // Faster fade animation
       }, 200); // Much shorter delay at 100%
+
+      return () => {
+        clearInterval(progressTimer);
+        clearTimeout(forceCompleteTimer);
+      };
     }
 
     return () => {

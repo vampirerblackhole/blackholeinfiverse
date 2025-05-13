@@ -251,3 +251,19 @@ p {
   background-color: rgba(0, 0, 0, 0.5) !important;
   transform: scale(1.05);
 }
+
+.mail-email-address {
+  font-size: 1.25rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #fdba74, #fde68a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: font-size 0.3s;
+}
+
+@media (max-width: 375px) {
+  .mail-email-address {
+    font-size: 0.95rem;
+  }
+}
