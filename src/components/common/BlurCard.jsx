@@ -7,19 +7,38 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [rotateY, setRotateY] = useState(0);
 
-  // Check if device is mobile
+  // Check if device is mobile or tablet
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const checkDeviceSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+
+      // Add tablet-specific adjustments
+      if (width > 768 && width <= 1024) {
+        // Tablet/small laptop size
+        if (cardRef.current) {
+          cardRef.current.style.padding = "30px 25px 35px 25px";
+          cardRef.current.style.minHeight = "220px";
+        }
+      } else {
+        // Reset to default padding for other sizes
+        if (cardRef.current) {
+          cardRef.current.style.padding = "40px 32px 50px 32px";
+        }
+      }
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+
+    checkDeviceSize();
+    window.addEventListener("resize", checkDeviceSize);
+    return () => window.removeEventListener("resize", checkDeviceSize);
   }, []);
+
+  // Determine if we're on a tablet/small laptop (between mobile and desktop)
+  const isTablet = !isMobile && window.innerWidth <= 1024;
 
   // Handle mouse movement for horizontal-only 3D effect
   const handleMouseMove = (e) => {
-    if (!cardRef.current || isMobile) return;
+    if (!cardRef.current || isMobile || isTablet) return;
 
     const card = cardRef.current;
     const rect = card.getBoundingClientRect();
@@ -36,40 +55,45 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
 
   // Reset transform when mouse leaves
   const handleMouseLeave = () => {
-    if (isMobile) return;
+    if (isMobile || isTablet) return;
     setRotateY(0);
     setIsHovering(false);
   };
 
   // Enter transform when mouse enters
   const handleMouseEnter = () => {
-    if (isMobile) return;
+    if (isMobile || isTablet) return;
     setIsHovering(true);
   };
 
   const cardStyle = {
     position: "relative",
     zIndex: 5,
-    minHeight: "250px",
+    minHeight: isTablet ? "220px" : "250px", // Reduced height for tablet
     backdropFilter: isHovering ? "blur(25px)" : "blur(15px)",
     WebkitBackdropFilter: isHovering ? "blur(25px)" : "blur(15px)",
     background: isHovering ? "rgba(0, 0, 0, 0.6)" : "rgba(0, 0, 0, 0.4)",
-    transform: isMobile
-      ? "none"
-      : `perspective(1200px) rotateY(${rotateY}deg) scale(${isHovering ? 1.05 : 1})`,
-    transition: isMobile
-      ? "none"
-      : isHovering
-      ? "transform 0.1s ease-out"
-      : "transform 0.5s ease-out",
-    boxShadow: isMobile
-      ? "0 5px 15px rgba(0, 0, 0, 0.2)"
-      : isHovering
-      ? `${-rotateY * 0.5}px 5px 30px rgba(0, 0, 0, 0.3)`
-      : "0 10px 20px rgba(0, 0, 0, 0.2)",
+    transform:
+      isMobile || isTablet
+        ? "none"
+        : `perspective(1200px) rotateY(${rotateY}deg) scale(${
+            isHovering ? 1.05 : 1
+          })`,
+    transition:
+      isMobile || isTablet
+        ? "none"
+        : isHovering
+        ? "transform 0.1s ease-out"
+        : "transform 0.5s ease-out",
+    boxShadow:
+      isMobile || isTablet
+        ? "0 5px 15px rgba(0, 0, 0, 0.2)"
+        : isHovering
+        ? `${-rotateY * 0.5}px 5px 30px rgba(0, 0, 0, 0.3)`
+        : "0 10px 20px rgba(0, 0, 0, 0.2)",
     border: "1px solid rgba(100, 100, 100, 0.3)",
     borderRadius: "16px",
-    padding: "40px 32px 50px 32px",
+    padding: isTablet ? "30px 25px 35px 25px" : "40px 32px 50px 32px", // Reduced padding for tablet
     overflow: "hidden",
     transformStyle: "preserve-3d",
   };
@@ -82,7 +106,8 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
     left: 0,
     right: 0,
     height: "30%",
-    background: "linear-gradient(to bottom, rgba(255,255,255,0.1), transparent)",
+    background:
+      "linear-gradient(to bottom, rgba(255,255,255,0.1), transparent)",
     opacity: isHovering ? 0.15 : 0.05,
     transition: "opacity 0.3s ease-out",
     pointerEvents: "none",
@@ -92,7 +117,7 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
 
   // Content style to push it forward in 3D space
   const contentStyle = {
-    position: "relative", 
+    position: "relative",
     zIndex: 2,
     transform: isHovering ? `translateZ(20px)` : `translateZ(0px)`,
     transition: "transform 0.3s ease-out",
@@ -100,7 +125,7 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
   };
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className={`${className} ${colSpan}`}
       style={cardStyle}
@@ -108,9 +133,7 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div style={contentStyle}>
-        {children}
-      </div>
+      <div style={contentStyle}>{children}</div>
       <div style={glassReflection} />
     </div>
   );

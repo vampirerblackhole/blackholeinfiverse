@@ -230,6 +230,66 @@ function BlackholeSideText() {
           {/* Add custom CSS that you can modify later */}
           <style>
             {`
+              /* Tablet styles (between 769px and 1024px) */
+              @media (min-width: 769px) and (max-width: 1024px) {
+                .mobile-welcome-text {
+                  font-size: 4rem !important;
+                  margin-top: 0 !important;
+                }
+
+                .mobile-infiverse-text {
+                  font-size: 4rem !important;
+                  margin-top: 0 !important;
+                  text-align: center !important;
+                }
+
+                /* Keep cards positioned at the side for tablets */
+                #p12 {
+                  position: absolute !important;
+                  top: 120vh !important;
+                  left: 5% !important;
+                  width: 45% !important;
+                  z-index: 30 !important;
+                  padding: 0 !important;
+                }
+
+                #p11 {
+                  position: absolute !important;
+                  top: 300vh !important;
+                  right: 5% !important;
+                  left: auto !important;
+                  width: 45% !important;
+                  z-index: 30 !important;
+                  padding: 0 !important;
+                }
+
+                /* Card styling for tablets */
+                #p12 .card, #p11 .card {
+                  padding: 1.5rem 1.25rem !important;
+                  min-height: 220px !important;
+                }
+
+                /* Title styling for tablets */
+                #p12 .title, #p11 .title {
+                  font-size: 1.4rem !important;
+                  line-height: 1.2 !important;
+                  margin-bottom: 0.75rem !important;
+                  word-wrap: break-word !important;
+                  overflow-wrap: break-word !important;
+                  hyphens: auto !important;
+                }
+
+                /* Description styling for tablets */
+                #p12 .description, #p11 .description {
+                  font-size: 0.85rem !important;
+                  line-height: 1.4 !important;
+                  word-wrap: break-word !important;
+                  overflow-wrap: break-word !important;
+                  width: 100% !important;
+                  max-width: 100% !important;
+                }
+              }
+
               /* Custom mobile styles that you can modify */
               @media (max-width: 768px) {
                 .mobile-welcome-text {
@@ -237,7 +297,7 @@ function BlackholeSideText() {
                   margin-top: -1rem !important;
                   /* Add your custom mobile styles here */
                 }
-                
+
                 .mobile-infiverse-text {
                   margin-left: 1rem;
                   font-size: 2.8rem !important;
@@ -258,20 +318,20 @@ function BlackholeSideText() {
                   padding: 1rem !important;
                   height: auto !important;
                 }
-                
+
                 #p12 {
                   margin-top: 120vh !important;
                 }
-                
+
                 #p11 {
                   margin-top: 40vh !important;
                 }
-                
+
                 #p12 > div, #p11 > div {
                   width: 100% !important;
                   height: auto !important;
                 }
-                
+
                 #p12 .card, #p11 .card {
                   height: auto !important;
                   min-height: auto !important;
@@ -279,22 +339,22 @@ function BlackholeSideText() {
                   display: flex !important;
                   flex-direction: column !important;
                 }
-                
+
                 #p12 .description, #p11 .description {
                   width: 100% !important;
                   max-width: 100% !important;
                 }
               }
-              
+
               @media (max-width: 480px) {
                 #p12, #p11 {
                   width: 95% !important;
                 }
-                
+
                 #p12 {
                   margin-top: 100vh !important;
                 }
-                
+
                 #p11 {
                   margin-top: 30vh !important;
                 }
@@ -305,7 +365,7 @@ function BlackholeSideText() {
 
         <div id="p12" className="fade-in" ref={paragraphRef1}>
           <TiltCard
-            title="Redefining transformation of Digital with AI Integration"
+            title="AI Integration"
             description="The cyberspace is transforming, and so are we. At BlackHole InfiVerse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, and Robotics, we are crafting the future of Web3 and beyond."
             style={{
               width: "100%",

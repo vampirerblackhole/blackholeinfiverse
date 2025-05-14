@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BlurCard from "../components/common/BlurCard";
@@ -7,6 +7,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 function WhyUs() {
   const servicesRef = useRef(null);
+  const [isTablet, setIsTablet] = useState(false);
+
+  // Check if device is tablet/small laptop
+  useEffect(() => {
+    const checkTablet = () => {
+      setIsTablet(window.innerWidth <= 1024 && window.innerWidth > 768);
+    };
+    checkTablet();
+    window.addEventListener("resize", checkTablet);
+    return () => window.removeEventListener("resize", checkTablet);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -28,19 +39,25 @@ function WhyUs() {
       {/* Cards Container */}
       <div
         ref={servicesRef}
-        className="max-w-6xl mx-auto px-4 md:px-6 pb-10 md:pb-20 flex flex-col lg:grid lg:grid-cols-2 gap-8"
+        className="max-w-6xl mx-auto px-4 md:px-6 pb-10 md:pb-20 flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-8"
       >
         <BlurCard
-          className="mt-8 md:mt-16 snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0"
+          className={`mt-8 md:mt-12 lg:mt-16 snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0 whyus-card ${
+            isTablet ? "!min-h-[200px]" : ""
+          }`}
           colSpan="lg:col-span-2"
         >
           <h1
-            className="text-4xl md:text-6xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-orange-300 to-gray-300 mb-4"
-            style={{ paddingBottom: "15px" }}
+            className="text-4xl md:text-5xl lg:text-8xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-orange-300 to-gray-300 mb-3 md:mb-4"
+            style={{ paddingBottom: isTablet ? "10px" : "15px" }}
           >
             Why Us?
           </h1>
-          <p className="mt-2 text-base md:text-lg text-gray-400 max-w-full md:max-w-2xl">
+          <p
+            className={`mt-2 text-base ${
+              isTablet ? "text-base" : "md:text-lg"
+            } text-gray-400 max-w-full md:max-w-2xl`}
+          >
             At Blackhole InfiVerse, we partner with leading research
             institutions to fuse quantum, cybersecurity, and blockchain
             expertise into secure, scalable solutions for tomorrow&apos;s
@@ -48,11 +65,23 @@ function WhyUs() {
           </p>
         </BlurCard>
 
-        <BlurCard className="snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0">
-          <h2 className="text-xl md:text-3xl font-semibold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600">
+        <BlurCard
+          className={`snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0 whyus-card ${
+            isTablet ? "!min-h-[220px]" : ""
+          }`}
+        >
+          <h2
+            className={`text-xl ${
+              isTablet ? "text-2xl" : "md:text-3xl"
+            } font-semibold mb-2 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600`}
+          >
             Quantum Computing: Reimagining Reality Through Computation
           </h2>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-4 md:mb-6">
+          <p
+            className={`text-sm ${
+              isTablet ? "text-sm" : "md:text-base"
+            } text-gray-300 leading-relaxed mb-3 md:mb-6`}
+          >
             At BlackHole InfiVerse, we&apos;re in the process of collaborating
             with leading quantum physicists from a Leading Indian Institute in
             Quantum Research to explore the vast, untapped potential of quantum
@@ -60,20 +89,36 @@ function WhyUs() {
             initiative is focused on rewriting the limits of what&apos;s
             computationally possible.
           </p>
-          <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4">
+          <h3
+            className={`text-lg ${
+              isTablet ? "text-xl" : "md:text-2xl"
+            } font-semibold mb-2 md:mb-4`}
+          >
             Building the Foundations of Quantum Intelligence
           </h3>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-4 md:mb-6">
+          <p
+            className={`text-sm ${
+              isTablet ? "text-sm" : "md:text-base"
+            } text-gray-300 leading-relaxed mb-3 md:mb-6`}
+          >
             Unlike classical systems, our research is grounded in the quantum
             realm — working with qubits, entanglement, and superposition to
             enable computing capabilities that scale beyond Moore&apos;s Law.
             We&apos;re exploring quantum algorithms that could revolutionize
             encryption, material simulation, machine learning, and more.
           </p>
-          <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4">
+          <h3
+            className={`text-lg ${
+              isTablet ? "text-xl" : "md:text-2xl"
+            } font-semibold mb-2 md:mb-4`}
+          >
             Quantum x AI x Blockchain: A New Technological Trinity
           </h3>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+          <p
+            className={`text-sm ${
+              isTablet ? "text-sm" : "md:text-base"
+            } text-gray-300 leading-relaxed`}
+          >
             Our vision isn&apos;t just to build a quantum computer — it&apos;s
             to integrate quantum processing with AI and blockchain to create a
             unified system that drives the next wave of intelligence and trust.
@@ -83,21 +128,41 @@ function WhyUs() {
           </p>
         </BlurCard>
 
-        <BlurCard className="snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0">
-          <h2 className="text-xl md:text-3xl font-semibold mb-3 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-green-500">
+        <BlurCard
+          className={`snap-center min-w-[90vw] md:min-w-[70vw] lg:min-w-0 whyus-card ${
+            isTablet ? "!min-h-[220px]" : ""
+          }`}
+        >
+          <h2
+            className={`text-xl ${
+              isTablet ? "text-2xl" : "md:text-3xl"
+            } font-semibold mb-2 md:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-green-500`}
+          >
             Securing the Future of the Digital World
           </h2>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-4 md:mb-6">
+          <p
+            className={`text-sm ${
+              isTablet ? "text-sm" : "md:text-base"
+            } text-gray-300 leading-relaxed mb-3 md:mb-6`}
+          >
             At BlackHole InfiVerse, we&apos;re building a new cybersecurity
             paradigm that fuses artificial intelligence, blockchain technology,
             and next-gen encryption. Our mission is to create a truly secure
             cyberspace where data, identity, and assets are protected by
             autonomous, intelligent defense systems.
           </p>
-          <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4">
+          <h3
+            className={`text-lg ${
+              isTablet ? "text-xl" : "md:text-2xl"
+            } font-semibold mb-2 md:mb-4`}
+          >
             AI-Driven Defense for a Decentralized Web
           </h3>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-4 md:mb-6">
+          <p
+            className={`text-sm ${
+              isTablet ? "text-sm" : "md:text-base"
+            } text-gray-300 leading-relaxed mb-3 md:mb-6`}
+          >
             Traditional firewalls and rule-based systems are no longer enough.
             Our cybersecurity framework uses AI to detect, respond to, and
             neutralize threats in real time. Integrated with blockchain-based
@@ -105,10 +170,18 @@ function WhyUs() {
             decentralized, user-owned Web3 world — enabling a future where
             privacy and security aren&apos;t features, but defaults.
           </p>
-          <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4">
+          <h3
+            className={`text-lg ${
+              isTablet ? "text-xl" : "md:text-2xl"
+            } font-semibold mb-2 md:mb-4`}
+          >
             Cybersecurity for Every Layer of Reality
           </h3>
-          <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+          <p
+            className={`text-sm ${
+              isTablet ? "text-sm" : "md:text-base"
+            } text-gray-300 leading-relaxed`}
+          >
             From securing smart contracts and virtual assets to protecting
             physical infrastructure in the real world, our cybersecurity systems
             adapt to both digital and physical threats. Whether it&apos;s

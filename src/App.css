@@ -75,6 +75,60 @@ body {
     margin-left: 2rem; /* Reduce margin left */
     margin-top: 6rem; /* Adjust margin top */
   }
+
+  /* WhyUs page tablet optimizations */
+  .whyus-card {
+    padding: 30px 25px 35px 25px !important;
+    min-height: 220px !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Reduce text sizes for tablet screens */
+  .whyus-card h1 {
+    font-size: 4rem !important;
+    padding-bottom: 10px !important;
+    line-height: 1.1 !important;
+  }
+
+  .whyus-card h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .whyus-card h3 {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .whyus-card p {
+    font-size: 0.9rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Global TiltCard optimizations for tablet screens */
+  .tilt-card-container .card {
+    padding: 1.5rem 1.25rem !important;
+    min-height: 220px !important;
+  }
+
+  .tilt-card-container .title {
+    font-size: 1.4rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.75rem !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    width: 100% !important;
+  }
+
+  .tilt-card-container .description {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
 
 /* Media query for screens smaller than 768px (mobile screens) */

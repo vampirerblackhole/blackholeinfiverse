@@ -8,18 +8,53 @@ const TiltCard = ({ title, description, className = "", style = {} }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if device is mobile
+  // Check if device is mobile or tablet
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const checkDeviceSize = () => {
+      // Consider tablets as mobile for the tilt effect
+      setIsMobile(window.innerWidth <= 1024);
+
+      // Apply specific tablet adjustments if needed
+      if (
+        cardRef.current &&
+        window.innerWidth <= 1024 &&
+        window.innerWidth > 768
+      ) {
+        // Tablet-specific adjustments
+        const titleElement = cardRef.current.querySelector(`.${styles.title}`);
+        const descElement = cardRef.current.querySelector(
+          `.${styles.description}`
+        );
+
+        if (titleElement) {
+          titleElement.style.fontSize = "1.4rem";
+          titleElement.style.lineHeight = "1.2";
+          titleElement.style.marginBottom = "0.75rem";
+          titleElement.style.wordWrap = "break-word";
+          titleElement.style.overflowWrap = "break-word";
+          titleElement.style.hyphens = "auto";
+        }
+
+        if (descElement) {
+          descElement.style.fontSize = "0.85rem";
+          descElement.style.lineHeight = "1.4";
+          descElement.style.wordWrap = "break-word";
+          descElement.style.overflowWrap = "break-word";
+        }
+
+        // Adjust card padding for tablet
+        if (cardRef.current) {
+          cardRef.current.style.padding = "1.5rem 1.25rem";
+        }
+      }
     };
 
     // Check on mount
-    checkMobile();
+    checkDeviceSize();
 
     // Check on resize
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    window.addEventListener("resize", checkDeviceSize);
+    return () => window.removeEventListener("resize", checkDeviceSize);
   }, []);
 
   // Handle mouse movement for vertical-only 3D effect
@@ -115,7 +150,7 @@ const TiltCard = ({ title, description, className = "", style = {} }) => {
   };
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div className={`${styles.container} ${className} tilt-card-container`}>
       <div
         ref={cardRef}
         className={styles.card}
