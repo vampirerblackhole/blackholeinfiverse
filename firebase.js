@@ -1,17 +1,10 @@
 // Firebase configuration helper
 // This file helps with Firebase-specific optimizations
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// Register ScrollTrigger plugin globally to ensure it's available everywhere
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 // Function to detect if the app is running on Firebase hosting
 export const isRunningOnFirebase = () => {
   if (typeof window === "undefined") return false;
-
+  
   // Check if we're running on a Firebase hosting URL
   const hostname = window.location.hostname;
   return (
@@ -45,7 +38,7 @@ export const preloadCriticalAssets = async () => {
         })
       )
     );
-
+    
     // Log results for debugging
     const failedLoads = results.filter(
       (result) => result.status === "rejected"
@@ -53,7 +46,7 @@ export const preloadCriticalAssets = async () => {
     if (failedLoads.length > 0) {
       console.warn("Some critical assets failed to preload:", failedLoads);
     }
-
+    
     return true;
   } catch (error) {
     console.error("Error preloading critical assets:", error);
@@ -64,58 +57,27 @@ export const preloadCriticalAssets = async () => {
 // Function to optimize scroll performance
 export const optimizeScrollPerformance = () => {
   if (typeof window === "undefined" || typeof document === "undefined") return;
-
-  // Ensure ScrollTrigger is registered
-  if (gsap && ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Set ScrollTrigger defaults for better performance
-    ScrollTrigger.config({
-      ignoreMobileResize: true,
-      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
-    });
-
-    // Force a refresh after a short delay to ensure all elements are properly measured
-    setTimeout(() => {
-      try {
-        ScrollTrigger.refresh(true);
-      } catch (error) {
-        console.warn("Error refreshing ScrollTrigger:", error);
-      }
-    }, 1000);
-  }
-
+  
   // Add passive event listeners for better scroll performance
   document.addEventListener("touchstart", function () {}, { passive: true });
   document.addEventListener("touchmove", function () {}, { passive: true });
-
-  // Optimize rendering for scroll events with throttling
+  
+  // Optimize rendering for scroll events
   let scrollTimeout;
-  let lastScrollTime = 0;
-  const scrollThrottleMs = 10; // Throttle to ~100fps
-
   const scrollHandler = () => {
-    const now = performance.now();
-    if (now - lastScrollTime < scrollThrottleMs) return;
-    lastScrollTime = now;
-
     document.body.classList.add("is-scrolling");
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       document.body.classList.remove("is-scrolling");
     }, 200);
   };
-
+  
   window.addEventListener("scroll", scrollHandler, { passive: true });
-
+  
   // Add CSS to optimize rendering during scroll
   const style = document.createElement("style");
   style.textContent = `
     .is-scrolling canvas {
-      will-change: transform;
-    }
-    .is-scrolling .Game,
-    .is-scrolling .stadium-container {
       will-change: transform;
     }
   `;
@@ -126,16 +88,16 @@ export const optimizeScrollPerformance = () => {
 export const applyFirebaseFixes = () => {
   if (typeof window === "undefined" || typeof document === "undefined") return;
   if (!isRunningOnFirebase()) return;
-
+  
   // Force scroll to top on page load
   window.scrollTo(0, 0);
-
+  
   // Add meta tags to prevent caching issues
   const meta = document.createElement("meta");
   meta.setAttribute("http-equiv", "Cache-Control");
   meta.setAttribute("content", "no-cache, no-store, must-revalidate");
   document.head.appendChild(meta);
-
+  
   // Add viewport meta tag to ensure proper scaling
   const viewportMeta = document.createElement("meta");
   viewportMeta.setAttribute("name", "viewport");
@@ -144,40 +106,22 @@ export const applyFirebaseFixes = () => {
     "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   );
   document.head.appendChild(viewportMeta);
-
+  
   // Add a special handler for Firebase to ensure proper initialization
   window.addEventListener("load", () => {
     // Force scroll to top again after load
     window.scrollTo(0, 0);
-
-    // Force a refresh of ScrollTrigger
-    if (gsap && ScrollTrigger) {
-      setTimeout(() => {
-        try {
-          ScrollTrigger.refresh(true);
-          console.log("ScrollTrigger refreshed after load");
-        } catch (error) {
-          console.warn("Error refreshing ScrollTrigger after load:", error);
-        }
-      }, 1000);
-    }
   });
 };
 
 // Initialize all Firebase optimizations
 export const initFirebaseOptimizations = () => {
   try {
-    // Register ScrollTrigger plugin globally to ensure it's available
-    if (typeof window !== "undefined" && gsap) {
-      gsap.registerPlugin(ScrollTrigger);
-      console.log("ScrollTrigger registered globally");
-    }
-
     // Run optimizations in a safe way
     preloadCriticalAssets().catch((err) =>
       console.warn("Asset preloading error:", err)
     );
-
+    
     // Delay scroll performance optimizations to ensure DOM is ready
     setTimeout(() => {
       try {
@@ -186,28 +130,12 @@ export const initFirebaseOptimizations = () => {
         console.warn("Error optimizing scroll performance:", error);
       }
     }, 100);
-
+    
     // Apply Firebase-specific fixes
     try {
       applyFirebaseFixes();
     } catch (error) {
       console.warn("Error applying Firebase fixes:", error);
-    }
-
-    // Add a final safety check to ensure ScrollTrigger is properly initialized
-    if (typeof window !== "undefined") {
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          if (gsap && ScrollTrigger) {
-            try {
-              ScrollTrigger.refresh(true);
-              console.log("Final ScrollTrigger refresh completed");
-            } catch (error) {
-              console.warn("Error in final ScrollTrigger refresh:", error);
-            }
-          }
-        }, 2000);
-      });
     }
   } catch (error) {
     console.warn("Error initializing Firebase optimizations:", error);

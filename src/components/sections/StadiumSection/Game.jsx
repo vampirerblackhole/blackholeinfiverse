@@ -4,10 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useThree } from "@react-three/fiber";
 
-// Register ScrollTrigger plugin globally
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export function Game(props) {
   const oculusRef = useRef(); // Reference to the Oculus model
@@ -18,92 +15,73 @@ export function Game(props) {
 
   useEffect(() => {
     if (!oculusRef.current) return;
-
-    // Ensure ScrollTrigger is properly refreshed
-    ScrollTrigger.refresh();
-
-    // Create a single timeline for better control
     const t1 = gsap.timeline();
 
-    // Delay the animations slightly to ensure DOM is ready
-    setTimeout(() => {
-      // Fade-in effect for the `.Game` container
-      t1.to(".Game", {
-        opacity: 0,
-        scrollTrigger: {
-          trigger: ".Game",
-          start: "80% bottom",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true, // Recalculate on window resize
-          fastScrollEnd: true, // Better performance
-        },
-      });
+    // Fade-in effect for the `.Game` container
+    t1.to(".Game", {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "80% bottom",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+    });
 
-      // Scroll-triggered rotation for the Oculus model
-      t1.to(oculusRef.current.rotation, {
-        y: -Math.PI,
-        x: Math.PI / 3,
-        duration: 1,
-        scrollTrigger: {
-          trigger: ".Game",
-          start: "10% top",
-          end: "70% bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
-          fastScrollEnd: true,
-        },
-      });
+    // Scroll-triggered rotation for the Oculus model
+    t1.to(oculusRef.current.rotation, {
+      y: -Math.PI,
+      x: Math.PI / 3,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "10% top",
+        end: "70% bottom",
+        scrub: 1,
+      },
+    });
 
-      // Scroll-triggered scaling
-      t1.to(oculusRef.current.scale, {
-        x: 2,
-        y: 2,
-        z: 2,
-        duration: 1.5,
-        scrollTrigger: {
-          trigger: ".Game",
-          start: "10% top",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
-          fastScrollEnd: true,
-        },
-      });
+    // Scroll-triggered scaling
+    t1.to(oculusRef.current.scale, {
+      x: 2,
+      y: 2,
+      z: 2,
+      duration: 1.5,
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "10% top",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+    });
 
-      // Scroll-triggered position animation
-      t1.to(oculusRef.current.position, {
-        y: 2.5,
-        duration: 1.5,
-        scrollTrigger: {
-          trigger: ".Game",
-          start: "10% top",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
-          fastScrollEnd: true,
-        },
-      });
+    // Scroll-triggered position animation
+    t1.to(oculusRef.current.position, {
+      y: 2.5,
+      duration: 1.5,
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "10% top",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+    });
 
-      // Scroll-triggered camera movement
-      gsap.to(camera.position, {
-        z: -3,
-        y: 5,
-        scrollTrigger: {
-          trigger: ".Game",
-          start: "10% top",
-          end: "bottom bottom",
-          scrub: 1,
-          invalidateOnRefresh: true,
-          fastScrollEnd: true,
-        },
-        onUpdate: () => camera.updateProjectionMatrix(), // Ensure the camera updates correctly
-      });
-    }, 500); // Short delay to ensure DOM is ready
+    // Scroll-triggered camera movement
+    gsap.to(camera.position, {
+      z: -3,
+      y: 5,
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "10% top",
+        end: "bottom bottom",
+        scrub: 1,
+      },
+      onUpdate: () => camera.updateProjectionMatrix(), // Ensure the camera updates correctly
+    });
 
     return () => {
-      // Clean up all ScrollTrigger instances
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ScrollTrigger.killAll();
     };
   }, [camera]);
 
