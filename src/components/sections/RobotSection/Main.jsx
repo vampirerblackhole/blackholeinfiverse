@@ -157,7 +157,7 @@ function Main() {
             <div className="para2">
               <TiltCard
                 title="Redefining Robotics with AI Integration"
-                description="At BlackHole InVerse, we're developing the next generation of humanoid robotics that are intelligent, adaptable, and designed to seamlessly integrate into the Web3 ecosystem. Our humanoid robots are equipped with advanced AI systems that enable them to perform a wide range of tasks, from customer service to complex industrial operations."
+                description="At BlackHole InfiVerse, we're developing the next generation of humanoid robotics that are intelligent, adaptable, and designed to seamlessly integrate into the Web3 ecosystem. Our humanoid robots are equipped with advanced AI systems that enable them to perform a wide range of tasks, from customer service to complex industrial operations."
               />
             </div>
           </div>
@@ -181,7 +181,7 @@ function Main() {
             <div className="para3">
               <TiltCard
                 title="Humanoid Robotics for a New Era"
-                description="Humanoid robots are poised to revolutionise industries that require human-like interaction and dexterity. At BlackHole InVerse, we're leading the way with humanoid robots that can engage with people, understand complex scenarios, and execute intricate tasks. Whether it's a robot serving as a virtual assistant, a healthcare companion, or a precision machine operator, our humanoid robots are equipped with advanced AI capabilities to perform their roles effectively and naturally. The future of robotics is intelligent, autonomous, and deeply integrated into the Web3 world."
+                description="Humanoid robots are poised to revolutionise industries that require human-like interaction and dexterity. At BlackHole InfiVerse, we're leading the way with humanoid robots that can engage with people, understand complex scenarios, and execute intricate tasks. Whether it's a robot serving as a virtual assistant, a healthcare companion, or a precision machine operator, our humanoid robots are equipped with advanced AI capabilities to perform their roles effectively and naturally. The future of robotics is intelligent, autonomous, and deeply integrated into the Web3 world."
               />
             </div>
           </div>

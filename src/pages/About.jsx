@@ -3,7 +3,14 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Gamepad2, Brain, Notebook as Robot, Bitcoin, Cpu, Shield } from "lucide-react";
+import {
+  Gamepad2,
+  Brain,
+  Notebook as Robot,
+  Bitcoin,
+  Cpu,
+  Shield,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -316,13 +323,18 @@ function About() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <Cpu className="w-16 h-16 text-purple-400 floating-icon mb-6" />
-              <h2 className="text-4xl font-bold mb-6">Quantum Computing Research</h2>
+              <h2 className="text-4xl font-bold mb-6">
+                Quantum Computing Research
+              </h2>
               <p className="text-gray-300 text-lg mb-6">
-                In collaboration with ISCER Pune, we are shaping the next era of computation.
+                In collaboration with a Leading Indian Institute in Quantum
+                Research in Pune, we are shaping the next era of computation.
               </p>
               <ul className="space-y-4 text-gray-300">
                 <li>✦ Quantum Architecture & Algorithm Ideation</li>
-                <li>✦ Laying the foundation for a post-silicon computing future</li>
+                <li>
+                  ✦ Laying the foundation for a post-silicon computing future
+                </li>
                 <li>✦ Research-Driven Development</li>
               </ul>
             </div>
@@ -341,13 +353,18 @@ function About() {
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
               <Shield className="w-16 h-16 text-cyan-400 floating-icon mb-6" />
-              <h2 className="text-4xl font-bold mb-6">Next-Gen Cybersecurity</h2>
+              <h2 className="text-4xl font-bold mb-6">
+                Next-Gen Cybersecurity
+              </h2>
               <p className="text-gray-300 text-lg mb-6">
-                Building an unbreakable digital world through innovation and resilience.
+                Building an unbreakable digital world through innovation and
+                resilience.
               </p>
               <ul className="space-y-4 text-gray-300">
                 <li>✦ AI-led anomaly detection and response systems</li>
-                <li>✦ Toward a self-healing, autonomous cyber defense network</li>
+                <li>
+                  ✦ Toward a self-healing, autonomous cyber defense network
+                </li>
                 <li>✦ Decentralized Security Systems</li>
               </ul>
             </div>
