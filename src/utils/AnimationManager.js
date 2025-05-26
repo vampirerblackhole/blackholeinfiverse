@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { firebasePerformanceMonitor } from "./FirebasePerformanceMonitor.js";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,20 @@ class AnimationManager {
     this.scrollTriggers = [];
     this.retryAttempts = 0;
     this.maxRetries = 3;
+
+    // Firebase-specific optimizations
+    this.isFirebaseHosted = this.detectFirebaseHosting();
+    this.initStartTime = null;
+  }
+
+  // Detect if running on Firebase hosting
+  detectFirebaseHosting() {
+    const hostname = window.location.hostname;
+    return (
+      hostname.includes("firebaseapp.com") ||
+      hostname.includes("web.app") ||
+      hostname.includes("firebase.com")
+    );
   }
 
   // Add callback for when animations are initialized
@@ -35,17 +50,23 @@ class AnimationManager {
       return;
     }
 
+    this.initStartTime = performance.now();
     console.log("Initializing animations...");
 
+    if (this.isFirebaseHosted) {
+      firebasePerformanceMonitor.logEvent("animation_init_start");
+    }
+
     try {
-      // Wait for DOM to be ready
+      // Wait for DOM to be ready (longer timeout for Firebase)
       await this.waitForDOM();
 
       // Ensure scroll position is at top
       window.scrollTo(0, 0);
 
-      // Small delay to ensure everything is rendered
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Firebase-specific delay to ensure CDN assets are ready
+      const delay = this.isFirebaseHosted ? 200 : 100;
+      await new Promise((resolve) => setTimeout(resolve, delay));
 
       // Refresh ScrollTrigger to recalculate positions
       ScrollTrigger.refresh();
@@ -58,19 +79,44 @@ class AnimationManager {
       // Mark as initialized
       this.isInitialized = true;
 
+      const initDuration = performance.now() - this.initStartTime;
+      console.log(
+        `AnimationManager: Initialization completed in ${initDuration.toFixed(
+          2
+        )}ms`
+      );
+
+      if (this.isFirebaseHosted) {
+        firebasePerformanceMonitor.logEvent("animation_init_complete", {
+          duration: initDuration,
+        });
+      }
+
       // Call all initialization callbacks
       this.initializationCallbacks.forEach((callback) => {
         try {
           callback();
         } catch (error) {
           console.error("Animation initialization callback error:", error);
+          if (this.isFirebaseHosted) {
+            firebasePerformanceMonitor.logError(error, "animation_callback");
+          }
         }
       });
     } catch (error) {
-      // Retry logic
+      console.error("Animation initialization failed:", error);
+      if (this.isFirebaseHosted) {
+        firebasePerformanceMonitor.logError(error, "animation_init");
+      }
+
+      // Retry logic with Firebase-aware delays
       if (this.retryAttempts < this.maxRetries) {
         this.retryAttempts++;
-        setTimeout(() => this.initializeAnimations(), 1000);
+        const retryDelay = this.isFirebaseHosted ? 2000 : 1000;
+        console.log(
+          `Retrying animation initialization in ${retryDelay}ms (attempt ${this.retryAttempts}/${this.maxRetries})`
+        );
+        setTimeout(() => this.initializeAnimations(), retryDelay);
       }
     }
   }
@@ -123,7 +169,9 @@ class AnimationManager {
 
       // Initialize fade-in animations for robot content
       this.initializeRobotFadeAnimations();
-    } catch (error) {}
+    } catch {
+      // Silently handle errors
+    }
   }
 
   // Initialize robot fade animations
@@ -233,14 +281,18 @@ class AnimationManager {
           }
         );
       });
-    } catch (error) {}
+    } catch {
+      // Silently handle errors
+    }
   }
 
   // Force refresh all ScrollTrigger instances
   refreshScrollTrigger() {
     try {
       ScrollTrigger.refresh();
-    } catch (error) {}
+    } catch {
+      // Silently handle errors
+    }
   }
 
   // Kill all animations and ScrollTriggers
@@ -251,7 +303,9 @@ class AnimationManager {
       this.animationTimelines.clear();
       this.scrollTriggers = [];
       this.isInitialized = false;
-    } catch (error) {}
+    } catch {
+      // Silently handle errors
+    }
   }
 
   // Reset and reinitialize

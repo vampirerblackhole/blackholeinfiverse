@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-const BlurCard = ({ children, className = "", colSpan = "" }) => {
+const BlurCard = ({
+  children,
+  className = "",
+  colSpan = "",
+  onMouseEnter: externalOnMouseEnter,
+  onMouseLeave: externalOnMouseLeave,
+}) => {
   const cardRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -54,16 +60,24 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
   };
 
   // Reset transform when mouse leaves
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (e) => {
     if (isMobile || isTablet) return;
     setRotateY(0);
     setIsHovering(false);
+    // Call external handler if provided
+    if (externalOnMouseLeave) {
+      externalOnMouseLeave(e);
+    }
   };
 
   // Enter transform when mouse enters
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e) => {
     if (isMobile || isTablet) return;
     setIsHovering(true);
+    // Call external handler if provided
+    if (externalOnMouseEnter) {
+      externalOnMouseEnter(e);
+    }
   };
 
   const cardStyle = {
@@ -144,6 +158,8 @@ BlurCard.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   colSpan: PropTypes.string,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
 export default BlurCard;

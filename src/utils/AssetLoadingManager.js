@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { firebasePerformanceMonitor } from "./FirebasePerformanceMonitor.js";
 
 class AssetLoadingManager {
   constructor() {
@@ -24,7 +25,56 @@ class AssetLoadingManager {
     this.completionCallbacks = [];
     this.errorCallbacks = [];
 
+    // Firebase-specific optimizations
+    this.connectionType = this.detectConnectionType();
+    this.isFirebaseHosted = this.detectFirebaseHosting();
+    this.adaptiveTimeouts = this.calculateAdaptiveTimeouts();
+
     this.setupLoadingManager();
+  }
+
+  // Detect connection type for adaptive loading
+  detectConnectionType() {
+    if (navigator.connection) {
+      const connection = navigator.connection;
+      return {
+        effectiveType: connection.effectiveType || "4g",
+        downlink: connection.downlink || 10,
+        rtt: connection.rtt || 100,
+        saveData: connection.saveData || false,
+      };
+    }
+    return { effectiveType: "4g", downlink: 10, rtt: 100, saveData: false };
+  }
+
+  // Detect if running on Firebase hosting
+  detectFirebaseHosting() {
+    const hostname = window.location.hostname;
+    return (
+      hostname.includes("firebaseapp.com") ||
+      hostname.includes("web.app") ||
+      hostname.includes("firebase.com")
+    );
+  }
+
+  // Calculate adaptive timeouts based on connection and hosting
+  calculateAdaptiveTimeouts() {
+    const baseTimeout = this.isFirebaseHosted ? 20000 : 15000; // Extra time for Firebase
+    const connectionMultiplier = {
+      "slow-2g": 3,
+      "2g": 2.5,
+      "3g": 1.5,
+      "4g": 1,
+    };
+
+    const multiplier =
+      connectionMultiplier[this.connectionType.effectiveType] || 1;
+
+    return {
+      gltf: Math.min(baseTimeout * multiplier, 30000), // Max 30 seconds
+      texture: Math.min(baseTimeout * 0.7 * multiplier, 20000), // Max 20 seconds
+      retry: Math.min(2000 * multiplier, 5000), // Max 5 seconds between retries
+    };
   }
 
   setupLoadingManager() {
@@ -39,7 +89,9 @@ class AssetLoadingManager {
       this.progressCallbacks.forEach((callback) => {
         try {
           callback(progress, itemsLoaded, itemsTotal, url);
-        } catch (error) {}
+        } catch {
+          // Silently handle callback errors
+        }
       });
     };
 
@@ -47,7 +99,9 @@ class AssetLoadingManager {
       this.completionCallbacks.forEach((callback) => {
         try {
           callback();
-        } catch (error) {}
+        } catch {
+          // Silently handle callback errors
+        }
       });
     };
 
@@ -55,7 +109,9 @@ class AssetLoadingManager {
       this.errorCallbacks.forEach((callback) => {
         try {
           callback(url);
-        } catch (error) {}
+        } catch {
+          // Silently handle callback errors
+        }
       });
     };
   }
@@ -97,10 +153,14 @@ class AssetLoadingManager {
       return this.loadingPromises.get(url);
     }
 
+    // Log loading start
+    firebasePerformanceMonitor.logAssetLoadStart(url, "GLTF");
+
     const promise = new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
+        firebasePerformanceMonitor.logAssetLoadComplete(url, false, "Timeout");
         reject(new Error(`GLTF loading timeout: ${url}`));
-      }, 15000); // 15 second timeout
+      }, this.adaptiveTimeouts.gltf);
 
       this.gltfLoader.load(
         url,
@@ -109,6 +169,7 @@ class AssetLoadingManager {
           if (useCache) {
             this.loadedAssets.set(url, gltf);
           }
+          firebasePerformanceMonitor.logAssetLoadComplete(url, true);
           console.log(`Successfully loaded GLTF: ${url}`);
           resolve(gltf);
         },
@@ -123,6 +184,7 @@ class AssetLoadingManager {
         },
         (error) => {
           clearTimeout(timeout);
+          firebasePerformanceMonitor.logAssetLoadComplete(url, false, error);
           console.error(`Failed to load GLTF: ${url}`, error);
           reject(error);
         }
@@ -146,7 +208,7 @@ class AssetLoadingManager {
     const promise = new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error(`Texture loading timeout: ${url}`));
-      }, 10000); // 10 second timeout
+      }, this.adaptiveTimeouts.texture);
 
       this.textureLoader.load(
         url,
@@ -178,51 +240,147 @@ class AssetLoadingManager {
     return promise;
   }
 
-  // Preload all critical assets
+  // Preload all critical assets with Firebase optimizations
   async preloadCriticalAssets() {
     const criticalAssets = [
-      { type: "gltf", url: "/model/blackhole.glb" },
-      { type: "gltf", url: "/model/Robot.glb" },
-      { type: "gltf", url: "/model/Game6.glb" },
-      { type: "gltf", url: "/model/Vr.glb" },
+      { type: "gltf", url: "/model/blackhole.glb", priority: 1 },
+      { type: "gltf", url: "/model/Robot.glb", priority: 1 },
+      { type: "gltf", url: "/model/Game6.glb", priority: 2 },
+      { type: "gltf", url: "/model/Vr.glb", priority: 2 },
     ];
 
-    console.log("Starting critical asset preloading...");
+    console.log(
+      "Starting critical asset preloading with Firebase optimizations..."
+    );
 
     try {
-      const loadPromises = criticalAssets.map(async (asset) => {
+      // Firebase optimization: Load high-priority assets first
+      const highPriorityAssets = criticalAssets.filter(
+        (asset) => asset.priority === 1
+      );
+      const lowPriorityAssets = criticalAssets.filter(
+        (asset) => asset.priority === 2
+      );
+
+      // Load high-priority assets first
+      const highPriorityPromises = highPriorityAssets.map(async (asset) => {
         try {
           if (asset.type === "gltf") {
-            return await this.loadGLTF(asset.url);
+            return await this.loadGLTFWithRetry(asset.url, 3);
           } else if (asset.type === "texture") {
-            return await this.loadTexture(asset.url);
+            return await this.loadTextureWithRetry(asset.url, 3);
           }
         } catch (error) {
-          console.warn(`Failed to preload ${asset.url}:`, error);
-          // Don't fail the entire loading process for individual assets
+          console.warn(`Failed to preload high-priority ${asset.url}:`, error);
           return null;
         }
       });
 
-      const results = await Promise.allSettled(loadPromises);
+      // Wait for high-priority assets
+      const highPriorityResults = await Promise.allSettled(
+        highPriorityPromises
+      );
 
-      const successful = results.filter(
-        (result) => result.status === "fulfilled"
+      // Load low-priority assets in parallel with a slight delay
+      setTimeout(() => {
+        const lowPriorityPromises = lowPriorityAssets.map(async (asset) => {
+          try {
+            if (asset.type === "gltf") {
+              return await this.loadGLTFWithRetry(asset.url, 2);
+            } else if (asset.type === "texture") {
+              return await this.loadTextureWithRetry(asset.url, 2);
+            }
+          } catch (error) {
+            console.warn(`Failed to preload low-priority ${asset.url}:`, error);
+            return null;
+          }
+        });
+
+        Promise.allSettled(lowPriorityPromises);
+      }, 500); // 500ms delay for low-priority assets
+
+      const successful = highPriorityResults.filter(
+        (result) => result.status === "fulfilled" && result.value !== null
       ).length;
-      const failed = results.filter(
-        (result) => result.status === "rejected"
+      const failed = highPriorityResults.filter(
+        (result) => result.status === "rejected" || result.value === null
       ).length;
 
       console.log(
-        `Asset preloading completed: ${successful} successful, ${failed} failed`
+        `High-priority asset preloading completed: ${successful} successful, ${failed} failed`
       );
 
-      // Return true even if some assets failed - the app should still work
-      return true;
+      // Return true if at least one high-priority asset loaded successfully
+      return successful > 0;
     } catch (error) {
       console.error("Critical asset preloading failed:", error);
-      throw error;
+      // Don't throw error - allow app to continue
+      return false;
     }
+  }
+
+  // Load GLTF with retry logic for Firebase CDN delays
+  async loadGLTFWithRetry(url, maxRetries = 3) {
+    let lastError;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`Loading GLTF ${url} (attempt ${attempt}/${maxRetries})`);
+        if (attempt > 1) {
+          firebasePerformanceMonitor.logRetryAttempt(url, attempt, maxRetries);
+        }
+        return await this.loadGLTF(url, true);
+      } catch (error) {
+        lastError = error;
+        console.warn(`GLTF load attempt ${attempt} failed for ${url}:`, error);
+
+        if (attempt < maxRetries) {
+          // Adaptive exponential backoff for Firebase CDN
+          const baseDelay = this.adaptiveTimeouts.retry;
+          const delay = Math.min(
+            baseDelay * Math.pow(1.5, attempt - 1),
+            baseDelay * 2
+          );
+          console.log(`Retrying in ${delay}ms...`);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+      }
+    }
+
+    throw lastError;
+  }
+
+  // Load texture with retry logic for Firebase CDN delays
+  async loadTextureWithRetry(url, maxRetries = 3) {
+    let lastError;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(
+          `Loading texture ${url} (attempt ${attempt}/${maxRetries})`
+        );
+        return await this.loadTexture(url, true);
+      } catch (error) {
+        lastError = error;
+        console.warn(
+          `Texture load attempt ${attempt} failed for ${url}:`,
+          error
+        );
+
+        if (attempt < maxRetries) {
+          // Adaptive exponential backoff for Firebase CDN
+          const baseDelay = this.adaptiveTimeouts.retry;
+          const delay = Math.min(
+            baseDelay * Math.pow(1.5, attempt - 1),
+            baseDelay * 2
+          );
+          console.log(`Retrying in ${delay}ms...`);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+      }
+    }
+
+    throw lastError;
   }
 
   // Get loading progress

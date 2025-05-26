@@ -17,6 +17,7 @@ import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames
 import CustomCursor from "./components/common/CustomCursor";
 import { assetLoadingManager } from "./utils/AssetLoadingManager";
 import { animationManager } from "./utils/AnimationManager";
+import { firebasePerformanceMonitor } from "./utils/FirebasePerformanceMonitor";
 
 // Add a loading fallback
 const PageLoadingFallback = () => (
@@ -152,13 +153,21 @@ function App() {
           }, 1000);
         }
 
-        // Safety timeout to prevent infinite loading (especially for Firebase)
+        // Firebase-aware safety timeout
+        const isFirebaseHosted =
+          window.location.hostname.includes("firebaseapp.com") ||
+          window.location.hostname.includes("web.app") ||
+          window.location.hostname.includes("firebase.com");
+
+        const maxLoadingTime = isFirebaseHosted ? 25000 : 15000; // Extra time for Firebase CDN
+
         setTimeout(() => {
           if (loadProgress < 100) {
+            console.log("Force completing loading due to timeout");
             setLoadProgress(100);
           }
-        }, 15000); // 15 second maximum loading time
-      } catch (error) {
+        }, maxLoadingTime);
+      } catch {
         // Force completion on error to prevent infinite loading
         setLoadProgress(100);
       }
@@ -182,18 +191,25 @@ function App() {
     try {
       // Only initialize complex animations for homepage
       if (isHomePage) {
+        const animationStart = performance.now();
         await animationManager.initializeAnimations();
+        const animationDuration = performance.now() - animationStart;
+
+        firebasePerformanceMonitor.logAnimationInit(animationDuration);
 
         // Minimal delay for homepage
         setTimeout(() => {
           setPageReady(true);
+          firebasePerformanceMonitor.logLoadComplete();
         }, 50);
       } else {
         // For other pages, show content immediately
         setPageReady(true);
+        firebasePerformanceMonitor.logLoadComplete();
       }
     } catch (error) {
       // Always show the page even if something fails
+      firebasePerformanceMonitor.logError(error, "handleLoadingComplete");
       setPageReady(true);
     }
   };

@@ -13,6 +13,10 @@ function Loader() {
 }
 function StadiumExperience() {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   useEffect(() => {
     const handleScroll = () => {

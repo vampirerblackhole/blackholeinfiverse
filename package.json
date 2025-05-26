@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:firebase": "node scripts/firebase-build.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:firebase": "npm run build:firebase && firebase deploy"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
