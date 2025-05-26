@@ -15,16 +15,61 @@ export function Game(props) {
 
   useEffect(() => {
     if (!oculusRef.current) return;
+
+    // Disable frustum culling for all meshes in the VR model to prevent clipping
+    // and initialize materials for fade-out effect
+    oculusRef.current.traverse((child) => {
+      if (child.isMesh) {
+        child.frustumCulled = false;
+
+        // Initialize materials for transparency support
+        if (child.material) {
+          if (Array.isArray(child.material)) {
+            child.material.forEach((mat) => {
+              mat.transparent = true;
+              mat.opacity = 1; // Start fully opaque
+            });
+          } else {
+            child.material.transparent = true;
+            child.material.opacity = 1; // Start fully opaque
+          }
+        }
+      }
+    });
+
     const t1 = gsap.timeline();
 
-    // Fade-in effect for the `.Game` container
-    t1.to(".Game", {
+    // VR Model fade-out effect when transitioning to Stadium section
+    t1.to(oculusRef.current, {
       opacity: 0,
+      ease: "power2.out", // Smooth easing for natural fade-out
       scrollTrigger: {
         trigger: ".Game",
-        start: "80% bottom",
-        end: "bottom bottom",
-        scrub: 1,
+        start: "85% bottom", // Start fading very late - when 85% of Game section is scrolled
+        end: "bottom+=200px bottom", // Extend fade-out well into the next section for very gradual effect
+        scrub: 8, // Very slow animation - takes many scroll actions to complete
+        onUpdate: (self) => {
+          // Apply smooth opacity transition to all meshes in the VR model
+          if (oculusRef.current) {
+            // Use eased progress for smoother fade-out
+            const easedProgress = gsap.parseEase("power2.out")(self.progress);
+
+            oculusRef.current.traverse((child) => {
+              if (child.isMesh && child.material) {
+                // Handle both single materials and material arrays
+                if (Array.isArray(child.material)) {
+                  child.material.forEach((mat) => {
+                    mat.opacity = 1 - easedProgress;
+                    mat.transparent = true;
+                  });
+                } else {
+                  child.material.opacity = 1 - easedProgress;
+                  child.material.transparent = true;
+                }
+              }
+            });
+          }
+        },
       },
     });
 

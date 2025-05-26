@@ -21,7 +21,7 @@ class AnimationManager {
     } else {
       this.initializationCallbacks.push(callback);
     }
-    
+
     return () => {
       const index = this.initializationCallbacks.indexOf(callback);
       if (index > -1) this.initializationCallbacks.splice(index, 1);
@@ -31,54 +31,55 @@ class AnimationManager {
   // Initialize all animations after assets are loaded
   async initializeAnimations() {
     if (this.isInitialized) {
-      console.log('Animations already initialized');
+      console.log("Animations already initialized");
       return;
     }
 
-    console.log('Initializing animations...');
+    console.log("Initializing animations...");
 
     try {
       // Wait for DOM to be ready
       await this.waitForDOM();
-      
+
       // Ensure scroll position is at top
       window.scrollTo(0, 0);
-      
+
       // Small delay to ensure everything is rendered
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       // Refresh ScrollTrigger to recalculate positions
       ScrollTrigger.refresh();
-      
+
       // Initialize specific animations
       this.initializeRobotAnimations();
       this.initializeTextAnimations();
       this.initializeFadeAnimations();
-      
+
       // Mark as initialized
       this.isInitialized = true;
-      
+
       // Call all initialization callbacks
-      this.initializationCallbacks.forEach(callback => {
+      this.initializationCallbacks.forEach((callback) => {
         try {
           callback();
         } catch (error) {
-          console.error('Animation initialization callback error:', error);
+          console.error("Animation initialization callback error:", error);
         }
       });
-      
-      console.log('Animations initialized successfully');
-      
+
+      console.log("Animations initialized successfully");
     } catch (error) {
-      console.error('Animation initialization failed:', error);
-      
+      console.error("Animation initialization failed:", error);
+
       // Retry logic
       if (this.retryAttempts < this.maxRetries) {
         this.retryAttempts++;
-        console.log(`Retrying animation initialization (${this.retryAttempts}/${this.maxRetries})`);
+        console.log(
+          `Retrying animation initialization (${this.retryAttempts}/${this.maxRetries})`
+        );
         setTimeout(() => this.initializeAnimations(), 1000);
       } else {
-        console.error('Max animation initialization retries reached');
+        console.error("Max animation initialization retries reached");
       }
     }
   }
@@ -91,20 +92,22 @@ class AnimationManager {
 
     return new Promise((resolve) => {
       const checkDOM = () => {
-        const robotSection = document.querySelector('.canvas-container');
-        const loopElement = document.querySelector('#loop');
-        
+        const robotSection = document.querySelector(".canvas-container");
+        const loopElement = document.querySelector("#loop");
+
         if (robotSection && loopElement) {
           resolve();
         } else if (waited >= maxWait) {
-          console.warn('DOM elements not found within timeout, proceeding anyway');
+          console.warn(
+            "DOM elements not found within timeout, proceeding anyway"
+          );
           resolve();
         } else {
           waited += checkInterval;
           setTimeout(checkDOM, checkInterval);
         }
       };
-      
+
       checkDOM();
     });
   }
@@ -113,7 +116,7 @@ class AnimationManager {
   initializeRobotAnimations() {
     try {
       // Animate the "UNLEASHING" text loop
-      const loopElement = document.querySelector('#loop');
+      const loopElement = document.querySelector("#loop");
       if (loopElement) {
         gsap.to(loopElement, {
           y: -1000,
@@ -125,21 +128,23 @@ class AnimationManager {
             refreshPriority: 1,
           },
         });
-        console.log('Robot loop animation initialized');
+        console.log("Robot loop animation initialized");
       }
 
       // Initialize fade-in animations for robot content
       this.initializeRobotFadeAnimations();
-      
     } catch (error) {
-      console.error('Robot animation initialization failed:', error);
+      console.error("Robot animation initialization failed:", error);
     }
   }
 
   // Initialize robot fade animations
   initializeRobotFadeAnimations() {
-    // Fade in animations for robot sections
+    // Add gsap-ready class and then animate fade-in elements
     gsap.utils.toArray(".fade-in").forEach((el) => {
+      // Add gsap-ready class to enable GSAP-controlled styling
+      el.classList.add("gsap-ready");
+
       gsap.fromTo(
         el,
         { opacity: 0, y: 20 },
@@ -161,6 +166,9 @@ class AnimationManager {
 
     // Specifically target paragraphs
     gsap.utils.toArray(".para").forEach((el) => {
+      // Add gsap-ready class to enable GSAP-controlled styling
+      el.classList.add("gsap-ready");
+
       gsap.fromTo(
         el,
         { opacity: 0, y: 20 },
@@ -205,9 +213,9 @@ class AnimationManager {
   initializeTextAnimations() {
     try {
       // Initialize any text-based animations here
-      console.log('Text animations initialized');
+      console.log("Text animations initialized");
     } catch (error) {
-      console.error('Text animation initialization failed:', error);
+      console.error("Text animation initialization failed:", error);
     }
   }
 
@@ -216,6 +224,9 @@ class AnimationManager {
     try {
       // General fade-in animations for any elements with fade-in class
       gsap.utils.toArray(".animate-fade-in").forEach((el, index) => {
+        // Add gsap-ready class to enable GSAP-controlled styling
+        el.classList.add("gsap-ready");
+
         gsap.fromTo(
           el,
           { opacity: 0, y: 30 },
@@ -234,10 +245,10 @@ class AnimationManager {
           }
         );
       });
-      
-      console.log('Fade animations initialized');
+
+      console.log("Fade animations initialized");
     } catch (error) {
-      console.error('Fade animation initialization failed:', error);
+      console.error("Fade animation initialization failed:", error);
     }
   }
 
@@ -245,9 +256,9 @@ class AnimationManager {
   refreshScrollTrigger() {
     try {
       ScrollTrigger.refresh();
-      console.log('ScrollTrigger refreshed');
+      console.log("ScrollTrigger refreshed");
     } catch (error) {
-      console.error('ScrollTrigger refresh failed:', error);
+      console.error("ScrollTrigger refresh failed:", error);
     }
   }
 
@@ -255,13 +266,13 @@ class AnimationManager {
   killAll() {
     try {
       ScrollTrigger.killAll();
-      this.animationTimelines.forEach(timeline => timeline.kill());
+      this.animationTimelines.forEach((timeline) => timeline.kill());
       this.animationTimelines.clear();
       this.scrollTriggers = [];
       this.isInitialized = false;
-      console.log('All animations killed');
+      console.log("All animations killed");
     } catch (error) {
-      console.error('Failed to kill animations:', error);
+      console.error("Failed to kill animations:", error);
     }
   }
 

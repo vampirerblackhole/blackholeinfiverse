@@ -298,26 +298,53 @@
   }
 }
 
-/* Fade-in for paragraphs */
+/* Fade-in for paragraphs - IMMEDIATE VISIBILITY with CSS fallback */
 .fade-in {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1; /* Immediate visibility - no longer depends on GSAP */
+  transform: translateY(0); /* Immediate positioning */
   transition: opacity 1.2s ease-out, transform 1.2s ease-out;
   z-index: 1000;
   position: relative;
+  /* Ensure backgrounds are immediately visible */
+  background: transparent;
 }
 
-/* When visible, fade in */
+/* When visible, fade in (maintained for GSAP enhancement) */
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Make paragraph text visible too */
+/* Make paragraph text visible too (maintained for GSAP enhancement) */
 .para.visible,
 .fade-in.visible .para {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* GSAP animation preparation - only for enhanced animations, not base visibility */
+.fade-in.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+  transform: translateY(20px);
+}
+
+/* Ensure paragraphs are immediately visible until GSAP takes over */
+.para.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+  transform: translateY(20px);
+}
+
+/* General animate-fade-in elements - immediate visibility */
+.animate-fade-in {
+  opacity: 1; /* Immediate visibility */
+  transform: translateY(0); /* Immediate positioning */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* GSAP animation preparation for animate-fade-in */
+.animate-fade-in.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+  transform: translateY(30px);
 }
 
 /* Media Queries */
@@ -336,14 +363,22 @@
 #p13 {
   width: 45%;
   position: absolute;
-  opacity: 0;
+  opacity: 1; /* IMMEDIATE VISIBILITY - no longer depends on GSAP */
   color: white;
   background-color: transparent;
   padding: 30px;
   border-radius: 0;
   transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-  transform: translateY(30px);
+  transform: translateY(0); /* IMMEDIATE POSITIONING */
   z-index: 30;
+}
+
+/* GSAP animation preparation - only applied when GSAP is ready */
+#p12.gsap-ready,
+#p11.gsap-ready,
+#p13.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+  transform: translateY(30px);
 }
 
 #p12 {

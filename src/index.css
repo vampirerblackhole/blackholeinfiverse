@@ -60,11 +60,11 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #FF7E29, #FEBF35);
+  background: linear-gradient(180deg, #ff7e29, #febf35);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #FF9B36, #FFD580);
+  background: linear-gradient(180deg, #ff9b36, #ffd580);
 }
 /* Hide scrollbar arrow buttons for both axes */
 *::-webkit-scrollbar-button:vertical:decrement,
@@ -78,7 +78,7 @@ html {
 /* Firefox support */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #FF7E29 transparent;
+  scrollbar-color: #ff7e29 transparent;
 }
 
 /* Force hide all scrollbar buttons */
@@ -152,4 +152,170 @@ html {
 ::-webkit-scrollbar-corner {
   display: none !important;
   background: transparent !important;
+}
+
+/* ===== GSAP BACKGROUND DEPENDENCY FIXES ===== */
+/* Ensure all elements are immediately visible until GSAP takes over */
+
+/* About page and general page elements - immediate visibility */
+.about-hero,
+.about-section {
+  opacity: 1 !important; /* Immediate visibility */
+  transform: translateY(0) scale(1) !important; /* Immediate positioning */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* GSAP animation preparation - only applied when GSAP is ready */
+.about-hero.gsap-ready,
+.about-section.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+  transform: translateY(100px) scale(0.9);
+}
+
+/* ===== IMMEDIATE BACKDROP-FILTER FIXES ===== */
+/* Ensure all blur effects appear instantly without delays */
+
+/* TiltCard and other interactive elements - ensure backgrounds are immediate */
+.tilt-card-container,
+.tilt-card-container .card {
+  background: rgba(0, 0, 0, 0.25) !important; /* Immediate background */
+  backdrop-filter: blur(15px) !important; /* Immediate backdrop filter */
+  -webkit-backdrop-filter: blur(15px) !important; /* Safari/WebKit support */
+  opacity: 1 !important; /* Immediate visibility */
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Stadium and Game sections - immediate visibility */
+.stadium,
+.Game {
+  opacity: 1 !important; /* Immediate visibility */
+  transition: opacity 1s ease-out;
+  overflow: visible !important; /* Prevent clipping of 3D models */
+}
+
+/* GSAP animation preparation for stadium/game elements */
+.stadium.gsap-ready,
+.Game.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+}
+
+/* Ensure VR model section has proper visibility and prevents bottom clipping */
+.Game .model-container {
+  overflow: visible !important;
+  height: calc(
+    100vh + 100px
+  ) !important; /* Increased extension to prevent clipping */
+  width: 100vw !important;
+  margin-bottom: -100px !important; /* Compensate for extended height */
+  /* Ensure no CSS transforms interfere */
+  transform: none !important;
+  /* Prevent any CSS clipping */
+  clip: none !important;
+  clip-path: none !important;
+}
+
+.Game canvas {
+  overflow: visible !important;
+  height: 100% !important;
+  width: 100% !important;
+  /* Ensure the canvas viewport doesn't clip the model */
+  clip-path: none !important;
+  /* Prevent CSS transforms that might cause clipping */
+  transform: none !important;
+  /* Ensure proper positioning */
+  position: relative !important;
+  display: block !important;
+}
+
+/* Ensure all card backgrounds are immediately visible */
+.card,
+.blur-card,
+.futuristic-card {
+  background: rgba(
+    0,
+    0,
+    0,
+    0.25
+  ) !important; /* Immediate background fallback */
+  backdrop-filter: blur(15px) !important; /* Immediate backdrop filter */
+  -webkit-backdrop-filter: blur(15px) !important; /* Safari/WebKit support */
+  opacity: 1 !important; /* Immediate visibility */
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Mail page and contact elements */
+.mail-card,
+.contact-card {
+  background: rgba(0, 0, 0, 0.25) !important; /* Immediate background */
+  backdrop-filter: blur(15px) !important; /* Immediate backdrop filter */
+  -webkit-backdrop-filter: blur(15px) !important; /* Safari/WebKit support */
+  opacity: 1 !important; /* Immediate visibility */
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* WhyUs page cards - immediate visibility */
+.whyus-card {
+  opacity: 1 !important; /* Immediate visibility */
+  transform: translateY(0) !important; /* Immediate positioning */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  /* Immediate blur effects */
+  background: rgba(0, 0, 0, 0.3) !important; /* Immediate background */
+  backdrop-filter: blur(8px) !important; /* Immediate backdrop filter */
+  -webkit-backdrop-filter: blur(8px) !important; /* Safari/WebKit support */
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0) translateY(0) !important; /* Force hardware acceleration + positioning */
+}
+
+/* GSAP animation preparation for WhyUs cards */
+.whyus-card.gsap-ready {
+  opacity: 0; /* Only hide when GSAP is ready to animate */
+  transform: translateZ(0) translateY(30px); /* Maintain hardware acceleration */
+}
+
+/* ===== NAVIGATION AND HEADER BACKDROP-FILTER FIXES ===== */
+/* Ensure navigation blur effects appear immediately */
+
+/* Navigation bar immediate blur */
+nav[style*="backdrop-filter"],
+.navbar,
+.nav-container {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Mobile menu immediate blur */
+.mobile-menu,
+.mobile-menu-container {
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Contact form elements immediate blur */
+[class*="rounded-lg"] {
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* About page hero card immediate blur */
+.about-hero .card,
+.about-hero [class*="backdrop-blur"] {
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
 }

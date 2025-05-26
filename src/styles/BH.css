@@ -39,11 +39,15 @@
 #p12 .card,
 #p11 .card {
   background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
   max-width: 100%;
   width: 100%;
   min-height: 300px; /* Match the min-height from TiltCard */
   aspect-ratio: 1.6 / 1; /* Match the aspect ratio from TiltCard */
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 #p12 .description,

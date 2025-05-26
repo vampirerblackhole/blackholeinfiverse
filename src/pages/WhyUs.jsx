@@ -21,15 +21,18 @@ function WhyUs() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(servicesRef.current.children).forEach((el, i) =>
+      gsap.utils.toArray(servicesRef.current.children).forEach((el, i) => {
+        // Add gsap-ready class to enable GSAP-controlled styling
+        el.classList.add("gsap-ready");
+
         gsap.from(el, {
           scrollTrigger: { trigger: el, start: "top 90%" },
           opacity: 0,
           y: 30,
           duration: 1,
           delay: i * 0.2,
-        })
-      );
+        });
+      });
     });
     return () => ctx.revert();
   }, []);

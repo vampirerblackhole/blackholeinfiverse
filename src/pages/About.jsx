@@ -127,31 +127,39 @@ function About() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero section animation
-      gsap.from(heroRef.current, {
-        opacity: 0,
-        y: 100,
-        duration: 1.5,
-        ease: "power3.out",
-      });
-
-      // Sections animations
-      const sections = sectionsRef.current.children;
-      Array.from(sections).forEach((section, index) => {
-        gsap.from(section, {
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            end: "top 20%",
-            scrub: 1,
-          },
+      // Add gsap-ready class before animating hero section
+      if (heroRef.current) {
+        heroRef.current.classList.add("gsap-ready");
+        // Hero section animation
+        gsap.from(heroRef.current, {
           opacity: 0,
           y: 100,
-          scale: 0.9,
-          duration: 1,
-          ease: "power2.out",
+          duration: 1.5,
+          ease: "power3.out",
         });
-      });
+      }
+
+      // Sections animations
+      if (sectionsRef.current) {
+        const sections = sectionsRef.current.children;
+        Array.from(sections).forEach((section, index) => {
+          // Add gsap-ready class before animating
+          section.classList.add("gsap-ready");
+          gsap.from(section, {
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              end: "top 20%",
+              scrub: 1,
+            },
+            opacity: 0,
+            y: 100,
+            scale: 0.9,
+            duration: 1,
+            ease: "power2.out",
+          });
+        });
+      }
 
       // Floating animation for icons
       gsap.to(".floating-icon", {
@@ -174,7 +182,7 @@ function About() {
       {/* Hero Section */}
       <div
         ref={heroRef}
-        className="relative h-screen flex items-center justify-center text-center px-4"
+        className="about-hero relative h-screen flex items-center justify-center text-center px-4"
       >
         <div className="absolute inset-0 bg-[url('/about/bh-mainH.jpg')] bg-cover bg-center opacity-80"></div>
         <div className="relative z-10 max-w-4xl mx-auto pt-16">
@@ -214,7 +222,7 @@ function About() {
         className="container mx-auto px-4 py-20 space-y-32"
       >
         {/* VR Games Section */}
-        <section className="relative">
+        <section className="about-section relative">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <Gamepad2 className="w-16 h-16 text-blue-400 floating-icon mb-6" />
@@ -241,7 +249,7 @@ function About() {
         </section>
 
         {/* AI Section */}
-        <section className="relative">
+        <section className="about-section relative">
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
               <Brain className="w-16 h-16 text-orange-400 floating-icon mb-6" />
@@ -267,7 +275,7 @@ function About() {
         </section>
 
         {/* Robotics Section */}
-        <section className="relative">
+        <section className="about-section relative">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <Robot className="w-16 h-16 text-green-400 floating-icon mb-6" />
@@ -293,7 +301,7 @@ function About() {
         </section>
 
         {/* Blockchain Section */}
-        <section className="relative">
+        <section className="about-section relative">
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
               <Bitcoin className="w-16 h-16 text-yellow-400 floating-icon mb-6" />
@@ -319,7 +327,7 @@ function About() {
         </section>
 
         {/* Quantum Computing Research Section */}
-        <section className="relative">
+        <section className="about-section relative">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <Cpu className="w-16 h-16 text-purple-400 floating-icon mb-6" />
@@ -349,7 +357,7 @@ function About() {
         </section>
 
         {/* Next-Gen Cybersecurity Section */}
-        <section className="relative">
+        <section className="about-section relative">
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
               <Shield className="w-16 h-16 text-cyan-400 floating-icon mb-6" />
@@ -379,7 +387,7 @@ function About() {
         </section>
 
         {/* CTA Section */}
-        <section className="text-center py-20">
+        <section className="about-section text-center py-20">
           <h2 className="text-4xl font-bold mb-8">Join Our Journey</h2>
           <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
             Be part of the future as we revolutionize technology across multiple

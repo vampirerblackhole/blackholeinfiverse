@@ -38,12 +38,15 @@ body {
   text-align: center;
 }
 
-/* Fix for Contact form initial transparency */
+/* Fix for Contact form initial transparency - IMMEDIATE BLUR */
 [class*="rounded-lg"] {
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
   background-color: rgba(0, 0, 0, 0.2) !important;
   transition: all 0.3s ease-in-out;
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 /* Adding specific contact card style */
@@ -252,6 +255,30 @@ canvas:not(.webgl) {
   max-height: 100vh;
 }
 
+/* Ensure VR model container doesn't clip content */
+.model-container {
+  overflow: visible !important;
+  /* Extend the viewport to prevent bottom clipping */
+  height: calc(100vh + 100px) !important;
+  margin-bottom: -100px !important;
+  /* Prevent any CSS clipping */
+  clip: none !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+
+.model-container canvas {
+  overflow: visible !important;
+  /* Ensure canvas takes full extended height */
+  height: 100% !important;
+  width: 100% !important;
+  /* Prevent canvas clipping */
+  clip-path: none !important;
+  transform: none !important;
+  position: relative !important;
+  display: block !important;
+}
+
 .p-start {
   display: flex;
   align-items: center;
@@ -292,18 +319,21 @@ p {
   color: white;
 }
 
-/* WhyUs Cards Blur & Hover */
+/* WhyUs Cards Blur & Hover - IMMEDIATE BLUR */
 .whyus-card {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
   background-color: rgba(0, 0, 0, 0.3) !important;
   transition: all 0.3s ease-out;
+  /* Force immediate rendering */
+  will-change: backdrop-filter, transform;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 .whyus-card:hover {
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
-  transform: scale(1.05);
+  transform: translateZ(0) scale(1.05); /* Maintain hardware acceleration */
 }
 
 .mail-email-address {

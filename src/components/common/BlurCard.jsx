@@ -75,16 +75,16 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
     background: isHovering ? "rgba(0, 0, 0, 0.6)" : "rgba(0, 0, 0, 0.4)",
     transform:
       isMobile || isTablet
-        ? "none"
+        ? "translateZ(0)" // Force hardware acceleration even on mobile
         : `perspective(1200px) rotateY(${rotateY}deg) scale(${
             isHovering ? 1.05 : 1
-          })`,
+          }) translateZ(0)`, // Add translateZ for hardware acceleration
     transition:
       isMobile || isTablet
-        ? "none"
+        ? "backdrop-filter 0.3s ease-out" // Add backdrop-filter transition for mobile
         : isHovering
-        ? "transform 0.1s ease-out"
-        : "transform 0.5s ease-out",
+        ? "transform 0.1s ease-out, backdrop-filter 0.1s ease-out"
+        : "transform 0.5s ease-out, backdrop-filter 0.3s ease-out",
     boxShadow:
       isMobile || isTablet
         ? "0 5px 15px rgba(0, 0, 0, 0.2)"
@@ -96,6 +96,7 @@ const BlurCard = ({ children, className = "", colSpan = "" }) => {
     padding: isTablet ? "30px 25px 35px 25px" : "40px 32px 50px 32px", // Reduced padding for tablet
     overflow: "hidden",
     transformStyle: "preserve-3d",
+    willChange: "backdrop-filter, transform", // Optimize for backdrop-filter changes
   };
 
   // Add glass reflection effect

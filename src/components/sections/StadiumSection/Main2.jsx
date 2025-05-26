@@ -20,7 +20,7 @@ function Main2() {
           style={{
             position: "sticky",
             top: 0,
-            height: "100vh",
+            // height removed to allow CSS rule to take effect
             width: "100vw",
             zIndex: 10, // Reduced z-index
           }}

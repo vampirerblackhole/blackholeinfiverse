@@ -5,10 +5,14 @@
   right: 0;
   width: 100%;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1000;
   padding: 0.5rem 0;
+  /* Force immediate rendering */
+  will-change: backdrop-filter;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .mobileMenu {
