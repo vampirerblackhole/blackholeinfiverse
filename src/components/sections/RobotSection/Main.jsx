@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import Experience from "./Experience"; // This renders the robot model
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
 import "@/styles/Robot.css";
 import RoboticsCard from "./RoboticsCard";
 import TiltCard from "../../common/TiltCard";
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
+import { animationManager } from "../../../utils/AnimationManager";
 
 function Main() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -25,6 +22,12 @@ function Main() {
   useEffect(() => {
     // Attach scroll event listener
     window.addEventListener("scroll", handleScroll);
+
+    // Ensure animations are initialized when this component mounts
+    animationManager.onInitialized(() => {
+      console.log("Robot section: animations ready");
+    });
+
     return () => window.removeEventListener("scroll", handleScroll); // Cleanup listener
   }, []);
 

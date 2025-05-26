@@ -6,7 +6,9 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showLoader, setShowLoader] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [hasCompleted, setHasCompleted] = useState(false);
   const timeoutRef = useRef(null);
+  const completionTimeoutRef = useRef(null);
 
   // Update progress handling with guaranteed completion
   useEffect(() => {
@@ -32,52 +34,72 @@ const LoaderBeforeSite = ({ onLoadingComplete, progress = 0 }) => {
     }, 10); // Faster refresh rate
 
     // Handle completion at 100%
-    if (progress >= 100) {
+    if (progress >= 100 && !hasCompleted) {
+      setHasCompleted(true);
+
       // Clear any existing timeouts
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      if (completionTimeoutRef.current) {
+        clearTimeout(completionTimeoutRef.current);
+      }
 
-      // Force progress to 100% after a short delay if it's not already there
-      const forceCompleteTimer = setTimeout(() => {
-        setLoadingProgress(100);
-      }, 500);
+      // Force progress to 100% immediately
+      setLoadingProgress(100);
 
-      // Shorter delay before transition
+      // Start transition immediately for faster response
       timeoutRef.current = setTimeout(() => {
         setIsTransitioning(true);
 
-        // Force scroll to top before removing loader
-        window.scrollTo(0, 0);
+        // Ensure scroll position is at top
+        window.scrollTo({ top: 0, behavior: "instant" });
 
-        // Shorter fade out animation
-        timeoutRef.current = setTimeout(() => {
+        // Complete the loader transition with reduced delay
+        timeoutRef.current = setTimeout(async () => {
           setShowLoader(false);
-          onLoadingComplete?.();
 
-          // Force a scroll event to ensure all scroll-based animations initialize correctly
+          try {
+            // Call completion callback and wait for it
+            if (onLoadingComplete) {
+              await onLoadingComplete();
+            }
+          } catch (error) {
+            console.error("Loading completion callback failed:", error);
+          }
+
+          // Minimal delay for ScrollTrigger refresh
           setTimeout(() => {
+            // Force scroll event to initialize scroll-based animations
             window.dispatchEvent(new Event("scroll"));
-          }, 100);
-        }, 300); // Faster fade animation
-      }, 200); // Much shorter delay at 100%
+            window.dispatchEvent(new Event("resize"));
+
+            // Additional safety refresh
+            if (window.ScrollTrigger) {
+              window.ScrollTrigger.refresh();
+            }
+          }, 50); // Reduced from 150ms to 50ms
+        }, 200); // Reduced from 400ms to 200ms for faster transition
+      }, 100); // Reduced from 300ms to 100ms
 
       return () => {
         clearInterval(progressTimer);
-        clearTimeout(forceCompleteTimer);
       };
     }
 
     return () => {
       clearInterval(progressTimer);
     };
-  }, [progress, onLoadingComplete]);
+  }, [progress, onLoadingComplete, hasCompleted]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+      }
+      if (completionTimeoutRef.current) {
+        clearTimeout(completionTimeoutRef.current);
       }
     };
   }, []);

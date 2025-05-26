@@ -15,6 +15,8 @@ import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
 import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";
 import CustomCursor from "./components/common/CustomCursor";
+import { assetLoadingManager } from "./utils/AssetLoadingManager";
+import { animationManager } from "./utils/AnimationManager";
 
 // Add a loading fallback
 const PageLoadingFallback = () => (
@@ -53,120 +55,168 @@ function App() {
   const [loadProgress, setLoadProgress] = useState(0);
   const [pageReady, setPageReady] = useState(false);
   const [cursorReady, setCursorReady] = useState(false);
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
+  const [animationsReady, setAnimationsReady] = useState(false);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
-  // Track route changes
+  // Track route changes and determine if we need complex animations
+  const [currentRoute, setCurrentRoute] = useState("/");
+  const [isHomePage, setIsHomePage] = useState(true);
+
   const handleRouteChange = (pathname) => {
-    // Only used for logging or future expansion
     console.debug("Route changed to:", pathname);
+    const wasHomePage = isHomePage;
+    const newIsHomePage = pathname === "/" || pathname === "";
+
+    setCurrentRoute(pathname);
+    setIsHomePage(newIsHomePage);
+
+    // If this is not the initial load and we're changing routes
+    if (initialLoadComplete && pathname !== currentRoute) {
+      // For subsequent navigation, show content immediately for non-homepage
+      if (!newIsHomePage) {
+        setPageReady(true);
+        setLoading(false);
+      } else if (!wasHomePage && newIsHomePage) {
+        // Going back to homepage from another page
+        setPageReady(false);
+        setLoading(true);
+        // Trigger a quick reload for homepage
+        setTimeout(() => {
+          setLoading(false);
+          setPageReady(true);
+        }, 500);
+      }
+    }
   };
 
   useEffect(() => {
     let progressInterval;
+    let progressCleanup;
+    let completionCleanup;
+    let errorCleanup;
 
-    const simulateProgress = () => {
-      // Faster progress simulation
-      progressInterval = setInterval(() => {
-        setLoadProgress((prev) => {
-          if (prev < 70) return prev + 3; // Speed up the progress
-          clearInterval(progressInterval);
-          return prev;
-        });
-      }, 10); // Faster interval
-    };
-
-    const windowLoaded = new Promise((resolve) => {
-      if (document.readyState === "complete") {
-        resolve();
-      } else {
-        window.addEventListener("load", resolve);
-      }
-    });
-
-    const preloadAssets = async () => {
-      const modelPaths = [
-        "/model/blackhole.glb",
-        "/model/Robot.glb",
-        "/model/Game6.glb",
-        "/model/Vr.glb", // Add the VR model to preload list
-      ];
-
+    const initializeApp = async () => {
       try {
-        // Improved preloading with longer timeout and better error handling
-        const results = await Promise.allSettled(
-          modelPaths.map((path) =>
-            Promise.race([
-              fetch(path, {
-                priority: "high",
-                cache: "force-cache", // Force caching of models
-              }),
-              new Promise(
-                (_, reject) =>
-                  setTimeout(
-                    () => reject(new Error(`Asset load timeout: ${path}`)),
-                    10000
-                  ) // Longer timeout
-              ),
-            ]).then((res) => {
-              if (!res.ok)
-                throw new Error(`Failed to load ${path}: ${res.status}`);
-              console.log(`Successfully preloaded: ${path}`);
-              return res;
-            })
-          )
-        );
+        console.log("Starting app initialization...");
 
-        const failedLoads = results.filter(
-          (result) => result.status === "rejected"
-        );
-        if (failedLoads.length > 0) {
-          console.warn("Some assets failed to load:", failedLoads);
-          // Continue anyway - models will be loaded by their components
+        // Skip asset loading for non-homepage routes on initial load
+        if (!isHomePage) {
+          console.log("Non-homepage initial load, skipping asset loading...");
+          setLoadProgress(100);
+          return;
         }
 
-        return true;
+        // Set up asset loading progress tracking
+        progressCleanup = assetLoadingManager.onProgress((progress) => {
+          setLoadProgress(Math.min(progress, 95)); // Keep some room for final steps
+        });
+
+        // Set up asset loading completion tracking
+        completionCleanup = assetLoadingManager.onComplete(() => {
+          console.log("Assets loaded, finalizing...");
+          setAssetsLoaded(true);
+
+          // Complete the progress bar
+          setLoadProgress(100);
+        });
+
+        // Set up error handling
+        errorCleanup = assetLoadingManager.onError((url) => {
+          console.warn(`Asset failed to load: ${url}`);
+          // Continue anyway - don't block the app for individual asset failures
+        });
+
+        // Wait for window to be loaded
+        const windowLoaded = new Promise((resolve) => {
+          if (document.readyState === "complete") {
+            resolve();
+          } else {
+            window.addEventListener("load", resolve);
+          }
+        });
+
+        // Start progress simulation while waiting for window load
+        progressInterval = setInterval(() => {
+          setLoadProgress((prev) => {
+            if (prev < 30) return prev + 2; // Slow initial progress
+            clearInterval(progressInterval);
+            return prev;
+          });
+        }, 50);
+
+        // Wait for window to be ready
+        await windowLoaded;
+        clearInterval(progressInterval);
+
+        // Start asset preloading
+        console.log("Window loaded, starting asset preloading...");
+        await assetLoadingManager.preloadCriticalAssets();
+
+        // If assets didn't trigger completion (e.g., all cached), force completion
+        if (!assetLoadingManager.isComplete()) {
+          setTimeout(() => {
+            setAssetsLoaded(true);
+            setLoadProgress(100);
+          }, 1000);
+        }
+
+        // Safety timeout to prevent infinite loading (especially for Firebase)
+        setTimeout(() => {
+          if (loadProgress < 100) {
+            console.warn("Loading timeout reached, forcing completion");
+            setAssetsLoaded(true);
+            setLoadProgress(100);
+          }
+        }, 15000); // 15 second maximum loading time
       } catch (error) {
-        console.error("Asset preloading error:", error);
-        // Continue anyway - don't fail the entire app if preloading fails
-        return true;
+        console.error("App initialization error:", error);
+        // Force completion on error to prevent infinite loading
+        setAssetsLoaded(true);
+        setLoadProgress(100);
       }
     };
 
-    // Start simulating progress while assets load
-    simulateProgress();
-
-    Promise.all([windowLoaded, preloadAssets()])
-      .then(() => {
-        // When assets are loaded, quickly progress to 100%
-        clearInterval(progressInterval);
-
-        // Quick acceleration to 100%
-        progressInterval = setInterval(() => {
-          setLoadProgress((prev) => {
-            if (prev < 100) return prev + 5; // Much faster
-            clearInterval(progressInterval);
-            return 100;
-          });
-        }, 10); // Faster interval
-      })
-      .catch((error) => {
-        console.error("Loading error:", error);
-        // Force complete if there's an error
-        setLoadProgress(100);
-      });
+    initializeApp();
 
     return () => {
       clearInterval(progressInterval);
-      window.removeEventListener("load", () => {});
+      progressCleanup?.();
+      completionCleanup?.();
+      errorCleanup?.();
     };
   }, []);
 
   // Handle completion of loader
-  const handleLoadingComplete = () => {
+  const handleLoadingComplete = async () => {
+    console.log("Loader completed, route:", currentRoute);
     setLoading(false);
-    // Set page ready with slight delay to ensure smooth transition
-    setTimeout(() => {
+    setInitialLoadComplete(true);
+
+    try {
+      // Only initialize complex animations for homepage
+      if (isHomePage) {
+        console.log("Homepage detected, initializing full animations...");
+        await animationManager.initializeAnimations();
+        setAnimationsReady(true);
+
+        // Minimal delay for homepage
+        setTimeout(() => {
+          setPageReady(true);
+          console.log("Homepage fully ready");
+        }, 50);
+      } else {
+        // For other pages, show content immediately
+        console.log("Non-homepage detected, showing content immediately...");
+        setPageReady(true);
+        setAnimationsReady(true);
+        console.log("Page ready immediately");
+      }
+    } catch (error) {
+      console.error("Loading completion failed:", error);
+      // Always show the page even if something fails
       setPageReady(true);
-    }, 100);
+    }
   };
 
   // Add cursor ready effect
@@ -187,7 +237,7 @@ function App() {
         {/* Custom Cursor - only render when page is ready */}
         {cursorReady && <CustomCursor />}
 
-        {/* Loader shown for all routes */}
+        {/* Loader shown only for initial load or when explicitly loading */}
         {loading && (
           <LoaderBeforeSite
             onLoadingComplete={handleLoadingComplete}
@@ -197,10 +247,11 @@ function App() {
 
         {/* App content - use opacity for smoother transition */}
         <div
-          className="transition-opacity duration-500 absolute inset-0"
+          className="transition-opacity duration-300 absolute inset-0"
           style={{
             opacity: pageReady ? 1 : 0,
             visibility: loading ? "hidden" : "visible",
+            pointerEvents: pageReady ? "auto" : "none",
           }}
         >
           {/* Stars backdrop */}
