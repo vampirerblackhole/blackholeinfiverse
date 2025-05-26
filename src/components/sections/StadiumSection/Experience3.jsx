@@ -1,7 +1,10 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { Game } from "./Game";
 import { Canvas } from "@react-three/fiber";
 import { Html, useProgress } from "@react-three/drei";
+
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
 
 function Loader() {
   const { progress } = useProgress();

@@ -66,20 +66,11 @@ class AnimationManager {
           console.error("Animation initialization callback error:", error);
         }
       });
-
-      console.log("Animations initialized successfully");
     } catch (error) {
-      console.error("Animation initialization failed:", error);
-
       // Retry logic
       if (this.retryAttempts < this.maxRetries) {
         this.retryAttempts++;
-        console.log(
-          `Retrying animation initialization (${this.retryAttempts}/${this.maxRetries})`
-        );
         setTimeout(() => this.initializeAnimations(), 1000);
-      } else {
-        console.error("Max animation initialization retries reached");
       }
     }
   }
@@ -128,14 +119,11 @@ class AnimationManager {
             refreshPriority: 1,
           },
         });
-        console.log("Robot loop animation initialized");
       }
 
       // Initialize fade-in animations for robot content
       this.initializeRobotFadeAnimations();
-    } catch (error) {
-      console.error("Robot animation initialization failed:", error);
-    }
+    } catch (error) {}
   }
 
   // Initialize robot fade animations
@@ -245,21 +233,14 @@ class AnimationManager {
           }
         );
       });
-
-      console.log("Fade animations initialized");
-    } catch (error) {
-      console.error("Fade animation initialization failed:", error);
-    }
+    } catch (error) {}
   }
 
   // Force refresh all ScrollTrigger instances
   refreshScrollTrigger() {
     try {
       ScrollTrigger.refresh();
-      console.log("ScrollTrigger refreshed");
-    } catch (error) {
-      console.error("ScrollTrigger refresh failed:", error);
-    }
+    } catch (error) {}
   }
 
   // Kill all animations and ScrollTriggers
@@ -270,10 +251,7 @@ class AnimationManager {
       this.animationTimelines.clear();
       this.scrollTriggers = [];
       this.isInitialized = false;
-      console.log("All animations killed");
-    } catch (error) {
-      console.error("Failed to kill animations:", error);
-    }
+    } catch (error) {}
   }
 
   // Reset and reinitialize

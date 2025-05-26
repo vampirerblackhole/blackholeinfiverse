@@ -55,8 +55,7 @@ function App() {
   const [loadProgress, setLoadProgress] = useState(0);
   const [pageReady, setPageReady] = useState(false);
   const [cursorReady, setCursorReady] = useState(false);
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
-  const [animationsReady, setAnimationsReady] = useState(false);
+
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   // Track route changes and determine if we need complex animations
@@ -98,11 +97,8 @@ function App() {
 
     const initializeApp = async () => {
       try {
-        console.log("Starting app initialization...");
-
         // Skip asset loading for non-homepage routes on initial load
         if (!isHomePage) {
-          console.log("Non-homepage initial load, skipping asset loading...");
           setLoadProgress(100);
           return;
         }
@@ -114,16 +110,12 @@ function App() {
 
         // Set up asset loading completion tracking
         completionCleanup = assetLoadingManager.onComplete(() => {
-          console.log("Assets loaded, finalizing...");
-          setAssetsLoaded(true);
-
           // Complete the progress bar
           setLoadProgress(100);
         });
 
         // Set up error handling
-        errorCleanup = assetLoadingManager.onError((url) => {
-          console.warn(`Asset failed to load: ${url}`);
+        errorCleanup = assetLoadingManager.onError(() => {
           // Continue anyway - don't block the app for individual asset failures
         });
 
@@ -150,13 +142,12 @@ function App() {
         clearInterval(progressInterval);
 
         // Start asset preloading
-        console.log("Window loaded, starting asset preloading...");
+
         await assetLoadingManager.preloadCriticalAssets();
 
         // If assets didn't trigger completion (e.g., all cached), force completion
         if (!assetLoadingManager.isComplete()) {
           setTimeout(() => {
-            setAssetsLoaded(true);
             setLoadProgress(100);
           }, 1000);
         }
@@ -164,15 +155,11 @@ function App() {
         // Safety timeout to prevent infinite loading (especially for Firebase)
         setTimeout(() => {
           if (loadProgress < 100) {
-            console.warn("Loading timeout reached, forcing completion");
-            setAssetsLoaded(true);
             setLoadProgress(100);
           }
         }, 15000); // 15 second maximum loading time
       } catch (error) {
-        console.error("App initialization error:", error);
         // Force completion on error to prevent infinite loading
-        setAssetsLoaded(true);
         setLoadProgress(100);
       }
     };
@@ -189,31 +176,23 @@ function App() {
 
   // Handle completion of loader
   const handleLoadingComplete = async () => {
-    console.log("Loader completed, route:", currentRoute);
     setLoading(false);
     setInitialLoadComplete(true);
 
     try {
       // Only initialize complex animations for homepage
       if (isHomePage) {
-        console.log("Homepage detected, initializing full animations...");
         await animationManager.initializeAnimations();
-        setAnimationsReady(true);
 
         // Minimal delay for homepage
         setTimeout(() => {
           setPageReady(true);
-          console.log("Homepage fully ready");
         }, 50);
       } else {
         // For other pages, show content immediately
-        console.log("Non-homepage detected, showing content immediately...");
         setPageReady(true);
-        setAnimationsReady(true);
-        console.log("Page ready immediately");
       }
     } catch (error) {
-      console.error("Loading completion failed:", error);
       // Always show the page even if something fails
       setPageReady(true);
     }

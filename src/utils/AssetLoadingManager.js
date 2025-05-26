@@ -1,6 +1,6 @@
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 class AssetLoadingManager {
   constructor() {
@@ -8,64 +8,54 @@ class AssetLoadingManager {
     this.gltfLoader = new GLTFLoader(this.loadingManager);
     this.dracoLoader = new DRACOLoader();
     this.textureLoader = new THREE.TextureLoader(this.loadingManager);
-    
+
     // Configure Draco loader
-    this.dracoLoader.setDecoderPath('/draco-gltf/');
+    this.dracoLoader.setDecoderPath("/draco-gltf/");
     this.gltfLoader.setDRACOLoader(this.dracoLoader);
-    
+
     // Asset cache
     this.loadedAssets = new Map();
     this.loadingPromises = new Map();
-    
+
     // Progress tracking
     this.totalAssets = 0;
     this.loadedCount = 0;
     this.progressCallbacks = [];
     this.completionCallbacks = [];
     this.errorCallbacks = [];
-    
+
     this.setupLoadingManager();
   }
 
   setupLoadingManager() {
     this.loadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
-      console.log('Started loading:', url);
       this.totalAssets = itemsTotal;
     };
 
     this.loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
       this.loadedCount = itemsLoaded;
       const progress = (itemsLoaded / itemsTotal) * 100;
-      console.log(`Loading progress: ${progress.toFixed(1)}% (${itemsLoaded}/${itemsTotal})`);
-      
-      this.progressCallbacks.forEach(callback => {
+
+      this.progressCallbacks.forEach((callback) => {
         try {
           callback(progress, itemsLoaded, itemsTotal, url);
-        } catch (error) {
-          console.error('Progress callback error:', error);
-        }
+        } catch (error) {}
       });
     };
 
     this.loadingManager.onLoad = () => {
-      console.log('All assets loaded successfully');
-      this.completionCallbacks.forEach(callback => {
+      this.completionCallbacks.forEach((callback) => {
         try {
           callback();
-        } catch (error) {
-          console.error('Completion callback error:', error);
-        }
+        } catch (error) {}
       });
     };
 
     this.loadingManager.onError = (url) => {
-      console.error('Failed to load asset:', url);
-      this.errorCallbacks.forEach(callback => {
+      this.errorCallbacks.forEach((callback) => {
         try {
           callback(url);
-        } catch (error) {
-          console.error('Error callback error:', error);
-        }
+        } catch (error) {}
       });
     };
   }
@@ -124,7 +114,12 @@ class AssetLoadingManager {
         },
         (progress) => {
           // Individual asset progress
-          console.log(`Loading ${url}: ${(progress.loaded / progress.total * 100).toFixed(1)}%`);
+          console.log(
+            `Loading ${url}: ${(
+              (progress.loaded / progress.total) *
+              100
+            ).toFixed(1)}%`
+          );
         },
         (error) => {
           clearTimeout(timeout);
@@ -164,7 +159,12 @@ class AssetLoadingManager {
           resolve(texture);
         },
         (progress) => {
-          console.log(`Loading texture ${url}: ${(progress.loaded / progress.total * 100).toFixed(1)}%`);
+          console.log(
+            `Loading texture ${url}: ${(
+              (progress.loaded / progress.total) *
+              100
+            ).toFixed(1)}%`
+          );
         },
         (error) => {
           clearTimeout(timeout);
@@ -181,20 +181,20 @@ class AssetLoadingManager {
   // Preload all critical assets
   async preloadCriticalAssets() {
     const criticalAssets = [
-      { type: 'gltf', url: '/model/blackhole.glb' },
-      { type: 'gltf', url: '/model/Robot.glb' },
-      { type: 'gltf', url: '/model/Game6.glb' },
-      { type: 'gltf', url: '/model/Vr.glb' },
+      { type: "gltf", url: "/model/blackhole.glb" },
+      { type: "gltf", url: "/model/Robot.glb" },
+      { type: "gltf", url: "/model/Game6.glb" },
+      { type: "gltf", url: "/model/Vr.glb" },
     ];
 
-    console.log('Starting critical asset preloading...');
+    console.log("Starting critical asset preloading...");
 
     try {
       const loadPromises = criticalAssets.map(async (asset) => {
         try {
-          if (asset.type === 'gltf') {
+          if (asset.type === "gltf") {
             return await this.loadGLTF(asset.url);
-          } else if (asset.type === 'texture') {
+          } else if (asset.type === "texture") {
             return await this.loadTexture(asset.url);
           }
         } catch (error) {
@@ -205,16 +205,22 @@ class AssetLoadingManager {
       });
 
       const results = await Promise.allSettled(loadPromises);
-      
-      const successful = results.filter(result => result.status === 'fulfilled').length;
-      const failed = results.filter(result => result.status === 'rejected').length;
-      
-      console.log(`Asset preloading completed: ${successful} successful, ${failed} failed`);
-      
+
+      const successful = results.filter(
+        (result) => result.status === "fulfilled"
+      ).length;
+      const failed = results.filter(
+        (result) => result.status === "rejected"
+      ).length;
+
+      console.log(
+        `Asset preloading completed: ${successful} successful, ${failed} failed`
+      );
+
       // Return true even if some assets failed - the app should still work
       return true;
     } catch (error) {
-      console.error('Critical asset preloading failed:', error);
+      console.error("Critical asset preloading failed:", error);
       throw error;
     }
   }

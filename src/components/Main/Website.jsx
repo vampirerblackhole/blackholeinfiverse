@@ -6,16 +6,14 @@ import BlackholeScene from "../../components/sections/BlackholeSection/Blackhole
 function Website() {
   return (
     <div className="relative min-h-screen w-full">
-      <div className="relative min-h-screen w-full">
-        {/* Background Scene */}
-        <BlackholeScene />
-        {/* BlackholeSideText Section */}
-        <BlackholeSideText />
-        {/* Robot Section */}
-        <Main />
-        {/* Stadium Section */}
-        <Main2 />
-      </div>
+      {/* Background Scene */}
+      <BlackholeScene />
+      {/* BlackholeSideText Section */}
+      <BlackholeSideText />
+      {/* Robot Section */}
+      <Main />
+      {/* Stadium Section */}
+      <Main2 />
     </div>
   );
 }

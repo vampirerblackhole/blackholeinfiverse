@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useThree } from "@react-three/fiber";
+
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -5,9 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import { animationManager } from "../../../utils/AnimationManager";
 
-/* eslint-disable react/no-unknown-property */
-// The above eslint-disable is needed for React Three Fiber JSX props
-
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 

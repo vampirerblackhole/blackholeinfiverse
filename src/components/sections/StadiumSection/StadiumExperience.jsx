@@ -1,7 +1,10 @@
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Html, useProgress } from "@react-three/drei";
 import { Stadium } from "./Stadium";
+
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
 
 function Loader() {
   const { progress } = useProgress();
@@ -10,10 +13,6 @@ function Loader() {
 }
 function StadiumExperience() {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
 
   useEffect(() => {
     const handleScroll = () => {

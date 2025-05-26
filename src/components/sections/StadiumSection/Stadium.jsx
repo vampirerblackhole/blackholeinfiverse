@@ -4,6 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+/* eslint-disable react/no-unknown-property */
+// The above eslint-disable is needed for React Three Fiber JSX props
+
 gsap.registerPlugin(ScrollTrigger);
 
 // Preload the model using Draco Loader
