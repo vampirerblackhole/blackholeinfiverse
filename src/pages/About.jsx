@@ -391,15 +391,15 @@ function About() {
         <section className="about-section relative">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
-              <Cpu className="w-16 h-16 text-purple-400 floating-icon mb-6" />
-              <div className="relative">
-                <h2 className="text-4xl font-bold mb-6">
-                  Quantum Computing Research
-                </h2>
-                <span className="absolute -top-2 -right-4 bg-gradient-to-r from-yellow-400 to-orange-600 text-black text-sm font-bold px-3 py-1 rounded-full transform rotate-12">
+              <div className="flex items-end gap-4 mb-6">
+                <Cpu className="w-16 h-16 text-purple-400 floating-icon" />
+                <span className="bg-gradient-to-r from-yellow-400 to-orange-600 text-black text-sm font-bold px-3 py-2 rounded-full mt-2">
                   Coming Soon!
                 </span>
               </div>
+              <h2 className="text-4xl font-bold mb-6">
+                Quantum Computing Research
+              </h2>
               <p className="text-gray-300 text-lg mb-6">
                 In collaboration with a Leading Indian Institute in Quantum
                 Research in Pune, we are shaping the next era of computation.
