@@ -10,6 +10,7 @@ import {
   Bitcoin,
   Cpu,
   Shield,
+  Activity,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -326,30 +327,30 @@ function About() {
           </div>
         </section>
 
-        {/* Quantum Computing Research Section */}
+        {/* Biotech & Biosignals Section */}
         <section className="about-section relative">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
-              <Cpu className="w-16 h-16 text-purple-400 floating-icon mb-6" />
+              <Activity className="w-16 h-16 text-purple-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">
-                Quantum Computing Research
+                Biotech & Biosignals
               </h2>
               <p className="text-gray-300 text-lg mb-6">
-                In collaboration with a Leading Indian Institute in Quantum
-                Research in Pune, we are shaping the next era of computation.
+                Revolutionizing human-machine interaction through advanced biosignal
+                processing and biosensor technology to control robotic systems with
+                unprecedented precision.
               </p>
               <ul className="space-y-4 text-gray-300">
-                <li>✦ Quantum Architecture & Algorithm Ideation</li>
-                <li>
-                  ✦ Laying the foundation for a post-silicon computing future
-                </li>
-                <li>✦ Research-Driven Development</li>
+                <li>✦ Neural Signal Processing & EMG Control Systems</li>
+                <li>✦ Biosensor-Driven Robotic Hand Control</li>
+                <li>✦ Real-time Biodata Integration for Prosthetics</li>
+                <li>✦ Brain-Computer Interface Development</li>
               </ul>
             </div>
             <div className="md:w-1/2">
               <img
-                src="/about/quantum.jpg"
-                alt="Quantum Computing"
+                src="/about/biotech.png"
+                alt="Biotech & Biosignals"
                 className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-purple-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
               />
             </div>
@@ -381,6 +382,41 @@ function About() {
                 src="/about/cybersecurity.jpg"
                 alt="Cybersecurity"
                 className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-cyan-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Quantum Computing Research Section - Coming Soon */}
+        <section className="about-section relative">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="md:w-1/2">
+              <Cpu className="w-16 h-16 text-purple-400 floating-icon mb-6" />
+              <div className="relative">
+                <h2 className="text-4xl font-bold mb-6">
+                  Quantum Computing Research
+                </h2>
+                <span className="absolute -top-2 -right-4 bg-gradient-to-r from-yellow-400 to-orange-600 text-black text-sm font-bold px-3 py-1 rounded-full transform rotate-12">
+                  Coming Soon!
+                </span>
+              </div>
+              <p className="text-gray-300 text-lg mb-6">
+                In collaboration with a Leading Indian Institute in Quantum
+                Research in Pune, we are shaping the next era of computation.
+              </p>
+              <ul className="space-y-4 text-gray-300">
+                <li>✦ Quantum Architecture & Algorithm Ideation</li>
+                <li>
+                  ✦ Laying the foundation for a post-silicon computing future
+                </li>
+                <li>✦ Research-Driven Development</li>
+              </ul>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                src="/about/quantum.jpg"
+                alt="Quantum Computing"
+                className="w-full sm:max-w-[500px] h-auto mx-auto object-cover rounded-xl border-2 border-purple-400/30 shadow-xl transform hover:scale-105 transition-transform duration-300 opacity-75"
               />
             </div>
           </div>
