@@ -167,7 +167,7 @@ const Navbar = () => {
                 mobile={true}
                 onClick={handleMobileNavClick}
               >
-                Contact
+                Let's Talk
               </NavLink>
             </div>
 

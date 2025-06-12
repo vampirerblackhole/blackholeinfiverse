@@ -262,20 +262,14 @@ function PrivacyPolicy() {
             <div className="text-center pt-8 border-t border-orange-400/30">
               <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4">Contact Us</h2>
               <p className="text-gray-300 mb-6">
-                If you have any questions about this Privacy Policy, please contact us:
+                If you have any questions about this Privacy Policy, please contact us at:
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <div className="mb-6">
                 <a
-                  href="mailto:privacy@blackholeinfiverse.com"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-bold rounded-lg hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 transform hover:scale-105"
+                  href="mailto:bh@blackholeinfiverse.com"
+                  className="text-2xl font-bold text-orange-400 hover:text-yellow-400 transition-colors duration-300"
                 >
-                  Contact Privacy Team
-                </a>
-                <a
-                  href="/contact"
-                  className="inline-flex items-center px-6 py-3 border border-orange-400 text-orange-400 font-bold rounded-lg hover:bg-orange-400 hover:text-black transition-all duration-300 transform hover:scale-105"
-                >
-                  General Contact
+                  bh@blackholeinfiverse.com
                 </a>
               </div>
               <p className="text-sm text-gray-400">
