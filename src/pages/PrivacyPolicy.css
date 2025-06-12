@@ -1,0 +1,183 @@
+/* Enhanced WhyUs card animations for Privacy Policy - works with BlurCard component */
+.whyus-card {
+  /* Base styles are handled by BlurCard component */
+  position: relative;
+  overflow: hidden;
+  /* Enhanced transition for smoother animations */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Optimize for animations */
+  will-change: transform, backdrop-filter, box-shadow;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced hover effects that complement BlurCard */
+.whyus-card:hover {
+  /* Enhanced shadow for depth */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+
+  /* Subtle border glow */
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Add subtle glow effect on hover */
+.whyus-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.whyus-card:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced text animations on hover */
+.whyus-card:hover h1,
+.whyus-card:hover h2 {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+.whyus-card:hover h3 {
+  transform: translateY(-1px);
+  transition: transform 0.3s ease;
+}
+
+.whyus-card:hover p {
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.3s ease;
+}
+
+/* Gradient text enhancement on hover */
+.whyus-card:hover .bg-gradient-to-r {
+  background-size: 200% 200%;
+  animation: gradient-shift 2s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .whyus-card:hover {
+    /* Reduce effects on mobile for performance */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .whyus-card::before {
+    display: none; /* Disable overlay on mobile */
+  }
+
+  .whyus-card:hover .bg-gradient-to-r {
+    animation: none; /* Disable animation on mobile */
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .whyus-card:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35) !important;
+  }
+}
+
+/* Special hovered state for enhanced interactivity */
+.whyus-card.hovered {
+  transform: scale(1.02) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.whyus-card.hovered::before {
+  opacity: 0.8 !important;
+}
+
+/* Enhanced focus states for accessibility */
+.whyus-card:focus-within {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 4px;
+}
+
+/* Smooth transitions for all interactive elements */
+.whyus-card h1,
+.whyus-card h2,
+.whyus-card h3,
+.whyus-card p {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Performance optimizations for animations */
+.whyus-card,
+.whyus-card::before,
+.whyus-card h1,
+.whyus-card h2,
+.whyus-card h3,
+.whyus-card p {
+  will-change: transform, opacity, color;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .whyus-card,
+  .whyus-card::before,
+  .whyus-card h1,
+  .whyus-card h2,
+  .whyus-card h3,
+  .whyus-card p {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .whyus-card:hover {
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .whyus-card:hover {
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5) !important;
+  }
+}
+
+/* Custom scrollbar for privacy content */
+.privacy-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 165, 0, 0.5) transparent;
+}
+
+.privacy-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.privacy-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.privacy-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 165, 0, 0.5);
+  border-radius: 3px;
+}
+
+.privacy-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 165, 0, 0.7);
+}

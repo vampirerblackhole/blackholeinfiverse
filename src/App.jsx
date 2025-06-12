@@ -11,6 +11,7 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Mail from "./pages/Mail";
 import WhyUs from "./pages/WhyUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import LoaderBeforeSite from "./components/LoaderBeforeSite";
 import StarsScene from "./components/Stars/StarsScene";
 import ComingSoonPage from "./components/sections/StadiumSection/comingSoonGames/ComingSoonPage";
@@ -263,6 +264,7 @@ function App() {
               <Route path="/whyus" element={<WhyUs />} />
               <Route path="/contact" element={<Mail />} />
               <Route path="/coming-soon" element={<ComingSoonPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Routes>
           </Suspense>
         </div>
