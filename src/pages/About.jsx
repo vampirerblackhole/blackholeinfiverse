@@ -207,8 +207,7 @@ function About() {
               className="text-xl md:text-2xl text-gray-300 mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
               style={paragraphStyle}
             >
-              A pioneering startup at the intersection of VR, AI, Robotics, and
-              Blockchain
+              A pioneering startup at the intersection of VR, AI, Robotics, Blockchain, Biotech, Cybersecurity, and Quantum Computing.
             </p>
 
             <div
