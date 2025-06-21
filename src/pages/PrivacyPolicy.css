@@ -181,3 +181,55 @@
 .privacy-content::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 165, 0, 0.7);
 }
+
+/* RTL-specific fixes for Privacy Policy */
+html[dir="rtl"] .whyus-card {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content h1,
+html[dir="rtl"] .privacy-content h2,
+html[dir="rtl"] .privacy-content h3 {
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content p {
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content ul {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content li {
+  text-align: right;
+}
+
+/* Fix gradient text for RTL in Privacy Policy */
+html[dir="rtl"] .privacy-content .bg-gradient-to-r {
+  background: linear-gradient(to left, #ea580c, #fb923c, #facc15) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+/* Ensure proper text rendering for Arabic */
+html[dir="rtl"][lang="ar"] .privacy-content {
+  font-family: 'Tahoma', 'Arial Unicode MS', 'Segoe UI', sans-serif;
+  line-height: 1.8;
+}
+
+html[dir="rtl"][lang="ar"] .privacy-content h1,
+html[dir="rtl"][lang="ar"] .privacy-content h2,
+html[dir="rtl"][lang="ar"] .privacy-content h3 {
+  font-family: 'Tahoma', 'Arial Unicode MS', 'Segoe UI', sans-serif;
+  font-weight: bold;
+}

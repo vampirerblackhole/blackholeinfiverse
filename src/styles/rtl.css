@@ -288,11 +288,34 @@ html[dir="rtl"] .floating-icon {
 
 /* Gradient text RTL - ensure proper rendering */
 html[dir="rtl"] .bg-gradient-to-r {
-  background: linear-gradient(to left, var(--tw-gradient-stops));
+  background: linear-gradient(to left, var(--tw-gradient-stops)) !important;
 }
 
 html[dir="rtl"] .bg-gradient-to-l {
-  background: linear-gradient(to right, var(--tw-gradient-stops));
+  background: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+}
+
+/* Specific gradient fixes for Arabic text */
+html[dir="rtl"] .bg-clip-text {
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+/* Fix for orange-yellow gradient in Arabic */
+html[dir="rtl"] .bg-gradient-to-r.from-yellow-400.via-orange-400.to-orange-600 {
+  background: linear-gradient(to left, #ea580c, #fb923c, #facc15) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[dir="rtl"] .bg-gradient-to-r.from-orange-400.to-yellow-500 {
+  background: linear-gradient(to left, #eab308, #fb923c) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
 }
 
 /* Responsive RTL adjustments */

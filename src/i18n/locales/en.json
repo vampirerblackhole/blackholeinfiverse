@@ -71,7 +71,131 @@
     "introduction": "BlackHole InfiVerse (\"we,\" \"us,\" or \"our\") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our games, applications, websites, and services (collectively, the \"Services\").",
     "contactTitle": "Contact Us",
     "contactDescription": "If you have any questions about this Privacy Policy, please contact us at:",
-    "contactEmail": "bh@blackholeinfiverse.com"
+    "contactEmail": "bh@blackholeinfiverse.com",
+    "section1": {
+      "title": "1. Information We Collect",
+      "subsection1": {
+        "title": "1.1 Information You Provide",
+        "item1": {
+          "title": "Account Information:",
+          "description": "Username, email address, password, and profile information"
+        },
+        "item2": {
+          "title": "Game Data:",
+          "description": "Game progress, achievements, scores, and gameplay statistics"
+        },
+        "item3": {
+          "title": "Communication Data:",
+          "description": "Messages, feedback, and support requests"
+        },
+        "item4": {
+          "title": "Payment Information:",
+          "description": "Billing details for purchases (processed securely through third-party payment processors)"
+        }
+      },
+      "subsection2": {
+        "title": "1.2 Information We Collect Automatically",
+        "item1": {
+          "title": "Device Information:",
+          "description": "Device type, operating system, unique device identifiers"
+        },
+        "item2": {
+          "title": "Usage Data:",
+          "description": "How you interact with our Services, features used, time spent"
+        },
+        "item3": {
+          "title": "Technical Data:",
+          "description": "IP address, browser type, connection information"
+        },
+        "item4": {
+          "title": "VR/AR Data:",
+          "description": "Motion tracking, spatial data, and interaction patterns (with your consent)"
+        }
+      }
+    },
+    "section2": {
+      "title": "2. How We Use Your Information",
+      "description": "We use your information to:",
+      "item1": "Provide, maintain, and improve our Services",
+      "item2": "Process transactions and deliver purchased content",
+      "item3": "Personalize your gaming experience",
+      "item4": "Communicate with you about updates, support, and promotional offers",
+      "item5": "Ensure fair play and prevent cheating or fraud",
+      "item6": "Comply with legal obligations and protect our rights",
+      "item7": "Develop new features and services"
+    },
+    "section3": {
+      "title": "3. Information Sharing and Disclosure",
+      "description": "We may share your information in the following circumstances:",
+      "item1": {
+        "title": "With Your Consent:",
+        "description": "When you explicitly agree to share information"
+      },
+      "item2": {
+        "title": "Service Providers:",
+        "description": "Third-party companies that help us operate our Services"
+      },
+      "item3": {
+        "title": "Legal Requirements:",
+        "description": "When required by law or to protect our rights"
+      },
+      "item4": {
+        "title": "Business Transfers:",
+        "description": "In connection with mergers, acquisitions, or asset sales"
+      },
+      "item5": {
+        "title": "Public Information:",
+        "description": "Leaderboards, achievements, and other publicly visible game data"
+      }
+    },
+    "section4": {
+      "title": "4. Data Security",
+      "description": "We implement industry-standard security measures to protect your information, including:",
+      "item1": "Encryption of data in transit and at rest",
+      "item2": "Regular security audits and assessments",
+      "item3": "Access controls and authentication systems",
+      "item4": "Secure data centers and infrastructure"
+    },
+    "section5": {
+      "title": "5. Your Rights and Choices",
+      "description": "You have the right to:",
+      "item1": {
+        "title": "Access:",
+        "description": "Request a copy of your personal information"
+      },
+      "item2": {
+        "title": "Correct:",
+        "description": "Update or correct inaccurate information"
+      },
+      "item3": {
+        "title": "Delete:",
+        "description": "Request deletion of your personal information"
+      },
+      "item4": {
+        "title": "Opt-out:",
+        "description": "Unsubscribe from marketing communications"
+      },
+      "item5": {
+        "title": "Data Portability:",
+        "description": "Receive your data in a portable format"
+      }
+    },
+    "section6": {
+      "title": "6. Children's Privacy",
+      "description": "Our Services are not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13."
+    },
+    "section7": {
+      "title": "7. International Data Transfers",
+      "description": "Your information may be transferred to and processed in countries other than your own with appropriate safeguards in place."
+    },
+    "section8": {
+      "title": "8. Cookies & Tracking",
+      "description": "We use cookies and similar technologies to enhance your experience and analyze usage patterns."
+    },
+    "section9": {
+      "title": "9. Policy Changes",
+      "description": "We may update this Privacy Policy from time to time and will notify you of any material changes."
+    }
   },
   "games": {
     "comingSoonTitle": "Coming Soon!",
