@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import ComingSoon from "./ComingSoon";
 import LoaderBeforeSite from "../../../../components/LoaderBeforeSite";
+import { useTranslation } from "../../../../hooks/useTranslation";
 import "./ComingSoonPage.css";
 
 const ComingSoonPage = () => {
@@ -11,6 +12,7 @@ const ComingSoonPage = () => {
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
+  const { t } = useTranslation();
   const progressIntervalRef = useRef(null);
   const navigationTimeoutRef = useRef(null);
   const destinationPathRef = useRef(null);
@@ -149,7 +151,7 @@ const ComingSoonPage = () => {
   };
 
   if (!game) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">{t('common.loading')}</div>;
   }
 
   return (

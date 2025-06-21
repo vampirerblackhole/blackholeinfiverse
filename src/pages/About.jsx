@@ -12,6 +12,7 @@ import {
   Shield,
   Activity,
 } from "lucide-react";
+import { useTranslation } from "../hooks/useTranslation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,7 @@ function About() {
   const sectionsRef = useRef(null);
   const heroRef = useRef(null);
   const cardRef = useRef(null);
+  const { t } = useTranslation();
 
   // State to track mouse position for 3D effect
   const [transform, setTransform] = useState({
@@ -227,16 +229,14 @@ function About() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <Gamepad2 className="w-16 h-16 text-blue-400 floating-icon mb-6" />
-              <h2 className="text-4xl font-bold mb-6">VR Gaming Revolution</h2>
+              <h2 className="text-4xl font-bold mb-6">{t('about.vrGamingTitle')}</h2>
               <p className="text-gray-300 text-lg mb-6">
-                Get ready for our groundbreaking VR game launches. Four
-                immersive worlds await, pushing the boundaries of virtual
-                reality gaming.
+                {t('about.vrGamingDescription')}
               </p>
               <ul className="space-y-4 text-gray-300">
-                <li>✦ 4 Revolutionary Games in Final Development</li>
-                <li>✦ Next-Gen VR Technology Integration</li>
-                <li>✦ Immersive Multiplayer Experiences</li>
+                <li>✦ {t('about.vrGamingFeature1')}</li>
+                <li>✦ {t('about.vrGamingFeature2')}</li>
+                <li>✦ {t('about.vrGamingFeature3')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">
@@ -254,15 +254,14 @@ function About() {
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
               <Brain className="w-16 h-16 text-orange-400 floating-icon mb-6" />
-              <h2 className="text-4xl font-bold mb-6">AI Innovation Hub</h2>
+              <h2 className="text-4xl font-bold mb-6">{t('about.aiInnovationTitle')}</h2>
               <p className="text-gray-300 text-lg mb-6">
-                Pioneering the future of artificial intelligence through
-                advanced model development and training.
+                {t('about.aiInnovationDescription')}
               </p>
               <ul className="space-y-4 text-gray-300">
-                <li>✦ Custom AI Model Development</li>
-                <li>✦ Advanced Training Pipelines</li>
-                <li>✦ Specialized Model Fine-tuning</li>
+                <li>✦ {t('about.aiInnovationFeature1')}</li>
+                <li>✦ {t('about.aiInnovationFeature2')}</li>
+                <li>✦ {t('about.aiInnovationFeature3')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">

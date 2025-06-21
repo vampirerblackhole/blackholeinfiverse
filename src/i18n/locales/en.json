@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "comingSoon": "Coming Soon!",
+    "clickHere": "Click here",
+    "email": "Email",
+    "contact": "Contact",
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "whyUs": "Why Us?",
+    "letsTalk": "Let's Talk",
+    "brandName": "Blackhole InfiVerse"
+  },
+  "homepage": {
+    "heroTitle1": "Infinitely curious.",
+    "heroTitle2": "Relentlessly advanced.",
+    "aiIntegrationTitle": "AI Integration",
+    "aiIntegrationDescription": "The cyberspace is transforming, and so are we. At BlackHole InfiVerse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, Cybersecurity, Biotech, Quantum Computing and Robotics, we are crafting the future of Web3 and beyond.",
+    "empoweringIndustriesTitle": "Empowering Industries with Innovation",
+    "empoweringIndustriesDescription": "Our mission is to empower industries with innovative solutions that not only meet today's demands but also anticipate tomorrow's needs. Together, we're shaping a world where digital and physical realities converge seamlessly, driving progress and unlocking endless possibilities for the future."
+  },
+  "robotics": {
+    "sectionTitle": "UNLEASHING THE FUTURE WITH ROBOTICS!",
+    "welcomeTitle": "Welcome to BlackHole InfiVerse!",
+    "welcomeDescription": "Our cutting-edge robotics division is pushing the boundaries of what's possible with advanced AI and mechanical engineering. We're creating intelligent machines that help solve real-world problems while advancing the field of robotics.",
+    "aiIntegrationTitle": "Redefining Robotics with AI Integration",
+    "aiIntegrationDescription": "At BlackHole InfiVerse, we're developing the next generation of humanoid robotics that are intelligent, adaptable, and designed to seamlessly integrate into the Web3 ecosystem. Our humanoid robots are equipped with advanced AI systems that enable them to perform a wide range of tasks, from customer service to complex industrial operations.",
+    "smartGadgetsTitle": "Empowering Industries with Smart Gadgets",
+    "smartGadgetsDescription": "We're not just building robots; we're creating an ecosystem of smart gadgets that work together to enhance both human productivity and interaction. Our robotics solutions are designed for multiple applications, including healthcare, education, manufacturing, and entertainment. From assistive devices for people with disabilities to robotic arms in factories, our products are helping industries embrace automation and AI in a way that is both practical and revolutionary.",
+    "humanoidTitle": "Humanoid Robotics for a New Era",
+    "humanoidDescription": "Humanoid robots are poised to revolutionise industries that require human-like interaction and dexterity. At BlackHole InfiVerse, we're leading the way with humanoid robots that can engage with people, understand complex scenarios, and execute intricate tasks. Whether it's a robot serving as a virtual assistant, a healthcare companion, or a precision machine operator, our humanoid robots are equipped with advanced AI capabilities to perform their roles effectively and naturally. The future of robotics is intelligent, autonomous, and deeply integrated into the Web3 world."
+  },
+  "about": {
+    "pageTitle": "About Us",
+    "vrGamingTitle": "VR Gaming Revolution",
+    "vrGamingDescription": "Get ready for our groundbreaking VR game launches. Four immersive worlds await, pushing the boundaries of virtual reality gaming.",
+    "vrGamingFeature1": "4 Revolutionary Games in Final Development",
+    "vrGamingFeature2": "Next-Gen VR Technology Integration",
+    "vrGamingFeature3": "Immersive Multiplayer Experiences",
+    "aiInnovationTitle": "AI Innovation Hub",
+    "aiInnovationDescription": "Pioneering the future of artificial intelligence through advanced model development and training.",
+    "aiInnovationFeature1": "Custom AI Model Development",
+    "aiInnovationFeature2": "Advanced Training Pipelines",
+    "aiInnovationFeature3": "Specialized Model Fine-tuning"
+  },
+  "whyUs": {
+    "pageTitle": "Why Us?",
+    "pageDescription": "At BlackHole InfiVerse, we're not just building technology—we're crafting the future. Our commitment to innovation, excellence, and pushing the boundaries of what's possible sets us apart in the rapidly evolving landscape of emerging technologies.",
+    "quantumTitle": "Quantum Computing: Reimagining Reality Through Computation",
+    "quantumDescription": "At BlackHole InfiVerse, we're in the process of collaborating with leading quantum physicists from a Leading Indian Institute in Quantum Research to explore the vast, untapped potential of quantum computing. Still in its early research and ideation stage, this initiative is focused on rewriting the limits of what's computationally possible.",
+    "quantumSubtitle": "Building the Foundations of Quantum Intelligence",
+    "quantumSubDescription": "Unlike classical systems, our research is grounded in the quantum realm — working with qubits, entanglement, and superposition to enable computing capabilities that scale beyond Moore's Law. We're exploring quantum algorithms that could revolutionize"
+  },
+  "contact": {
+    "pageTitle": "Let's Talk",
+    "description": "Click here to email us:",
+    "emailAddress": "bh@blackholeinfiverse.com",
+    "responseMessage": "We'll get back to you as soon as possible!"
+  },
+  "privacy": {
+    "pageTitle": "Privacy Policy",
+    "subtitle": "BlackHole InfiVerse - Your Privacy, Our Priority",
+    "effectiveDate": "Effective Date: January 1, 2025",
+    "lastUpdated": "Last Updated: January 1, 2025",
+    "introduction": "BlackHole InfiVerse (\"we,\" \"us,\" or \"our\") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our games, applications, websites, and services (collectively, the \"Services\").",
+    "contactTitle": "Contact Us",
+    "contactDescription": "If you have any questions about this Privacy Policy, please contact us at:",
+    "contactEmail": "bh@blackholeinfiverse.com"
+  },
+  "games": {
+    "comingSoonTitle": "Coming Soon!",
+    "defaultGameTitle": "Game Title",
+    "defaultGameDescription": "This game is currently in development and will be available soon!",
+    "backButton": "Back"
+  },
+  "language": {
+    "selector": "Language",
+    "english": "English",
+    "hindi": "Hindi",
+    "arabic": "Arabic",
+    "russian": "Russian"
+  }
+}

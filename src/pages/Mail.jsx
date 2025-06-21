@@ -1,10 +1,12 @@
 import { Mail as MailIcon } from "lucide-react";
 import { useRef, useEffect } from "react";
+import { useTranslation } from "../hooks/useTranslation";
 
 const Mail = () => {
   const cardRef = useRef(null);
   const glareRef = useRef(null);
   const emailAddress = "bh@blackholeinfiverse.com";
+  const { t } = useTranslation();
 
   // Card tilt effect
   useEffect(() => {
@@ -153,7 +155,7 @@ const Mail = () => {
             className="text-4xl font-bold text-gray-200 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-yellow-300"
             style={{ transform: "translateZ(60px)" }}
           >
-            Let&apos;s Talk
+            {t('contact.pageTitle')}
           </h4>
 
           <div
@@ -171,14 +173,14 @@ const Mail = () => {
             className="text-gray-300 mb-6 text-lg"
             style={{ transform: "translateZ(40px)" }}
           >
-            Click here to email us:
+            {t('contact.description')}
           </p>
 
           <p
             className="mail-email-address"
             style={{ transform: "translateZ(40px)" }}
           >
-            {emailAddress}
+            {t('contact.emailAddress')}
           </p>
         </div>
       </div>
@@ -187,7 +189,7 @@ const Mail = () => {
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <div className="max-w-[22rem] relative">
           <p className="text-orange-200/70 text-sm text-center">
-            We&apos;ll get back to you as soon as possible!
+            {t('contact.responseMessage')}
           </p>
         </div>
       </div>

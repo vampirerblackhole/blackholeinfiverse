@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import PropTypes from "prop-types";
+import { useTranslation } from "../../hooks/useTranslation";
+import LanguageSelector from "../LanguageSelector";
 
 // Create a dummy smoother object for compatibility
 export const smoother = {
@@ -55,6 +57,7 @@ NavLink.propTypes = {
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t, isRTL } = useTranslation();
 
   // Handle scroll events to change navbar appearance
   useEffect(() => {
@@ -110,7 +113,7 @@ const Navbar = () => {
                 scrolled ? "py-2" : "py-3"
               }`}
             >
-              Blackhole InfiVerse
+              {t('navigation.brandName')}
             </span>
             <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
           </a>
@@ -128,9 +131,10 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8 lg:gap-12">
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/whyus">Why Us?</NavLink>
-            <NavLink href="/contact">Let&apos;s Talk</NavLink>
+            <NavLink href="/about">{t('navigation.about')}</NavLink>
+            <NavLink href="/whyus">{t('navigation.whyUs')}</NavLink>
+            <NavLink href="/contact">{t('navigation.letsTalk')}</NavLink>
+            <LanguageSelector variant="compact" className="ml-4" position="bottom-right" />
           </div>
         </div>
       </nav>
@@ -146,29 +150,34 @@ const Navbar = () => {
           <div className="px-6 py-6">
             <div className="space-y-1 mb-8">
               <NavLink href="/" mobile={true} onClick={handleMobileNavClick}>
-                Home
+                {t('navigation.home')}
               </NavLink>
               <NavLink
                 href="/about"
                 mobile={true}
                 onClick={handleMobileNavClick}
               >
-                About
+                {t('navigation.about')}
               </NavLink>
               <NavLink
                 href="/whyus"
                 mobile={true}
                 onClick={handleMobileNavClick}
               >
-                Why Us?
+                {t('navigation.whyUs')}
               </NavLink>
               <NavLink
                 href="/contact"
                 mobile={true}
                 onClick={handleMobileNavClick}
               >
-                Let's Talk
+                {t('navigation.letsTalk')}
               </NavLink>
+            </div>
+
+            {/* Mobile Language Selector */}
+            <div className="mb-8">
+              <LanguageSelector variant="mobile" />
             </div>
 
             <div

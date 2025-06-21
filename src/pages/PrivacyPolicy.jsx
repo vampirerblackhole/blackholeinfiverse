@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Shield } from "lucide-react";
 import BlurCard from "../components/common/BlurCard";
+import { useTranslation } from "../hooks/useTranslation";
 import "./PrivacyPolicy.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,7 @@ function PrivacyPolicy() {
   const servicesRef = useRef(null);
   const [isTablet, setIsTablet] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const { t } = useTranslation();
 
   // Check if device is tablet/small laptop
   useEffect(() => {
@@ -115,13 +117,13 @@ function PrivacyPolicy() {
               className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-orange-600 mb-4"
               style={{ paddingBottom: isTablet ? "10px" : "15px" }}
             >
-              Privacy Policy
+              {t('privacy.pageTitle')}
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-4">
-              BlackHole InfiVerse - Your Privacy, Our Priority
+              {t('privacy.subtitle')}
             </p>
             <p className="text-sm text-gray-400">
-              Effective Date: January 1, 2025
+              {t('privacy.effectiveDate')}
             </p>
           </div>
         </BlurCard>
@@ -139,7 +141,7 @@ function PrivacyPolicy() {
             {/* Introduction */}
             <div>
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                BlackHole InfiVerse ("we," "us," or "our") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our games, applications, websites, and services (collectively, the "Services").
+                {t('privacy.introduction')}
               </p>
             </div>
 
@@ -260,20 +262,20 @@ function PrivacyPolicy() {
 
             {/* Contact Section */}
             <div className="text-center pt-8 border-t border-orange-400/30">
-              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4">Contact Us</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4">{t('privacy.contactTitle')}</h2>
               <p className="text-gray-300 mb-6">
-                If you have any questions about this Privacy Policy, please contact us at:
+                {t('privacy.contactDescription')}
               </p>
               <div className="mb-6">
                 <a
                   href="mailto:bh@blackholeinfiverse.com"
                   className="text-2xl font-bold text-orange-400 hover:text-yellow-400 transition-colors duration-300"
                 >
-                  bh@blackholeinfiverse.com
+                  {t('privacy.contactEmail')}
                 </a>
               </div>
               <p className="text-sm text-gray-400">
-                <strong>Last Updated:</strong> January 1, 2025
+                <strong>{t('privacy.lastUpdated')}</strong>
               </p>
             </div>
 

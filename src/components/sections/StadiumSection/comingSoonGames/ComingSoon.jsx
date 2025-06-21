@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import styles from "./ComingSoon.module.css";
 import { useState, useEffect } from "react";
 import LazyImage from "./LazyImage";
+import { useTranslation } from "../../../../hooks/useTranslation";
 
 // Create a simplified version of the 3D card effect
 const ComingSoon = ({
@@ -11,6 +12,7 @@ const ComingSoon = ({
       "This game is currently in development and will be available soon!",
   },
 }) => {
+  const { t } = useTranslation();
   // State to track mouse position
   const [transform, setTransform] = useState({
     rotateX: 0,
@@ -148,15 +150,14 @@ const ComingSoon = ({
         )}
 
         <div className={styles.cornerTag} style={tagStyle}>
-          <span>Coming Soon!</span>
+          <span>{t('games.comingSoonTitle')}</span>
         </div>
         <div className={styles.overlay}>
           <h1 className={styles.title} style={titleStyle}>
-            {game?.title || "Game Title"}
+            {game?.title || t('games.defaultGameTitle')}
           </h1>
           <p className={styles.description} style={descStyle}>
-            {game?.description ||
-              "This game is currently in development and will be available soon!"}
+            {game?.description || t('games.defaultGameDescription')}
           </p>
         </div>
       </div>

@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../../styles/BH.css";
 import TiltCard from "../../common/TiltCard";
+import { useTranslation } from "../../../hooks/useTranslation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,7 @@ function BlackholeSideText() {
   const paragraphRef2 = useRef(null);
   const headingRef = useRef(null);
   // const starsSceneRef = useRef({}); // removed
+  const { t } = useTranslation();
 
   const [canvasSize, setCanvasSize] = useState({
     width: window.innerWidth,
@@ -214,7 +216,7 @@ function BlackholeSideText() {
                 willChange: "transform",
               }}
             >
-              Infinitely curious.
+              {t('homepage.heroTitle1')}
             </h1>
             <h1
               className="text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-gray-300 bh-head2 font-bold text-[120px] mobile-infiverse-text"
@@ -223,7 +225,7 @@ function BlackholeSideText() {
                 willChange: "transform",
               }}
             >
-              Relentlessly advanced.
+              {t('homepage.heroTitle2')}
             </h1>
           </div>
 
@@ -365,8 +367,8 @@ function BlackholeSideText() {
 
         <div id="p12" className="fade-in" ref={paragraphRef1}>
           <TiltCard
-            title="AI Integration"
-            description="The cyberspace is transforming, and so are we. At BlackHole InfiVerse, we are at the forefront of the next digital revolution. Specialising in cutting-edge technologies such as AI, Machine Learning, XR, Blockchain, Cybersecurity, Biotech, Quantum Computing and Robotics, we are crafting the future of Web3 and beyond."
+            title={t('homepage.aiIntegrationTitle')}
+            description={t('homepage.aiIntegrationDescription')}
             style={{
               width: "100%",
               maxWidth: "100%",
@@ -378,8 +380,8 @@ function BlackholeSideText() {
 
         <div id="p11" className="fade-in" ref={paragraphRef2}>
           <TiltCard
-            title="Empowering Industries with Innovation"
-            description="Our mission is to empower industries with innovative solutions that not only meet today's demands but also anticipate tomorrow's needs. Together, we're shaping a world where digital and physical realities converge seamlessly, driving progress and unlocking endless possibilities for the future."
+            title={t('homepage.empoweringIndustriesTitle')}
+            description={t('homepage.empoweringIndustriesDescription')}
             style={{
               width: "100%",
               maxWidth: "100%",

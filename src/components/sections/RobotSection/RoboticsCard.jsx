@@ -1,14 +1,16 @@
 import TiltCard from "../../common/TiltCard";
 import PropTypes from "prop-types";
+import { useTranslation } from "../../../hooks/useTranslation";
 
 const RoboticsCard = ({ title, description, style }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <TiltCard
-        title={title || "Welcome to BlackHole InfiVerse!"}
+        title={title || t('robotics.welcomeTitle')}
         description={
-          description ||
-          "Our cutting-edge robotics division is pushing the boundaries of what's possible with advanced AI and mechanical engineering. We're creating intelligent machines that help solve real-world problems while advancing the field of robotics."
+          description || t('robotics.welcomeDescription')
         }
         style={style}
       />

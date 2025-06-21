@@ -1,0 +1,348 @@
+/* RTL (Right-to-Left) Support for Arabic */
+
+/* Global RTL styles */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Navigation RTL adjustments */
+html[dir="rtl"] .navbar {
+  direction: rtl;
+}
+
+html[dir="rtl"] .navbar .flex {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .navbar .gap-8,
+html[dir="rtl"] .navbar .gap-12 {
+  direction: rtl;
+}
+
+/* Mobile menu RTL */
+html[dir="rtl"] .mobile-menu {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Card layouts RTL */
+html[dir="rtl"] .tilt-card-container {
+  direction: rtl;
+}
+
+html[dir="rtl"] .tilt-card-container .card {
+  text-align: right;
+}
+
+html[dir="rtl"] .tilt-card-container .title {
+  text-align: right;
+}
+
+html[dir="rtl"] .tilt-card-container .description {
+  text-align: right;
+}
+
+/* Blur cards RTL */
+html[dir="rtl"] .whyus-card {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .whyus-card h1,
+html[dir="rtl"] .whyus-card h2,
+html[dir="rtl"] .whyus-card h3 {
+  text-align: right;
+}
+
+html[dir="rtl"] .whyus-card p {
+  text-align: right;
+}
+
+html[dir="rtl"] .whyus-card ul {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .whyus-card li {
+  text-align: right;
+}
+
+/* Grid layouts RTL */
+html[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .flex {
+  direction: rtl;
+}
+
+html[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .flex-row-reverse {
+  flex-direction: row;
+}
+
+/* Text alignment utilities for RTL */
+html[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+html[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Margin and padding adjustments */
+html[dir="rtl"] .ml-auto {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .mr-auto {
+  margin-right: unset;
+  margin-left: auto;
+}
+
+html[dir="rtl"] .pl-4 {
+  padding-left: unset;
+  padding-right: 1rem;
+}
+
+html[dir="rtl"] .pr-4 {
+  padding-right: unset;
+  padding-left: 1rem;
+}
+
+html[dir="rtl"] .pl-6 {
+  padding-left: unset;
+  padding-right: 1.5rem;
+}
+
+html[dir="rtl"] .pr-6 {
+  padding-right: unset;
+  padding-left: 1.5rem;
+}
+
+/* Border radius adjustments */
+html[dir="rtl"] .rounded-l {
+  border-top-left-radius: unset;
+  border-bottom-left-radius: unset;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+html[dir="rtl"] .rounded-r {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+/* Transform adjustments for RTL */
+html[dir="rtl"] .transform {
+  transform: scaleX(-1);
+}
+
+/* Language selector RTL */
+html[dir="rtl"] .language-selector {
+  direction: rtl;
+}
+
+html[dir="rtl"] .language-selector .dropdown {
+  right: unset;
+  left: 0;
+}
+
+/* Contact page RTL */
+html[dir="rtl"] .mail-card {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .mail-card h4 {
+  text-align: right;
+}
+
+html[dir="rtl"] .mail-card p {
+  text-align: right;
+}
+
+/* Privacy policy RTL */
+html[dir="rtl"] .privacy-content {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content h2,
+html[dir="rtl"] .privacy-content h3 {
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content p {
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content ul {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .privacy-content li {
+  text-align: right;
+}
+
+/* About page RTL */
+html[dir="rtl"] .about-section {
+  direction: rtl;
+}
+
+html[dir="rtl"] .about-section .flex-row {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .about-section .flex-row-reverse {
+  flex-direction: row;
+}
+
+html[dir="rtl"] .about-section h2 {
+  text-align: right;
+}
+
+html[dir="rtl"] .about-section p {
+  text-align: right;
+}
+
+html[dir="rtl"] .about-section ul {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .about-section li {
+  text-align: right;
+}
+
+/* Homepage hero RTL */
+html[dir="rtl"] .bh-head,
+html[dir="rtl"] .bh-head2 {
+  text-align: right;
+}
+
+/* Robotics section RTL */
+html[dir="rtl"] .loop-h1 {
+  direction: rtl;
+}
+
+html[dir="rtl"] .section {
+  direction: rtl;
+}
+
+html[dir="rtl"] .para2,
+html[dir="rtl"] .para2-left,
+html[dir="rtl"] .para3 {
+  direction: rtl;
+}
+
+/* Games section RTL */
+html[dir="rtl"] .coming-soon-page {
+  direction: rtl;
+}
+
+html[dir="rtl"] .game-title {
+  text-align: right;
+}
+
+html[dir="rtl"] .game-description {
+  text-align: right;
+}
+
+/* Button RTL adjustments */
+html[dir="rtl"] .back-button {
+  left: unset;
+  right: 2rem;
+}
+
+/* Icon adjustments for RTL */
+html[dir="rtl"] .lucide {
+  transform: scaleX(-1);
+}
+
+/* Specific icons that shouldn't be flipped */
+html[dir="rtl"] .lucide-globe,
+html[dir="rtl"] .lucide-mail,
+html[dir="rtl"] .lucide-shield,
+html[dir="rtl"] .lucide-brain,
+html[dir="rtl"] .lucide-gamepad-2 {
+  transform: none;
+}
+
+/* Animation adjustments for RTL */
+html[dir="rtl"] .floating-icon {
+  animation-direction: reverse;
+}
+
+/* Gradient text RTL - ensure proper rendering */
+html[dir="rtl"] .bg-gradient-to-r {
+  background: linear-gradient(to left, var(--tw-gradient-stops));
+}
+
+html[dir="rtl"] .bg-gradient-to-l {
+  background: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+/* Responsive RTL adjustments */
+@media (max-width: 768px) {
+  html[dir="rtl"] .mobile-welcome-text,
+  html[dir="rtl"] .mobile-infiverse-text {
+    text-align: right;
+  }
+  
+  html[dir="rtl"] .mobile-menu {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  html[dir="rtl"] .mobile-menu .space-y-1 {
+    direction: rtl;
+  }
+}
+
+/* Ensure proper font rendering for Arabic */
+html[dir="rtl"] {
+  font-family: 'Arial', 'Tahoma', 'Segoe UI', sans-serif;
+}
+
+/* Arabic-specific typography improvements */
+html[dir="rtl"][lang="ar"] {
+  font-family: 'Tahoma', 'Arial Unicode MS', 'Segoe UI', sans-serif;
+  line-height: 1.8; /* Better line height for Arabic text */
+}
+
+html[dir="rtl"][lang="ar"] h1,
+html[dir="rtl"][lang="ar"] h2,
+html[dir="rtl"][lang="ar"] h3,
+html[dir="rtl"][lang="ar"] h4,
+html[dir="rtl"][lang="ar"] h5,
+html[dir="rtl"][lang="ar"] h6 {
+  font-weight: 600; /* Slightly lighter weight for Arabic headers */
+}
+
+html[dir="rtl"][lang="ar"] p {
+  line-height: 1.9; /* Better readability for Arabic paragraphs */
+}
+
+/* Fix for any remaining LTR elements in RTL mode */
+html[dir="rtl"] .force-ltr {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+html[dir="rtl"] .force-rtl {
+  direction: rtl !important;
+  text-align: right !important;
+}
