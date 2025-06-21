@@ -86,7 +86,7 @@ function About() {
       : "0 10px 30px rgba(0, 0, 0, 0.3)",
     border: transform.active
       ? "3px solid rgba(255, 140, 0, 0.48)"
-      : "1px solid rgba(255, 255, 255, 0.1)",
+      : "1px solid rgba(255, 232, 207, 0.1)",
     transformStyle: "preserve-3d",
     cursor: "pointer",
   };
@@ -180,7 +180,8 @@ function About() {
   return (
     <div
       ref={mainRef}
-      className="min-h-screen text-white overflow-hidden relative z-10"
+      className="min-h-screen overflow-hidden relative z-10"
+      style={{ color: '#ffe8cf' }}
     >
       {/* Hero Section */}
       <div
@@ -204,8 +205,8 @@ function About() {
               Shaping Tomorrow's Reality
             </h1>
             <p
-              className="text-xl md:text-2xl text-gray-300 mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
-              style={paragraphStyle}
+              className="text-xl md:text-2xl mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
+              style={{ ...paragraphStyle, color: '#ffe8cf' }}
             >
               A pioneering startup at the intersection of VR, AI, Robotics, Blockchain, Biotech, Cybersecurity, and Quantum Computing.
             </p>
@@ -229,10 +230,10 @@ function About() {
             <div className="md:w-1/2">
               <Gamepad2 className="w-16 h-16 text-blue-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">{t('about.vrGamingTitle')}</h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 {t('about.vrGamingDescription')}
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ {t('about.vrGamingFeature1')}</li>
                 <li>✦ {t('about.vrGamingFeature2')}</li>
                 <li>✦ {t('about.vrGamingFeature3')}</li>
@@ -254,10 +255,10 @@ function About() {
             <div className="md:w-1/2">
               <Brain className="w-16 h-16 text-orange-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">{t('about.aiInnovationTitle')}</h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 {t('about.aiInnovationDescription')}
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ {t('about.aiInnovationFeature1')}</li>
                 <li>✦ {t('about.aiInnovationFeature2')}</li>
                 <li>✦ {t('about.aiInnovationFeature3')}</li>
@@ -279,11 +280,11 @@ function About() {
             <div className="md:w-1/2">
               <Robot className="w-16 h-16 text-green-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">Next-Gen Robotics</h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 Developing the next generation of intelligent robots that will
                 reshape industries and daily life.
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ Advanced Robotics R&D</li>
                 <li>✦ AI-Powered Automation</li>
                 <li>✦ Human-Robot Interaction</li>
@@ -305,11 +306,11 @@ function About() {
             <div className="md:w-1/2">
               <Bitcoin className="w-16 h-16 text-yellow-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">Blockchain Innovation</h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 Creating a revolutionary blockchain ecosystem with our own
                 cryptocurrency and secure wallet solutions.
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ Custom Cryptocurrency Development</li>
                 <li>✦ Secure Wallet Infrastructure</li>
                 <li>✦ Smart Contract Integration</li>
@@ -333,12 +334,12 @@ function About() {
               <h2 className="text-4xl font-bold mb-6">
                 Biotech & Biosignals
               </h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 Revolutionizing human-machine interaction through advanced biosignal
                 processing and biosensor technology to control robotic systems with
                 unprecedented precision.
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ Neural Signal Processing & EMG Control Systems</li>
                 <li>✦ Biosensor-Driven Robotic Hand Control</li>
                 <li>✦ Real-time Biodata Integration for Prosthetics</li>
@@ -363,11 +364,11 @@ function About() {
               <h2 className="text-4xl font-bold mb-6">
                 Next-Gen Cybersecurity
               </h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 Building an unbreakable digital world through innovation and
                 resilience.
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ AI-led anomaly detection and response systems</li>
                 <li>
                   ✦ Toward a self-healing, autonomous cyber defense network
@@ -398,11 +399,11 @@ function About() {
               <h2 className="text-4xl font-bold mb-6">
                 Quantum Computing Research
               </h2>
-              <p className="text-gray-300 text-lg mb-6">
+              <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
                 In collaboration with a Leading Indian Institute in Quantum
                 Research in Pune, we are shaping the next era of computation.
               </p>
-              <ul className="space-y-4 text-gray-300">
+              <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
                 <li>✦ Quantum Architecture & Algorithm Ideation</li>
                 <li>
                   ✦ Laying the foundation for a post-silicon computing future
@@ -423,7 +424,7 @@ function About() {
         {/* CTA Section */}
         <section className="about-section text-center py-20">
           <h2 className="text-4xl font-bold mb-8">Join Our Journey</h2>
-          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#ffe8cf' }}>
             Be part of the future as we revolutionize technology across multiple
             frontiers.
           </p>

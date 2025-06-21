@@ -92,56 +92,18 @@ function Main() {
             style={{ color: "white", position: "absolute", top: 30, zIndex: 5 }}
             id="loop"
           >
-            <h1 className="loop-h1">
-              <span> UNLEASHING</span> THE{" "}
-              <b>
-                <i>FUTURE</i>
-              </b>{" "}
-              WITH{" "}
-              <b>
-                <i>ROBOTICS! </i>
-              </b>
-            </h1>
-            <h1 className="loop-h1">
-              <span>UNLEASHING</span> THE{" "}
-              <b>
-                <i>FUTURE</i>
-              </b>{" "}
-              WITH{" "}
-              <b>
-                <i>ROBOTICS! </i>
-              </b>
-            </h1>
-            <h1 className="loop-h1">
-              <span>UNLEASHING</span> THE{" "}
-              <b>
-                <i>FUTURE</i>
-              </b>{" "}
-              WITH{" "}
-              <b>
-                <i>ROBOTICS! </i>
-              </b>
-            </h1>
-            <h1 className="loop-h1">
-              <span> UNLEASHING</span> THE{" "}
-              <b>
-                <i>FUTURE</i>
-              </b>{" "}
-              WITH{" "}
-              <b>
-                <i>ROBOTICS! </i>
-              </b>
-            </h1>
-            <h1 className="loop-h1">
-              <span> UNLEASHING</span> THE{" "}
-              <b>
-                <i>FUTURE</i>
-              </b>{" "}
-              WITH{" "}
-              <b>
-                <i>ROBOTICS! </i>
-              </b>
-            </h1>
+            {[...Array(5)].map((_, index) => (
+              <h1 key={index} className="loop-h1">
+                <span> {t('robotics.sectionTitle').split(' ')[0]}</span> {t('robotics.sectionTitle').split(' ')[1]}{" "}
+                <b>
+                  <i>{t('robotics.sectionTitle').split(' ')[2]}</i>
+                </b>{" "}
+                {t('robotics.sectionTitle').split(' ')[3]}{" "}
+                <b>
+                  <i>{t('robotics.sectionTitle').split(' ')[4]}</i>
+                </b>
+              </h1>
+            ))}
           </div>
           <Experience scrollPosition={scrollPosition} />
         </div>
