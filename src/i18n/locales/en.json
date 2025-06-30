@@ -70,8 +70,9 @@
     "lastUpdated": "Last Updated: January 1, 2025",
     "introduction": "BlackHole InfiVerse (\"we,\" \"us,\" or \"our\") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our games, applications, websites, and services (collectively, the \"Services\").",
     "contactTitle": "Contact Us",
-    "contactDescription": "If you have any questions about this Privacy Policy, please contact us at:",
+    "contactDescription": "If you have any questions about this Privacy Policy or wish to exercise your data rights (including data deletion requests), please contact us at:",
     "contactEmail": "bh@blackholeinfiverse.com",
+    "dataDeletionNote": "For data deletion requests, please use the subject line 'Data Deletion Request' and include your account details.",
     "section1": {
       "title": "1. Information We Collect",
       "subsection1": {
@@ -161,24 +162,38 @@
       "description": "You have the right to:",
       "item1": {
         "title": "Access:",
-        "description": "Request a copy of your personal information"
+        "description": "Request a copy of your personal information by contacting us at bh@blackholeinfiverse.com"
       },
       "item2": {
         "title": "Correct:",
-        "description": "Update or correct inaccurate information"
+        "description": "Update or correct inaccurate information by contacting us at bh@blackholeinfiverse.com"
       },
       "item3": {
         "title": "Delete:",
-        "description": "Request deletion of your personal information"
+        "description": "Request deletion of your personal information by sending an email to bh@blackholeinfiverse.com with the subject line 'Data Deletion Request' and include your account details"
       },
       "item4": {
         "title": "Opt-out:",
-        "description": "Unsubscribe from marketing communications"
+        "description": "Unsubscribe from marketing communications by contacting us at bh@blackholeinfiverse.com"
       },
       "item5": {
         "title": "Data Portability:",
-        "description": "Receive your data in a portable format"
+        "description": "Receive your data in a portable format by contacting us at bh@blackholeinfiverse.com"
+      },
+      "howToRequest": {
+        "title": "How to Exercise Your Rights:",
+        "description": "To exercise any of these rights, please contact us at bh@blackholeinfiverse.com. For data deletion requests, please include 'Data Deletion Request' in the subject line and provide your account information. We will respond to your request within 30 days."
       }
+    },
+    "section5a": {
+      "title": "5.1 Data Deletion Process",
+      "description": "If you wish to have your personal data deleted, please follow these steps:",
+      "step1": "Send an email to bh@blackholeinfiverse.com",
+      "step2": "Use the subject line: 'Data Deletion Request'",
+      "step3": "Include your account username/email and any relevant account details",
+      "step4": "Specify which data you want deleted (account data, game progress, etc.)",
+      "responseTime": "We will process your deletion request within 30 days of receiving your email. You will receive a confirmation email once the deletion is complete.",
+      "note": "Please note that some data may be retained for legal compliance or legitimate business purposes as outlined in this policy."
     },
     "section6": {
       "title": "6. Children's Privacy",
@@ -193,7 +208,15 @@
       "description": "We use cookies and similar technologies to enhance your experience and analyze usage patterns."
     },
     "section9": {
-      "title": "9. Policy Changes",
+      "title": "9. Data Retention and Deletion",
+      "description": "We retain your personal information only as long as necessary to provide our Services and fulfill the purposes outlined in this Privacy Policy.",
+      "retentionPeriod": "Account data is typically retained while your account is active and for a reasonable period thereafter.",
+      "deletionRights": "You can request deletion of your data at any time by emailing bh@blackholeinfiverse.com with 'Data Deletion Request' in the subject line.",
+      "automaticDeletion": "Inactive accounts may be automatically deleted after 3 years of inactivity, with prior notice.",
+      "legalRetention": "Some data may be retained longer if required by law or for legitimate business purposes such as fraud prevention."
+    },
+    "section10": {
+      "title": "10. Policy Changes",
       "description": "We may update this Privacy Policy from time to time and will notify you of any material changes."
     }
   },
