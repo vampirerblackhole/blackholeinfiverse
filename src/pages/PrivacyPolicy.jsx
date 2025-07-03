@@ -150,21 +150,14 @@ function PrivacyPolicy() {
               <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
                 {t('privacy.section1.title')}
               </h2>
-
-              <h3 className="text-xl md:text-2xl font-semibold text-yellow-400 mb-3">{t('privacy.section1.subsection1.title')}</h3>
+              <p className="text-gray-300 mb-4">{t('privacy.section1.description')}</p>
               <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection1.item1.title')}</strong> {t('privacy.section1.subsection1.item1.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection1.item2.title')}</strong> {t('privacy.section1.subsection1.item2.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection1.item3.title')}</strong> {t('privacy.section1.subsection1.item3.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection1.item4.title')}</strong> {t('privacy.section1.subsection1.item4.description')}</li>
-              </ul>
-
-              <h3 className="text-xl md:text-2xl font-semibold text-yellow-400 mb-3">{t('privacy.section1.subsection2.title')}</h3>
-              <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection2.item1.title')}</strong> {t('privacy.section1.subsection2.item1.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection2.item2.title')}</strong> {t('privacy.section1.subsection2.item2.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection2.item3.title')}</strong> {t('privacy.section1.subsection2.item3.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section1.subsection2.item4.title')}</strong> {t('privacy.section1.subsection2.item4.description')}</li>
+                <li>{t('privacy.section1.item1')}</li>
+                <li>{t('privacy.section1.item2')}</li>
+                <li>{t('privacy.section1.item3')}</li>
+                <li>{t('privacy.section1.item4')}</li>
+                <li>{t('privacy.section1.item5')}</li>
+                <li>{t('privacy.section1.item6')}</li>
               </ul>
             </div>
 
@@ -178,11 +171,8 @@ function PrivacyPolicy() {
                 <li>{t('privacy.section2.item1')}</li>
                 <li>{t('privacy.section2.item2')}</li>
                 <li>{t('privacy.section2.item3')}</li>
-                <li>{t('privacy.section2.item4')}</li>
-                <li>{t('privacy.section2.item5')}</li>
-                <li>{t('privacy.section2.item6')}</li>
-                <li>{t('privacy.section2.item7')}</li>
               </ul>
+              <p className="text-gray-300 mt-4">{t('privacy.section2.conclusion')}</p>
             </div>
 
             {/* Section 3 */}
@@ -192,12 +182,12 @@ function PrivacyPolicy() {
               </h2>
               <p className="text-gray-300 mb-4">{t('privacy.section3.description')}</p>
               <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
-                <li><strong className="text-yellow-400">{t('privacy.section3.item1.title')}</strong> {t('privacy.section3.item1.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section3.item2.title')}</strong> {t('privacy.section3.item2.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section3.item3.title')}</strong> {t('privacy.section3.item3.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section3.item4.title')}</strong> {t('privacy.section3.item4.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section3.item5.title')}</strong> {t('privacy.section3.item5.description')}</li>
+                <li>{t('privacy.section3.item1')}</li>
+                <li>{t('privacy.section3.item2')}</li>
+                <li>{t('privacy.section3.item3')}</li>
+                <li>{t('privacy.section3.item4')}</li>
               </ul>
+              <p className="text-gray-300 mt-4">{t('privacy.section3.conclusion')}</p>
             </div>
 
             {/* Section 4 */}
@@ -205,13 +195,7 @@ function PrivacyPolicy() {
               <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
                 {t('privacy.section4.title')}
               </h2>
-              <p className="text-gray-300 mb-4">{t('privacy.section4.description')}</p>
-              <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
-                <li>{t('privacy.section4.item1')}</li>
-                <li>{t('privacy.section4.item2')}</li>
-                <li>{t('privacy.section4.item3')}</li>
-                <li>{t('privacy.section4.item4')}</li>
-              </ul>
+              <p className="text-gray-300">{t('privacy.section4.description')}</p>
             </div>
 
             {/* Section 5 */}
@@ -219,64 +203,87 @@ function PrivacyPolicy() {
               <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
                 {t('privacy.section5.title')}
               </h2>
-              <p className="text-gray-300 mb-4">{t('privacy.section5.description')}</p>
-              <ul className="list-disc list-inside space-y-2 text-gray-300 mb-6">
-                <li><strong className="text-yellow-400">{t('privacy.section5.item1.title')}</strong> {t('privacy.section5.item1.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section5.item2.title')}</strong> {t('privacy.section5.item2.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section5.item3.title')}</strong> {t('privacy.section5.item3.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section5.item4.title')}</strong> {t('privacy.section5.item4.description')}</li>
-                <li><strong className="text-yellow-400">{t('privacy.section5.item5.title')}</strong> {t('privacy.section5.item5.description')}</li>
-              </ul>
+              <p className="text-gray-300">{t('privacy.section5.description')}</p>
             </div>
 
-            {/* Additional Sections */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-orange-400 mb-3">{t('privacy.section6.title')}</h2>
-                <p className="text-gray-300 text-sm md:text-base">
-                  {t('privacy.section6.description')}
-                </p>
+            {/* Section 6 */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
+                {t('privacy.section6.title')}
+              </h2>
+              <p className="text-gray-300">{t('privacy.section6.description')}</p>
+            </div>
+
+            {/* Section 7 */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
+                {t('privacy.section7.title')}
+              </h2>
+              <p className="text-gray-300">{t('privacy.section7.description')}</p>
+            </div>
+
+            {/* Section 8 */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
+                {t('privacy.section8.title')}
+              </h2>
+              <p className="text-gray-300">{t('privacy.section8.description')}</p>
+            </div>
+
+            {/* Section 9 */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
+                {t('privacy.section9.title')}
+              </h2>
+              <p className="text-gray-300">{t('privacy.section9.description')}</p>
+            </div>
+
+            {/* Section 10 */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-500">
+                {t('privacy.section10.title')}
+              </h2>
+              <p className="text-gray-300 mb-6">{t('privacy.section10.description')}</p>
+
+              {/* Highlighted Email */}
+              <div className="mb-6">
+                <a
+                  href="mailto:bh@blackholeinfiverse.com"
+                  className="inline-block text-2xl md:text-3xl font-bold text-orange-400 hover:text-yellow-400 transition-colors duration-300 bg-gradient-to-r from-orange-400 to-yellow-500 bg-clip-text text-transparent hover:from-yellow-400 hover:to-orange-500 px-3 py-1 rounded-lg border border-orange-400/30 hover:border-yellow-400/50"
+                >
+                  bh@blackholeinfiverse.com
+                </a>
               </div>
 
+              {/* Smaller Address */}
               <div>
-                <h2 className="text-xl md:text-2xl font-bold text-orange-400 mb-3">{t('privacy.section7.title')}</h2>
-                <p className="text-gray-300 text-sm md:text-base">
-                  {t('privacy.section7.description')}
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-orange-400 mb-3">{t('privacy.section8.title')}</h2>
-                <p className="text-gray-300 text-sm md:text-base">
-                  {t('privacy.section8.description')}
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-orange-400 mb-3">{t('privacy.section9.title')}</h2>
-                <p className="text-gray-300 text-sm md:text-base">
-                  {t('privacy.section9.description')}
-                </p>
+                <p className="text-xs text-gray-500">{t('privacy.section10.address')}</p>
               </div>
             </div>
 
             {/* Contact Section */}
             <div className="text-center pt-8 border-t border-orange-400/30">
-              <h2 className="text-2xl md:text-3xl font-bold text-orange-400 mb-4">{t('privacy.contactTitle')}</h2>
               <p className="text-gray-300 mb-6">
                 {t('privacy.contactDescription')}
               </p>
-              <div className="mb-6">
+
+              {/* Highlighted Email */}
+              <div className="mb-8">
                 <a
                   href="mailto:bh@blackholeinfiverse.com"
-                  className="text-2xl font-bold text-orange-400 hover:text-yellow-400 transition-colors duration-300"
+                  className="inline-block text-3xl md:text-4xl font-bold text-orange-400 hover:text-yellow-400 transition-colors duration-300 bg-gradient-to-r from-orange-400 to-yellow-500 bg-clip-text text-transparent hover:from-yellow-400 hover:to-orange-500 px-4 py-2 rounded-lg border-2 border-orange-400/30 hover:border-yellow-400/50 hover:shadow-lg hover:shadow-orange-400/20"
                 >
-                  {t('privacy.contactEmail')}
+                  bh@blackholeinfiverse.com
                 </a>
               </div>
-              <p className="text-sm text-gray-400">
-                <strong>{t('privacy.lastUpdated')}</strong>
-              </p>
+
+              {/* Smaller Address and Last Updated */}
+              <div className="space-y-2">
+                <p className="text-xs text-gray-500">{t('privacy.contactAddress')}</p>
+                <p className="text-xs text-gray-500">
+                  <strong>{t('privacy.lastUpdated')}</strong>
+                </p>
+              </div>
             </div>
 
           </div>

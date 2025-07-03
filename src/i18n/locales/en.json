@@ -66,158 +66,69 @@
   "privacy": {
     "pageTitle": "Privacy Policy",
     "subtitle": "BlackHole InfiVerse - Your Privacy, Our Priority",
-    "effectiveDate": "Effective Date: January 1, 2025",
-    "lastUpdated": "Last Updated: January 1, 2025",
-    "introduction": "BlackHole InfiVerse (\"we,\" \"us,\" or \"our\") is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our games, applications, websites, and services (collectively, the \"Services\").",
+    "effectiveDate": "Effective Date: July 3, 2025",
+    "lastUpdated": "Last Updated: July 3, 2025",
+    "introduction": "BlackHole InfiVerse (\"we,\" \"us,\" or \"our\") respects your privacy. This Privacy Policy explains our approach to data collection and user information when you use our games, applications, websites, or services (collectively, the \"Services\").",
     "contactTitle": "Contact Us",
-    "contactDescription": "If you have any questions about this Privacy Policy or wish to exercise your data rights (including data deletion requests), please contact us at:",
+    "contactDescription": "If you have any questions or concerns about this Privacy Policy, please contact us at:",
     "contactEmail": "bh@blackholeinfiverse.com",
-    "dataDeletionNote": "For data deletion requests, please use the subject line 'Data Deletion Request' and include your account details.",
+    "contactAddress": "📍 Address: Blackhole Infiverse LLP, Blackhole Infiverse, Kali Gali, 176/1410, Rd Number 3, near Hathi Circle, above Bright Connection, Motilal Nagar II, Goregaon West, Mumbai, Maharashtra 400104",
     "section1": {
-      "title": "1. Information We Collect",
-      "subsection1": {
-        "title": "1.1 Information You Provide",
-        "item1": {
-          "title": "Account Information:",
-          "description": "Username, email address, password, and profile information"
-        },
-        "item2": {
-          "title": "Game Data:",
-          "description": "Game progress, achievements, scores, and gameplay statistics"
-        },
-        "item3": {
-          "title": "Communication Data:",
-          "description": "Messages, feedback, and support requests"
-        },
-        "item4": {
-          "title": "Payment Information:",
-          "description": "Billing details for purchases (processed securely through third-party payment processors)"
-        }
-      },
-      "subsection2": {
-        "title": "1.2 Information We Collect Automatically",
-        "item1": {
-          "title": "Device Information:",
-          "description": "Device type, operating system, unique device identifiers"
-        },
-        "item2": {
-          "title": "Usage Data:",
-          "description": "How you interact with our Services, features used, time spent"
-        },
-        "item3": {
-          "title": "Technical Data:",
-          "description": "IP address, browser type, connection information"
-        },
-        "item4": {
-          "title": "VR/AR Data:",
-          "description": "Motion tracking, spatial data, and interaction patterns (with your consent)"
-        }
-      }
+      "title": "1. Information We Do Not Collect",
+      "description": "We value your privacy. We do not collect, store, or share any personally identifiable information (PII) or sensitive data from users. Specifically, we do not collect:",
+      "item1": "Your name, email address, or contact information",
+      "item2": "Payment or billing details",
+      "item3": "Device identifiers or IP addresses",
+      "item4": "Gameplay statistics or achievements",
+      "item5": "Messages, chat logs, or support requests",
+      "item6": "Location, motion tracking, or spatial data"
     },
     "section2": {
-      "title": "2. How We Use Your Information",
-      "description": "We use your information to:",
-      "item1": "Provide, maintain, and improve our Services",
-      "item2": "Process transactions and deliver purchased content",
-      "item3": "Personalize your gaming experience",
-      "item4": "Communicate with you about updates, support, and promotional offers",
-      "item5": "Ensure fair play and prevent cheating or fraud",
-      "item6": "Comply with legal obligations and protect our rights",
-      "item7": "Develop new features and services"
+      "title": "2. No Use of Third-Party Analytics or Advertising Services",
+      "description": "We do not use third-party tools or services that track, analyze, or collect your data, such as:",
+      "item1": "Analytics SDKs (e.g., Google Analytics, Unity Analytics, Firebase)",
+      "item2": "Advertising SDKs or ad networks",
+      "item3": "Social media or login integrations",
+      "conclusion": "Our applications function entirely offline or locally, and no data is sent to external servers."
     },
     "section3": {
-      "title": "3. Information Sharing and Disclosure",
-      "description": "We may share your information in the following circumstances:",
-      "item1": {
-        "title": "With Your Consent:",
-        "description": "When you explicitly agree to share information"
-      },
-      "item2": {
-        "title": "Service Providers:",
-        "description": "Third-party companies that help us operate our Services"
-      },
-      "item3": {
-        "title": "Legal Requirements:",
-        "description": "When required by law or to protect our rights"
-      },
-      "item4": {
-        "title": "Business Transfers:",
-        "description": "In connection with mergers, acquisitions, or asset sales"
-      },
-      "item5": {
-        "title": "Public Information:",
-        "description": "Leaderboards, achievements, and other publicly visible game data"
-      }
+      "title": "3. No Data Sharing or Disclosure",
+      "description": "Since we do not collect any data, we have no information to share with:",
+      "item1": "Advertisers",
+      "item2": "Analytics providers",
+      "item3": "Government authorities",
+      "item4": "External platforms",
+      "conclusion": "We do not engage in any form of user profiling, marketing, or third-party data sales."
     },
     "section4": {
-      "title": "4. Data Security",
-      "description": "We implement industry-standard security measures to protect your information, including:",
-      "item1": "Encryption of data in transit and at rest",
-      "item2": "Regular security audits and assessments",
-      "item3": "Access controls and authentication systems",
-      "item4": "Secure data centers and infrastructure"
+      "title": "4. Children's Privacy",
+      "description": "Our Services are designed to be safe for users of all ages. However, we do not knowingly collect any information from children under 13, nor from any user."
     },
     "section5": {
-      "title": "5. Your Rights and Choices",
-      "description": "You have the right to:",
-      "item1": {
-        "title": "Access:",
-        "description": "Request a copy of your personal information by contacting us at bh@blackholeinfiverse.com"
-      },
-      "item2": {
-        "title": "Correct:",
-        "description": "Update or correct inaccurate information by contacting us at bh@blackholeinfiverse.com"
-      },
-      "item3": {
-        "title": "Delete:",
-        "description": "Request deletion of your personal information by sending an email to bh@blackholeinfiverse.com with the subject line 'Data Deletion Request' and include your account details"
-      },
-      "item4": {
-        "title": "Opt-out:",
-        "description": "Unsubscribe from marketing communications by contacting us at bh@blackholeinfiverse.com"
-      },
-      "item5": {
-        "title": "Data Portability:",
-        "description": "Receive your data in a portable format by contacting us at bh@blackholeinfiverse.com"
-      },
-      "howToRequest": {
-        "title": "How to Exercise Your Rights:",
-        "description": "To exercise any of these rights, please contact us at bh@blackholeinfiverse.com. For data deletion requests, please include 'Data Deletion Request' in the subject line and provide your account information. We will respond to your request within 30 days."
-      }
-    },
-    "section5a": {
-      "title": "5.1 Data Deletion Process",
-      "description": "If you wish to have your personal data deleted, please follow these steps:",
-      "step1": "Send an email to bh@blackholeinfiverse.com",
-      "step2": "Use the subject line: 'Data Deletion Request'",
-      "step3": "Include your account username/email and any relevant account details",
-      "step4": "Specify which data you want deleted (account data, game progress, etc.)",
-      "responseTime": "We will process your deletion request within 30 days of receiving your email. You will receive a confirmation email once the deletion is complete.",
-      "note": "Please note that some data may be retained for legal compliance or legitimate business purposes as outlined in this policy."
+      "title": "5. Data Security",
+      "description": "As we do not collect or store user data, there is no personal data to secure. All gameplay data (if any) is stored locally on your device, and is not transmitted elsewhere."
     },
     "section6": {
-      "title": "6. Children's Privacy",
-      "description": "Our Services are not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13."
+      "title": "6. Your Rights",
+      "description": "Since we do not collect any personal data, there is no user information to access, correct, or delete. If you have any concerns or questions, you may contact us."
     },
     "section7": {
-      "title": "7. International Data Transfers",
-      "description": "Your information may be transferred to and processed in countries other than your own with appropriate safeguards in place."
+      "title": "7. International Use",
+      "description": "Our Services are accessible globally. However, since we do not collect user data, your location or local data regulations do not impact our data handling — we simply do not collect any."
     },
     "section8": {
-      "title": "8. Cookies & Tracking",
-      "description": "We use cookies and similar technologies to enhance your experience and analyze usage patterns."
+      "title": "8. Cookies and Tracking",
+      "description": "We do not use cookies, web beacons, or tracking technologies in any of our games or websites."
     },
     "section9": {
-      "title": "9. Data Retention and Deletion",
-      "description": "We retain your personal information only as long as necessary to provide our Services and fulfill the purposes outlined in this Privacy Policy.",
-      "retentionPeriod": "Account data is typically retained while your account is active and for a reasonable period thereafter.",
-      "deletionRights": "You can request deletion of your data at any time by emailing bh@blackholeinfiverse.com with 'Data Deletion Request' in the subject line.",
-      "automaticDeletion": "Inactive accounts may be automatically deleted after 3 years of inactivity, with prior notice.",
-      "legalRetention": "Some data may be retained longer if required by law or for legitimate business purposes such as fraud prevention."
+      "title": "9. Changes to This Policy",
+      "description": "We may update this policy to reflect changes in our services. When we do, we will update the \"Last Updated\" date at the top of this page. Continued use of our Services means you accept the revised policy."
     },
     "section10": {
-      "title": "10. Policy Changes",
-      "description": "We may update this Privacy Policy from time to time and will notify you of any material changes."
+      "title": "10. Contact Us",
+      "description": "If you have any questions or concerns about this Privacy Policy, please contact us at:",
+      "email": "📧 Email: bh@blackholeinfiverse.com",
+      "address": "📍 Address: Blackhole Infiverse LLP, Blackhole Infiverse, Kali Gali, 176/1410, Rd Number 3, near Hathi Circle, above Bright Connection, Motilal Nagar II, Goregaon West, Mumbai, Maharashtra 400104"
     }
   },
   "games": {
