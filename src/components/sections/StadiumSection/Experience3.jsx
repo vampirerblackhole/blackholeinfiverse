@@ -15,7 +15,7 @@ function Oculus() {
   return (
     <Canvas
       camera={{
-        position: [0, -2, 5],
+        position: [0, -2, 12],
         fov: 75, // Optional: Adjust the field of view
         near: 0.01, // Reduced near plane to prevent close clipping
         far: 1000,
