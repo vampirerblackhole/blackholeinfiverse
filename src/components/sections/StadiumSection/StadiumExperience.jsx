@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Html, useProgress } from "@react-three/drei";
+import { Html, useProgress, ContactShadows } from "@react-three/drei";
+import * as THREE from "three";
 import { Stadium } from "./Stadium";
 
 /* eslint-disable react/no-unknown-property */
@@ -50,16 +51,46 @@ function StadiumExperience() {
   }, []);
   return (
     <Canvas
+      shadows
       camera={{
         fov: 75, // Optional: Adjust the field of view
         near: 0.1,
         far: 1000,
       }}
+      onCreated={({ gl }) => {
+        gl.shadowMap.enabled = true;
+        gl.shadowMap.type = THREE.PCFSoftShadowMap;
+        gl.toneMapping = THREE.ACESFilmicToneMapping;
+        gl.outputColorSpace = THREE.SRGBColorSpace;
+        gl.toneMappingExposure = 1.3; // Brighten overall scene (~40%)
+      }}
     >
-      <directionalLight position={[3, 1, 1]} intensity={30} />
+      <ambientLight intensity={0.4} />
+      <hemisphereLight skyColor="#ffffff" groundColor="#1a1a1a" intensity={0.55} />
+      <directionalLight
+        position={[10, 20, 10]}
+        intensity={2.6}
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-camera-near={1}
+        shadow-camera-far={100}
+        shadow-camera-left={-50}
+        shadow-camera-right={50}
+        shadow-camera-top={50}
+        shadow-camera-bottom={-50}
+        shadow-normalBias={0.05}
+      />
       <Suspense fallback={<Loader />}>
         <Stadium position={[0, -4, 2]} scrollPosition={scrollPosition} />
       </Suspense>
+      <ContactShadows
+        position={[0, -4.3, 2]}
+        opacity={0.3}
+        scale={100}
+        blur={2.8}
+        far={40}
+      />
     </Canvas>
   );
 }

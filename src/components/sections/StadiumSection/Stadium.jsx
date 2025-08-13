@@ -107,6 +107,39 @@ export function Stadium(props) {
     };
   }, []);
 
+  // Ensure all meshes inside the stadium group cast and receive shadows
+  useEffect(() => {
+    if (!sheet.current) return;
+    sheet.current.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+  }, []);
+
+  // Brighten cards while preserving their textures using emissiveMap from base color
+  useEffect(() => {
+    const targetMaterialNames = [
+      "Material.012",
+      "Material.011",
+      "Material.010",
+      "Material.009",
+      "Material.004",
+    ];
+
+    targetMaterialNames.forEach((name) => {
+      const mat = materials[name];
+      if (mat && mat.emissive) {
+        // Use the color map as emissiveMap so details stay visible while brightening
+        mat.emissive.set("#ffffff");
+        if (!mat.emissiveMap && mat.map) mat.emissiveMap = mat.map;
+        mat.emissiveIntensity = 0.5; // ~50% brighter but texture-preserving
+        mat.needsUpdate = true;
+      }
+    });
+  }, [materials]);
+
   return (
     <group {...props} dispose={null} scale={0.1} className="stadium">
       <group ref={sheet}>
@@ -117,6 +150,8 @@ export function Stadium(props) {
           position={[50.757, 0, 0.066]}
           rotation={[Math.PI, 0, Math.PI]}
           scale={[0.803, 14.625, 10.283]}
+          castShadow
+          receiveShadow
           onClick={() => handleComingSoonClick(games.tennis)}
           className="cursor-attract-button"
         />
@@ -127,6 +162,8 @@ export function Stadium(props) {
           position={[-0.109, 0, 50.82]}
           rotation={[0, 1.571, 0]}
           scale={[0.803, 14.625, 10.283]}
+          castShadow
+          receiveShadow
           onClick={() => handleMeshClick(games.tableTennis.metaLink)}
           className="cursor-attract-button"
         />
@@ -137,6 +174,8 @@ export function Stadium(props) {
           position={[0.249, 0, -50.724]}
           rotation={[0, -1.571, 0]}
           scale={[0.803, 14.625, 10.283]}
+          castShadow
+          receiveShadow
           onClick={() => handleComingSoonClick(games.badminton)}
           className="cursor-attract-button"
         />
@@ -150,12 +189,46 @@ export function Stadium(props) {
           <mesh
             geometry={nodes.Cube002_1.geometry}
             material={materials["Material.009"]}
+            castShadow
+            receiveShadow
           />
           <mesh
             geometry={nodes.Cube002_2.geometry}
             material={materials["Material.004"]}
+            castShadow
+            receiveShadow
           />
         </group>
+
+        {/* Localized lights to brighten each card without overexposing textures */}
+        <pointLight
+          position={[50.757, 4, 0.066]}
+          intensity={7}
+          distance={45}
+          decay={2}
+          castShadow
+        />
+        <pointLight
+          position={[-0.109, 4, 50.82]}
+          intensity={7}
+          distance={45}
+          decay={2}
+          castShadow
+        />
+        <pointLight
+          position={[0.249, 4, -50.724]}
+          intensity={6.5}
+          distance={45}
+          decay={2}
+          castShadow
+        />
+        <pointLight
+          position={[-50.881, 4, 0.044]}
+          intensity={7}
+          distance={45}
+          decay={2}
+          castShadow
+        />
       </group>
 
       {/* Stadium Base with Texture */}
@@ -164,6 +237,7 @@ export function Stadium(props) {
         material={materials.Placeable}
         rotation={[-Math.PI / 2, 0, 0]}
         scale={20}
+        receiveShadow
       ></mesh>
     </group>
   );
