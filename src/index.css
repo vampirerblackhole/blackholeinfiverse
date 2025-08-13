@@ -81,6 +81,17 @@ html {
   scrollbar-color: #ff7e29 transparent;
 }
 
+/* Hide native scrollbar for the featured carousel; use custom gradient bar below */
+.featured-carousel {
+  scrollbar-width: none; /* Firefox */
+}
+.featured-carousel::-webkit-scrollbar {
+  display: none; /* WebKit */
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
 /* Force hide all scrollbar buttons */
 ::-webkit-scrollbar-button {
   display: none !important;

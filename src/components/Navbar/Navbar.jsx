@@ -67,6 +67,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [scrollThumbLeftPct, setScrollThumbLeftPct] = useState(0);
+  const [scrollThumbWidthPct, setScrollThumbWidthPct] = useState(100);
   const featuredScrollRef = useRef(null);
   const { t } = useTranslation();
 
@@ -104,12 +106,27 @@ const Navbar = () => {
   useEffect(() => {
     const el = featuredScrollRef.current;
     if (!el) return;
-    const onScroll = () => {
-      const index = Math.round(el.scrollLeft / el.clientWidth);
+
+    const update = () => {
+      const index = Math.round(el.scrollLeft / Math.max(1, el.clientWidth));
       setFeaturedIndex(index);
+
+      const scrollWidth = el.scrollWidth || 1;
+      const clientWidth = el.clientWidth || 1;
+      const left = el.scrollLeft || 0;
+      const widthPct = Math.max(10, (clientWidth / scrollWidth) * 100); // minimum visible thumb
+      const leftPct = (left / scrollWidth) * 100;
+      setScrollThumbWidthPct(widthPct);
+      setScrollThumbLeftPct(leftPct);
     };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
+
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, [isMobileMenuOpen]);
 
   const scrollToFeaturedIndex = (index) => {
@@ -219,7 +236,7 @@ const Navbar = () => {
               <h3 className="text-xl font-bold text-white mb-4">Featured</h3>
               <div
                 ref={featuredScrollRef}
-                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth -mx-1"
+                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth -mx-1 featured-carousel"
                 style={{ WebkitOverflowScrolling: "touch", msOverflowStyle: "none" }}
               >
                 {FEATURED_ITEMS.map((item, index) => (
@@ -256,6 +273,27 @@ const Navbar = () => {
                   </div>
                 ))}
               </div>
+              {/* Custom gradient scrollbar/progress for broader mobile support */}
+              {FEATURED_ITEMS.length > 0 && (
+                <div className="relative mt-3" style={{ height: 3 }} aria-hidden="true">
+                  <div
+                    className="absolute inset-0 rounded-full"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, rgba(255,126,41,0.15), rgba(254,191,53,0.15))",
+                    }}
+                  />
+                  <div
+                    className="absolute top-0 h-full rounded-full"
+                    style={{
+                      left: `${scrollThumbLeftPct}%`,
+                      width: `${scrollThumbWidthPct}%`,
+                      background: "linear-gradient(90deg, #ff7e29, #febf35)",
+                      transition: "left 200ms ease, width 200ms ease",
+                    }}
+                  />
+                </div>
+              )}
               {FEATURED_ITEMS.length > 1 && (
                 <div className="flex justify-center gap-2 mt-3">
                   {FEATURED_ITEMS.map((_, i) => (
