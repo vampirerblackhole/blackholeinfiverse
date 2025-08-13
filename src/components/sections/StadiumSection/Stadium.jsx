@@ -45,7 +45,9 @@ export function Stadium(props) {
       image: "/images/games/bowling.jpg",
       description:
         "Perfect your bowling technique and aim for strikes in our realistic bowling alley simulation.",
-      isReleased: false,
+      isReleased: true,
+      metaLink:
+        "https://www.meta.com/en-gb/experiences/bowling-star/30449002954683093/",
     },
     tennis: {
       title: "VR tennis Star",
@@ -183,7 +185,7 @@ export function Stadium(props) {
         <group
           position={[-50.881, 0, 0.044]}
           scale={[0.803, 14.625, 10.283]}
-          onClick={() => handleComingSoonClick(games.bowling)}
+          onClick={() => handleMeshClick(games.bowling.metaLink)}
           className="cursor-attract-button"
         >
           <mesh
