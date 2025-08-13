@@ -20,7 +20,7 @@ export function Game(props) {
     if (!oculusRef.current) return;
 
     // Disable frustum culling for all meshes in the VR model to prevent clipping
-    // and initialize materials for fade-out effect
+    // and initialize materials for fade-in/out effects
     oculusRef.current.traverse((child) => {
       if (child.isMesh) {
         child.frustumCulled = false;
@@ -30,17 +30,58 @@ export function Game(props) {
           if (Array.isArray(child.material)) {
             child.material.forEach((mat) => {
               mat.transparent = true;
-              mat.opacity = 1; // Start fully opaque
+              mat.opacity = 0; // Start hidden for left-to-center reveal
             });
           } else {
             child.material.transparent = true;
-            child.material.opacity = 1; // Start fully opaque
+            child.material.opacity = 0; // Start hidden for left-to-center reveal
           }
         }
       }
     });
 
     const t1 = gsap.timeline();
+
+    // Early scroll: slide in from left and fade in
+    t1.to(oculusRef.current.position, {
+      x: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "top top",
+        end: "10% top",
+        scrub: 1,
+      },
+    });
+
+    t1.to(oculusRef.current, {
+      opacity: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".Game",
+        start: "top top",
+        end: "10% top",
+        scrub: 1,
+        onUpdate: (self) => {
+          if (oculusRef.current) {
+            const easedProgress = gsap.parseEase("power2.out")(self.progress);
+            oculusRef.current.traverse((child) => {
+              if (child.isMesh && child.material) {
+                if (Array.isArray(child.material)) {
+                  child.material.forEach((mat) => {
+                    mat.opacity = easedProgress;
+                    mat.transparent = true;
+                  });
+                } else {
+                  child.material.opacity = easedProgress;
+                  child.material.transparent = true;
+                }
+              }
+            });
+          }
+        },
+      },
+    });
 
     // VR Model fade-out effect when transitioning to Stadium section
     t1.to(oculusRef.current, {
