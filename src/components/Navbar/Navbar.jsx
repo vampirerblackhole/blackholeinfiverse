@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import PropTypes from "prop-types";
 import { useTranslation } from "../../hooks/useTranslation";
@@ -13,14 +13,23 @@ export const smoother = {
   },
 };
 
-// Featured content configuration - EDIT THESE VALUES TO UPDATE THE FEATURED SECTION
-const FEATURED_CONFIG = {
-  imagePath: "/vr-table-tennis.jpg", // Put your image in the public folder
-  imageAlt: "VR Table Tennis",
-  title: "VR Table Tennis",
-  description: "Immersive Gaming Experience",
-  link: "https://www.meta.com/experiences/9250693884966271/", // Add the URL you want to link to here
-};
+// Featured content configuration - multiple items supported
+const FEATURED_ITEMS = [
+  {
+    imagePath: "/vr-table-tennis.jpg",
+    imageAlt: "VR Table Tennis",
+    title: "VR Table Tennis",
+    description: "Immersive Gaming Experience",
+    link: "https://www.meta.com/experiences/9250693884966271/",
+  },
+  {
+    imagePath: "/images/games/bowling.jpg",
+    imageAlt: "VR Bowling Star",
+    title: "VR Bowling Star",
+    description: "Immersive Gaming Experience",
+    link: "https://www.meta.com/en-gb/experiences/bowling-star/30449002954683093/",
+  },
+];
 
 const NavLink = ({ href, children, mobile = false, onClick = () => {} }) => {
   if (mobile) {
@@ -57,7 +66,9 @@ NavLink.propTypes = {
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { t, isRTL } = useTranslation();
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const featuredScrollRef = useRef(null);
+  const { t } = useTranslation();
 
   // Handle scroll events to change navbar appearance
   useEffect(() => {
@@ -87,6 +98,25 @@ const Navbar = () => {
 
   const handleMobileNavClick = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  // Featured carousel helpers
+  useEffect(() => {
+    const el = featuredScrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const index = Math.round(el.scrollLeft / el.clientWidth);
+      setFeaturedIndex(index);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [isMobileMenuOpen]);
+
+  const scrollToFeaturedIndex = (index) => {
+    const el = featuredScrollRef.current;
+    if (!el) return;
+    const clamped = Math.max(0, Math.min(index, FEATURED_ITEMS.length - 1));
+    el.scrollTo({ left: clamped * el.clientWidth, behavior: "smooth" });
   };
 
   return (
@@ -187,42 +217,60 @@ const Navbar = () => {
               }}
             >
               <h3 className="text-xl font-bold text-white mb-4">Featured</h3>
-              <div className="relative rounded-lg overflow-hidden">
-                <a
-                  href={FEATURED_CONFIG.link}
-                  onClick={handleMobileNavClick}
-                  className="block"
-                >
-                  <img
-                    src={FEATURED_CONFIG.imagePath}
-                    alt={FEATURED_CONFIG.imageAlt}
-                    className="w-full h-48 object-cover"
-                    onError={(e) => {
-                      e.target.style.height = "180px";
-                      e.target.style.background = "#111";
-                      e.target.style.display = "flex";
-                      e.target.style.alignItems = "center";
-                      e.target.style.justifyContent = "center";
-                      e.target.src = "";
-                      e.target.alt = FEATURED_CONFIG.imageAlt;
-                    }}
-                  />
+              <div
+                ref={featuredScrollRef}
+                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth -mx-1"
+                style={{ WebkitOverflowScrolling: "touch", msOverflowStyle: "none" }}
+              >
+                {FEATURED_ITEMS.map((item, index) => (
                   <div
-                    className="absolute bottom-0 left-0 right-0 p-4"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))",
-                    }}
+                    key={`${item.title}-${index}`}
+                    className="relative rounded-lg overflow-hidden min-w-full snap-center flex-shrink-0 px-1"
                   >
-                    <h4 className="text-xl font-bold text-white">
-                      {FEATURED_CONFIG.title}
-                    </h4>
-                    <p className="text-orange-200">
-                      {FEATURED_CONFIG.description}
-                    </p>
+                    <a href={item.link} onClick={handleMobileNavClick} className="block">
+                      <img
+                        src={item.imagePath}
+                        alt={item.imageAlt}
+                        className="w-full h-48 object-cover"
+                        onError={(e) => {
+                          e.target.style.height = "180px";
+                          e.target.style.background = "#111";
+                          e.target.style.display = "flex";
+                          e.target.style.alignItems = "center";
+                          e.target.style.justifyContent = "center";
+                          e.target.src = "";
+                          e.target.alt = item.imageAlt;
+                        }}
+                      />
+                      <div
+                        className="absolute bottom-0 left-0 right-0 p-4"
+                        style={{
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))",
+                        }}
+                      >
+                        <h4 className="text-xl font-bold text-white">{item.title}</h4>
+                        <p className="text-orange-200">{item.description}</p>
+                      </div>
+                    </a>
                   </div>
-                </a>
+                ))}
               </div>
+              {FEATURED_ITEMS.length > 1 && (
+                <div className="flex justify-center gap-2 mt-3">
+                  {FEATURED_ITEMS.map((_, i) => (
+                    <button
+                      key={`dot-${i}`}
+                      aria-label={`Go to slide ${i + 1}`}
+                      onClick={() => scrollToFeaturedIndex(i)}
+                      className={`h-2 w-2 rounded-full ${
+                        i === featuredIndex ? "bg-orange-400" : "bg-gray-500"
+                      }`}
+                      style={{ transition: "background-color 200ms ease" }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
