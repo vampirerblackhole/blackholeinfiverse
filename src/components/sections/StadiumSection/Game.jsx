@@ -25,16 +25,15 @@ export function Game(props) {
       if (child.isMesh) {
         child.frustumCulled = false;
 
-        // Initialize materials for transparency support
+        // Ensure materials support transparency (needed for fade-out later),
+        // but keep current opacity so the model is visible on start.
         if (child.material) {
           if (Array.isArray(child.material)) {
             child.material.forEach((mat) => {
               mat.transparent = true;
-              mat.opacity = 0; // Start hidden for left-to-center reveal
             });
           } else {
             child.material.transparent = true;
-            child.material.opacity = 0; // Start hidden for left-to-center reveal
           }
         }
       }
@@ -54,34 +53,7 @@ export function Game(props) {
       },
     });
 
-    t1.to(oculusRef.current, {
-      opacity: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".Game",
-        start: "top top",
-        end: "10% top",
-        scrub: 1,
-        onUpdate: (self) => {
-          if (oculusRef.current) {
-            const easedProgress = gsap.parseEase("power2.out")(self.progress);
-            oculusRef.current.traverse((child) => {
-              if (child.isMesh && child.material) {
-                if (Array.isArray(child.material)) {
-                  child.material.forEach((mat) => {
-                    mat.opacity = easedProgress;
-                    mat.transparent = true;
-                  });
-                } else {
-                  child.material.opacity = easedProgress;
-                  child.material.transparent = true;
-                }
-              }
-            });
-          }
-        },
-      },
-    });
+    // Removed initial fade-in: keep model visible while it slides in from the left
 
     // VR Model fade-out effect when transitioning to Stadium section
     t1.to(oculusRef.current, {

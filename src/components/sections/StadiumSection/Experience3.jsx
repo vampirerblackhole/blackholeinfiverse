@@ -51,7 +51,7 @@ function Oculus() {
     >
       <directionalLight position={[0, 0, 5]} intensity={15} />
       <Suspense fallback={<Loader />}>
-        <Game position={[-6, 2, -1]} />
+        <Game position={[-60, 2, -1]} />
       </Suspense>
     </Canvas>
   );
