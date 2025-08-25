@@ -16,6 +16,13 @@ export function Game(props) {
     dracoDecoder: { url: "/draco-gltf/" },
   });
 
+  // Responsive configuration
+  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1024;
+  const isPhone = viewportWidth <= 480;
+  const isTablet = !isPhone && viewportWidth <= 1024;
+  const outerScaleTarget = isPhone ? 1.3 : isTablet ? 1.6 : 2; // Reduce growth on smaller screens
+  const positionYTarget = isPhone ? 1.6 : isTablet ? 2.1 : 2.5; // Lower Y on smaller screens to keep model in-frame
+
   useEffect(() => {
     if (!oculusRef.current) return;
 
@@ -104,9 +111,9 @@ export function Game(props) {
 
     // Scroll-triggered scaling
     t1.to(oculusRef.current.scale, {
-      x: 2,
-      y: 2,
-      z: 2,
+      x: outerScaleTarget,
+      y: outerScaleTarget,
+      z: outerScaleTarget,
       duration: 1.5,
       scrollTrigger: {
         trigger: ".Game",
@@ -118,7 +125,7 @@ export function Game(props) {
 
     // Scroll-triggered position animation
     t1.to(oculusRef.current.position, {
-      y: 2.5,
+      y: positionYTarget,
       duration: 1.5,
       scrollTrigger: {
         trigger: ".Game",
@@ -144,7 +151,7 @@ export function Game(props) {
     return () => {
       ScrollTrigger.killAll();
     };
-  }, [camera]);
+  }, [camera, outerScaleTarget, positionYTarget]);
 
   return (
     <group {...props} dispose={null} ref={oculusRef}>

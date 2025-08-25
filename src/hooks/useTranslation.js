@@ -153,7 +153,7 @@ export const useTranslation = (namespace = 'translation') => {
 
   return {
     // Core translation functions
-    t: translate,
+    t: tWithFallback,
     tWithFallback,
     translate,
     

@@ -8,7 +8,8 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "featured": "Featured"
   },
   "navigation": {
     "home": "Home",
@@ -47,7 +48,44 @@
     "aiInnovationDescription": "Pioneering the future of artificial intelligence through advanced model development and training.",
     "aiInnovationFeature1": "Custom AI Model Development",
     "aiInnovationFeature2": "Advanced Training Pipelines",
-    "aiInnovationFeature3": "Specialized Model Fine-tuning"
+    "aiInnovationFeature3": "Specialized Model Fine-tuning",
+
+    "heroTitle": "Shaping Tomorrow's Reality",
+    "heroSubtitle": "A pioneering startup at the intersection of VR, AI, Robotics, Blockchain, Biotech, Cybersecurity, and Quantum Computing.",
+
+    "roboticsTitle": "Next-Gen Robotics",
+    "roboticsDescription": "Developing the next generation of intelligent robots that will reshape industries and daily life.",
+    "roboticsFeature1": "Advanced Robotics R&D",
+    "roboticsFeature2": "AI-Powered Automation",
+    "roboticsFeature3": "Human-Robot Interaction",
+
+    "blockchainTitle": "Blockchain Innovation",
+    "blockchainDescription": "Creating a revolutionary blockchain ecosystem with our own cryptocurrency and secure wallet solutions.",
+    "blockchainFeature1": "Custom Cryptocurrency Development",
+    "blockchainFeature2": "Secure Wallet Infrastructure",
+    "blockchainFeature3": "Smart Contract Integration",
+
+    "biotechTitle": "Biotech & Biosignals",
+    "biotechDescription": "Revolutionizing human-machine interaction through advanced biosignal processing and biosensor technology to control robotic systems with unprecedented precision.",
+    "biotechFeature1": "Neural Signal Processing & EMG Control Systems",
+    "biotechFeature2": "Biosensor-Driven Robotic Hand Control",
+    "biotechFeature3": "Real-time Biodata Integration for Prosthetics",
+    "biotechFeature4": "Brain-Computer Interface Development",
+
+    "cybersecurityTitle": "Next-Gen Cybersecurity",
+    "cybersecurityDescription": "Building an unbreakable digital world through innovation and resilience.",
+    "cybersecurityFeature1": "AI-led anomaly detection and response systems",
+    "cybersecurityFeature2": "Toward a self-healing, autonomous cyber defense network",
+    "cybersecurityFeature3": "Decentralized Security Systems",
+
+    "quantumTitle": "Quantum Computing Research",
+    "quantumDescription": "We are shaping the next era of computation.",
+    "quantumFeature1": "Quantum Architecture & Algorithm Ideation",
+    "quantumFeature2": "Laying the foundation for a post-silicon computing future",
+    "quantumFeature3": "Research-Driven Development",
+
+    "ctaTitle": "Join Our Journey",
+    "ctaDescription": "Be part of the future as we revolutionize technology across multiple frontiers."
   },
   "whyUs": {
     "pageTitle": "Why Us?",
@@ -55,7 +93,14 @@
     "quantumTitle": "Quantum Computing: Reimagining Reality Through Computation",
     "quantumDescription": "At BlackHole InfiVerse, we're in the process of collaborating with leading quantum physicists from a Leading Indian Institute in Quantum Research to explore the vast, untapped potential of quantum computing. Still in its early research and ideation stage, this initiative is focused on rewriting the limits of what's computationally possible.",
     "quantumSubtitle": "Building the Foundations of Quantum Intelligence",
-    "quantumSubDescription": "Unlike classical systems, our research is grounded in the quantum realm — working with qubits, entanglement, and superposition to enable computing capabilities that scale beyond Moore's Law. We're exploring quantum algorithms that could revolutionize"
+    "quantumSubDescription": "Unlike classical systems, our research is grounded in the quantum realm — working with qubits, entanglement, and superposition to enable computing capabilities that scale beyond Moore's Law. We're exploring quantum algorithms that could revolutionize",
+
+    "securityTitle": "Securing the Future of the Digital World",
+    "securityDescription": "At BlackHole InfiVerse, we're building a new cybersecurity paradigm that fuses artificial intelligence, blockchain technology, and next-gen encryption. Our mission is to create a truly secure cyberspace where data, identity, and assets are protected by autonomous, intelligent defense systems.",
+    "securitySubtitle1": "AI-Driven Defense for a Decentralized Web",
+    "securityPara1": "Traditional firewalls and rule-based systems are no longer enough. Our cybersecurity framework uses AI to detect, respond to, and neutralize threats in real time. Integrated with blockchain-based identity and trust protocols, our solutions are designed for the decentralized, user-owned Web3 world — enabling a future where privacy and security aren't features, but defaults.",
+    "securitySubtitle2": "Cybersecurity for Every Layer of Reality",
+    "securityPara2": "From securing smart contracts and virtual assets to protecting physical infrastructure in the real world, our cybersecurity systems adapt to both digital and physical threats. Whether it's securing VR metaverses, robotic networks, or quantum transmissions, BlackHole InfiVerse is creating a multi-layered shield for the connected future."
   },
   "contact": {
     "pageTitle": "Let's Talk",

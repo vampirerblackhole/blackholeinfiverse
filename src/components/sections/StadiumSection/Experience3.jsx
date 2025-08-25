@@ -12,6 +12,15 @@ function Loader() {
 }
 
 function Oculus() {
+  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1024;
+  const isPhone = viewportWidth <= 480;
+  const isTablet = !isPhone && viewportWidth <= 1024;
+
+  // Bring model closer to center on small screens so it doesn't look oversized during initial slide-in
+  const initialModelX = isPhone ? -20 : isTablet ? -35 : -60;
+  const initialModelY = isPhone ? 1.5 : isTablet ? 2 : 2;
+  const initialModelZ = -1;
+
   return (
     <Canvas
       camera={{
@@ -51,7 +60,7 @@ function Oculus() {
     >
       <directionalLight position={[0, 0, 5]} intensity={15} />
       <Suspense fallback={<Loader />}>
-        <Game position={[-60, 2, -1]} />
+        <Game position={[initialModelX, initialModelY, initialModelZ]} />
       </Suspense>
     </Canvas>
   );

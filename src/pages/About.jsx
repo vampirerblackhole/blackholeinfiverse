@@ -202,13 +202,13 @@ function About() {
               className="text-6xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
               style={titleStyle}
             >
-              Shaping Tomorrow's Reality
+              {t('about.heroTitle')}
             </h1>
             <p
               className="text-xl md:text-2xl mb-4 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
               style={{ ...paragraphStyle, color: '#ffe8cf' }}
             >
-              A pioneering startup at the intersection of VR, AI, Robotics, Blockchain, Biotech, Cybersecurity, and Quantum Computing.
+              {t('about.heroSubtitle')}
             </p>
 
             <div
@@ -279,15 +279,14 @@ function About() {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <Robot className="w-16 h-16 text-green-400 floating-icon mb-6" />
-              <h2 className="text-4xl font-bold mb-6">Next-Gen Robotics</h2>
+              <h2 className="text-4xl font-bold mb-6">{t('about.roboticsTitle')}</h2>
               <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
-                Developing the next generation of intelligent robots that will
-                reshape industries and daily life.
+                {t('about.roboticsDescription')}
               </p>
               <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
-                <li>✦ Advanced Robotics R&D</li>
-                <li>✦ AI-Powered Automation</li>
-                <li>✦ Human-Robot Interaction</li>
+                <li>✦ {t('about.roboticsFeature1')}</li>
+                <li>✦ {t('about.roboticsFeature2')}</li>
+                <li>✦ {t('about.roboticsFeature3')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">
@@ -305,15 +304,14 @@ function About() {
           <div className="flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="md:w-1/2">
               <Bitcoin className="w-16 h-16 text-yellow-400 floating-icon mb-6" />
-              <h2 className="text-4xl font-bold mb-6">Blockchain Innovation</h2>
+              <h2 className="text-4xl font-bold mb-6">{t('about.blockchainTitle')}</h2>
               <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
-                Creating a revolutionary blockchain ecosystem with our own
-                cryptocurrency and secure wallet solutions.
+                {t('about.blockchainDescription')}
               </p>
               <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
-                <li>✦ Custom Cryptocurrency Development</li>
-                <li>✦ Secure Wallet Infrastructure</li>
-                <li>✦ Smart Contract Integration</li>
+                <li>✦ {t('about.blockchainFeature1')}</li>
+                <li>✦ {t('about.blockchainFeature2')}</li>
+                <li>✦ {t('about.blockchainFeature3')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">
@@ -332,18 +330,16 @@ function About() {
             <div className="md:w-1/2">
               <Activity className="w-16 h-16 text-purple-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">
-                Biotech & Biosignals
+                {t('about.biotechTitle')}
               </h2>
               <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
-                Revolutionizing human-machine interaction through advanced biosignal
-                processing and biosensor technology to control robotic systems with
-                unprecedented precision.
+                {t('about.biotechDescription')}
               </p>
               <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
-                <li>✦ Neural Signal Processing & EMG Control Systems</li>
-                <li>✦ Biosensor-Driven Robotic Hand Control</li>
-                <li>✦ Real-time Biodata Integration for Prosthetics</li>
-                <li>✦ Brain-Computer Interface Development</li>
+                <li>✦ {t('about.biotechFeature1')}</li>
+                <li>✦ {t('about.biotechFeature2')}</li>
+                <li>✦ {t('about.biotechFeature3')}</li>
+                <li>✦ {t('about.biotechFeature4')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">
@@ -362,18 +358,17 @@ function About() {
             <div className="md:w-1/2">
               <Shield className="w-16 h-16 text-cyan-400 floating-icon mb-6" />
               <h2 className="text-4xl font-bold mb-6">
-                Next-Gen Cybersecurity
+                {t('about.cybersecurityTitle')}
               </h2>
               <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
-                Building an unbreakable digital world through innovation and
-                resilience.
+                {t('about.cybersecurityDescription')}
               </p>
               <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
-                <li>✦ AI-led anomaly detection and response systems</li>
+                <li>✦ {t('about.cybersecurityFeature1')}</li>
                 <li>
-                  ✦ Toward a self-healing, autonomous cyber defense network
+                  ✦ {t('about.cybersecurityFeature2')}
                 </li>
-                <li>✦ Decentralized Security Systems</li>
+                <li>✦ {t('about.cybersecurityFeature3')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">
@@ -393,22 +388,21 @@ function About() {
               <div className="flex items-end gap-4 mb-6">
                 <Cpu className="w-16 h-16 text-purple-400 floating-icon" />
                 <span className="bg-gradient-to-r from-yellow-400 to-orange-600 text-black text-sm font-bold px-3 py-2 rounded-full mt-2">
-                  Coming Soon!
+                  {t('common.comingSoon')}
                 </span>
               </div>
               <h2 className="text-4xl font-bold mb-6">
-                Quantum Computing Research
+                {t('about.quantumTitle')}
               </h2>
               <p className="text-lg mb-6" style={{ color: '#ffe8cf' }}>
-                In collaboration with a Leading Indian Institute in Quantum
-                Research in Pune, we are shaping the next era of computation.
+                {t('about.quantumDescription')}
               </p>
               <ul className="space-y-4" style={{ color: '#ffe8cf' }}>
-                <li>✦ Quantum Architecture & Algorithm Ideation</li>
+                <li>✦ {t('about.quantumFeature1')}</li>
                 <li>
-                  ✦ Laying the foundation for a post-silicon computing future
+                  ✦ {t('about.quantumFeature2')}
                 </li>
-                <li>✦ Research-Driven Development</li>
+                <li>✦ {t('about.quantumFeature3')}</li>
               </ul>
             </div>
             <div className="md:w-1/2">
@@ -423,10 +417,9 @@ function About() {
 
         {/* CTA Section */}
         <section className="about-section text-center py-20">
-          <h2 className="text-4xl font-bold mb-8">Join Our Journey</h2>
+          <h2 className="text-4xl font-bold mb-8">{t('about.ctaTitle')}</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: '#ffe8cf' }}>
-            Be part of the future as we revolutionize technology across multiple
-            frontiers.
+            {t('about.ctaDescription')}
           </p>
         </section>
       </div>
