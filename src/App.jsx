@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import About from "./pages/About";
 import "./App.css";
 import "./styles/rtl.css";
-import "./i18n"; // Initialize i18n
 import Navbar from "./components/Navbar/Navbar";
 import Mail from "./pages/Mail";
 import WhyUs from "./pages/WhyUs";
